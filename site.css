@@ -71,11 +71,56 @@ a:focus-visible, .tool:focus-visible {
 /* ── Page frame ────────────────────────────────────────────────────────── */
 
 .page {
-  max-width: 880px;
+  max-width: 1560px;
   margin: 0 auto;
   padding: clamp(40px, 8vh, 74px) var(--pad) 96px;
   padding-left: calc(var(--pad) + var(--rail));
   position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+}
+/* The rain runs behind everything, so a bright glyph can land directly under a
+   line of text and drop its contrast below AA. This backing plate keeps the
+   rain as atmosphere around the content rather than noise underneath it, and
+   the alpha is high enough that the worst-case glyph under text is still
+   dominated by the plate. */
+.transcript {
+  min-width: 0;
+  position: relative;
+  background: rgba(8, 9, 11, .93);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: clamp(20px, 3.4vw, 40px) clamp(18px, 3vw, 38px);
+}
+@media (max-width: 720px) {
+  .transcript { background: rgba(8, 9, 11, .9); border-radius: 3px; }
+}
+
+/* The rain sits behind everything and never takes a click. */
+#rain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  opacity: .62;
+  pointer-events: none;
+}
+
+@media (min-width: 1180px) {
+  .page {
+    /* auto, not 1fr: the transcript's own lines are capped for readability, so
+       a 1fr column would leave the slack inside the column as empty space
+       again. Sizing to content and centring the pair is what actually uses
+       the width. */
+    grid-template-columns: minmax(0, auto) 320px;
+    column-gap: 64px;
+    justify-content: center;
+    max-width: 1180px;
+  }
+  .panel { position: sticky; top: clamp(40px, 8vh, 74px); }
 }
 
 /* A fixed gutter of line numbers in the terminal's own voice. Hidden on small
@@ -162,23 +207,37 @@ a:focus-visible, .tool:focus-visible {
 .elsewhere {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
   font-size: 0.9rem;
 }
+
+/* The mark carries the identity, the label carries the meaning. Same palette as
+   the rest of the page: no brand colours, so the row belongs to this page
+   rather than to four other companies. */
 .elsewhere a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
   color: var(--dim);
-  border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
-  transition: color 130ms ease, border-color 130ms ease;
+  background: rgba(14, 16, 20, .55);
+  transition: color 140ms ease, border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+.mark { width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor; }
+.mark-name { font-size: .84rem; letter-spacing: .01em; }
+.elsewhere a:hover,
+.elsewhere a:focus-visible {
+  color: var(--green);
+  border-color: var(--green-dim);
+  background: rgba(78, 224, 138, .07);
+  transform: translateY(-2px);
 }
 .elsewhere a::before { content: './'; color: var(--faint); }
-.elsewhere a:hover { color: var(--green); border-bottom-color: var(--green); }
-/* The one exit to another site gets the ember, so leaving the domain looks
-   different from moving inside it. */
-.elsewhere a[href^="https://github.com"]:hover { color: var(--ember); border-bottom-color: var(--ember); }
 
 /* ── Sections ──────────────────────────────────────────────────────────── */
 
@@ -384,6 +443,57 @@ h2 .dir { color: var(--green-dim); }
 .stamp { margin: 6px 0 0; font-size: .76rem; color: var(--faint); }
 .stamp:empty { display: none; }
 
+/* ── Status panel ────────────────────────────────────────────────────────
+   Reads as `htop` cut down to four honest lines. It only exists when there is
+   room for it; below that the transcript stands alone rather than being
+   squeezed. No graphs, because there is nothing real to graph. */
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(14, 16, 20, .72);
+  padding: 16px 16px 14px;
+  min-width: 0;
+}
+.panel-head {
+  font-family: var(--mono);
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 12px;
+}
+.panel-grid { margin: 0; display: grid; gap: 9px; }
+.panel-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  min-width: 0;
+}
+.panel-row dt { color: var(--faint); font-size: .78rem; }
+.panel-row dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: .78rem;
+  text-align: right;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.panel-foot {
+  margin: 13px 0 0;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+  font-size: .73rem;
+  color: var(--faint);
+  line-height: 1.5;
+}
+.panel-foot:empty { display: none; }
+/* Green is the live-state colour everywhere else, so it is the live-state
+   colour here too, and only on the value that is actually live. */
+.panel-row dd.on { color: var(--green); }
+
 /* ── Entrance motion ───────────────────────────────────────────────────────
    One CSS animation, triggered by adding .enter from JS. There is no hidden
    default state anywhere: if the class is never added, or the animation never
@@ -399,8 +509,13 @@ h2 .dir { color: var(--green-dim); }
   to   { opacity: 1; transform: none; }
 }
 
-.enter { animation: rise 620ms cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d, 0ms); }
-.casc > .enter { animation: slide 460ms cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d, 0ms); }
+/* `backwards` and `forwards` are deliberately NOT used here. With `both`, a
+   block that never gets animated stays at the keyframe's first frame, which is
+   opacity 0, and the content disappears. With the default fill, the resting
+   state of every element is its normal, visible self, and the animation only
+   borrows it for 620ms. Nothing can be lost to an animation that does not run. */
+.enter { animation: rise 620ms cubic-bezier(.2,.7,.3,1); animation-delay: var(--d, 0ms); }
+.casc > .enter { animation: slide 460ms cubic-bezier(.2,.7,.3,1); animation-delay: var(--d, 0ms); }
 
 /* ── Closing prompt and footer ────────────────────────────────────────── */
 
@@ -423,6 +538,7 @@ h2 .dir { color: var(--green-dim); }
 
 /* Everything above collapses to a complete, static page. */
 @media (prefers-reduced-motion: reduce) {
+  #rain { display: none; }
   .caret { animation: none; }
   .skeleton i { animation: none; background: #14171c; }
   #progress { transition: none; }

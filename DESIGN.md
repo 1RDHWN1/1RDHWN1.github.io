@@ -76,13 +76,18 @@ GRANTED` theatre. Those are the costume. The real thing is quieter and it works.
 
 ## Layout, and why it is not a template
 
-The page is a **session transcript**: one column, top to bottom, in the order a
-person would actually run it.
+The page is a **session transcript** with a **status panel** beside it. On a
+wide screen the transcript gets the room it needs, and the space that used to be
+empty carries the panel; on a narrow one the panel folds under the transcript.
+
+The panel exists because the owner asked for the width to be used, and because
+there is real information to put there: the box is a live machine, and a session
+view of it is honest. Everything printed in it is read from something real.
 
 1. **The prompt line.** `user@udincloud:~$ whoami`, and the output below it. This
    is the entry point and it types itself out on load. Text only.
-2. **The identity output.** Name, one line of what this is, the social links, as
-   output rather than as a card.
+2. **The identity output.** Name, one line of what this is, the social links
+   drawn as their real marks rather than as text, in the page's own palette.
 3. **`ls ~/tools`** then two rows for the things that open right now. These rows
    are the most interactive element on the page.
 4. **`git log --projects`** then the repos that matter, each as a commit-like
@@ -96,22 +101,53 @@ person would actually run it.
 The rhythm varies on purpose (RHYTHM 3): a typed line, then output, then a row
 list, then an uneven list, then a dense index, then a lone prompt.
 
+## The panel, and what it is allowed to print
+
+Three groups, and every value in them is read from a file in the repo or from
+the browser, never invented:
+
+| Group | Source |
+|---|---|
+| Snapshot age and repo count | `repos.json`, written by `tools/snapshot-repos.sh` |
+| Local time in WIB | the visitor's own clock, formatted to the page's own zone |
+| Motion and motion preference | `matchMedia`, so the panel can report honestly that motion is off when it is |
+
+It does **not** show a fake CPU graph, an invented uptime, a made-up threat
+counter, or a fabricated dashboard. That is the costume the Exclusions section
+already rejects, and a status panel is the easiest place to smuggle it in.
+
+## Background (owner-approved, one layer, capped)
+
+The owner asked for the background to be more than flat black. It is a **matrix
+rain**: a slow field of falling glyphs, drawn on a canvas behind everything.
+
+Three rules keep it from becoming noise:
+
+1. It is drawn at **one low opacity** on a near-black field, and the glyphs sit
+   below the text tiers in value. Body text still clears AA against it, measured,
+   not assumed.
+2. It is one layer only, no scanlines on top, no second effect.
+3. It stops entirely for `prefers-reduced-motion`, and it stops when the tab is
+   hidden, so it never burns a laptop battery in a background tab.
+
 ## Motion (MOTION 3: it is the point, not the garnish)
 
 The owner asked for motion, so motion carries work instead of decorating:
 
 1. **Entry typing.** The prompt types character by character on load, caret
    following. It sets the metaphor in two seconds.
-2. **Scroll reveal.** Blocks rise and fade in once each as they enter, staggered
-   by their own lines. It paces the read.
+2. **Entrance.** Blocks rise and fade in once each, staggered by their own lines.
+   It paces the read. This is a self-running keyframe with no hidden default
+   state anywhere: if the script fails, everything is already visible.
 3. **Row response.** Tool rows lift, show a text cursor, and their accent edge
    fills. It is the affordance.
 4. **Scroll progress.** One hairline at the very top fills as the page is read.
    It is a position cue.
 5. **Live caret.** The caret blinks forever, including at the closing prompt.
+6. **The rain.** Always moving, at the lowest priority on the page.
 
 Every one of the above collapses under `prefers-reduced-motion: reduce`, where
-the page renders complete and static.
+the page renders complete and static, and the rain does not start at all.
 
 ## States
 
