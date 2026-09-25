@@ -1,88 +1,108 @@
-# DESIGN.md — Jarvis Music
+# DESIGN.md — udincloud.me
 
-Direction for the in-app music page at `udincloud.me/music.html`, opened from the
-WhatsApp bot's `!music` / `.lagu` / `!yhtml` reply.
+> **Provenance:** the owner chose "draft without direction", so every style
+> decision in this file was written by the agent, not by the owner. That is the
+> exact case R-37 warns about: agent-authored direction tends toward default
+> taste. The result is therefore a **draft**, not a shippable deliverable, and it
+> is dialled honestly at **ENERGY 2 / RHYTHM 2 / MOTION 1** rather than being
+> dressed up as more bold than it is. The palette and typeface are not invented
+> from nothing: they carry over from the existing `music.html` direction, which
+> is the one real piece of identity this domain already has.
+
+Direction for the personal index page at `udincloud.me`, the root of the domain.
+Every other page (music.html, player.html) is a thing opened *from* here.
 
 ## Reading
 
-Reading this as: a phone-first listening page opened from a chat message, for one
-person holding a phone in one hand, in a calm library-listening visual language,
-dial **ENERGY 1 / RHYTHM 2 / MOTION 1**.
+Reading this as: a personal index page for someone who builds things, opened by a
+friend, a lecturer, or a recruiter who has exactly one link, in a
+**workshop-desk** visual language, dial **ENERGY 2 / RHYTHM 2 / MOTION 1**.
 
-The page is a utility, not a landing page. It exists so somebody who just typed a
-song title in WhatsApp can hear it in two taps. Every section is the list, the
-player, or the way between them.
+The surface is **Explore** first and **Decide** second: the visitor is scanning
+what exists and then choosing one thing to open. It is not a marketing surface,
+so there is no hero-and-three-cards and no claim about a product.
 
 ## Identity
 
-**What it is:** a personal listening shelf. The album art is the visual anchor;
-everything else steps back.
+**What it is:** a desk with the work laid out on it. The live tools are at arm's
+reach; the repos are the drawer underneath.
 
-**Personality:** quiet, tactile, unhurried. Closer to a record sleeve than a
-dashboard. No urgency, no badges, no shouting.
+**Personality:** hands-on, unfussy, quietly confident. Someone who ships instead
+of someone who talks about shipping. Closer to a workshop bench than a homepage.
 
-**Not:** a streaming service home page. No carousels, no "Because you listened
-to", no promotional tiles, no gradient mesh hero.
+**Not:** a portfolio template. No "Welcome to my portfolio", no skill bars, no
+percentage proficiency, no photographs of a desk plant. Nothing on this page is
+there because portfolios usually have it.
 
 ## Palette (2 cores + 1 accent)
 
 | Role | Value | Reason |
 |---|---|---|
-| Surface (core) | `#0b0b0d` | Near-black, low chroma. Lets album art carry all the saturation on the page; a lighter surface would fight it. |
-| Ink (core) | `#f4f4f5` / `#a1a1aa` | Two-step text: primary for the track title, muted for artist and duration. Calm, not grey-on-grey. |
-| Accent | `#ff5c38` | Warm ember, not the blue of every music app. Used in exactly four places: the play button, the progress fill, the active row marker, and the focus ring. |
+| Surface (core) | `#0f0f11` | The same near-black family as music.html, so the domain feels like one place. Warm-neutral, not blue-black. |
+| Ink (core) | `#f2f2f3` / `#9c9ca6` | Two-step text. Primary for names and headings, muted for descriptions and metadata. |
+| Accent | `#ff5c38` | The ember accent carried over from music.html. It is the identity thread across the whole domain. Used in exactly three places: the status dot on live tools, the hover underline on links, and the focus ring. |
 
-No gradients. No glow. No glass. Surface stays flat and matte.
+No gradients. No glow. No glass. Surface stays flat.
 
 ## Typography
 
-- **UI text:** `Instrument Sans` (fallback: system sans). Chosen for a slightly
-  narrow, workmanlike grotesque that reads well at 14-15px on a phone and does
-  not look like the default starter font.
-- **Track titles only:** `Fraunces` (fallback: Georgia). One serif voice on the
-  page, used only where a human wrote a name. It is what makes the page feel like
-  a shelf of records rather than a table of records.
-- Scale is fluid (`clamp()`); headings drop a step on mobile. No uppercase
-  tracking labels, no monospace.
+- **Body and UI:** `Instrument Sans`. Same family as music.html. Chosen so the
+  domain reads as one system, and because it holds up at 14-16px without looking
+  like the browser default.
+- **Display, and nothing else:** `Fraunces`, for the name at the top and the one
+  section that deserves weight. One serif voice, used twice at most. It is the
+  page's hand-written label on the desk.
+- Scale is fluid with `clamp()`. No uppercase tracked labels, no monospace.
 
-## Layout
+## Layout, and why it is not a template
 
-Phone-first. The order is the order of use:
+The page is a **single scrolling column of differently-shaped blocks**, because
+the content is genuinely different in kind:
 
-1. Search field, with the query already filled from the WhatsApp link.
-2. The track list. This is the page; it gets the height.
-3. The player, pinned to the bottom edge, always reachable with a thumb.
+1. **The name block.** Name, one line of what this is, the three social links.
+   Text only, no card, no avatar, no badge.
+2. **Live tools, as a short list of wide rows.** These are the things a visitor
+   can actually open right now (`music.html`, `player.html`). A row, not a card,
+   because there are two of them and cards would be a grid pretending to be a
+   set. Each row states what it does in one line and carries the accent dot.
+3. **Selected work.** The repos that are actually interesting, each written as a
+   sentence about what it does, with the language and the link. This is a list
+   with real hierarchy, not an equal-weight grid: the pathfinding project and the
+   WhatsApp bot get more room than the coursework repos.
+4. **Coursework and the rest.** Deliberately demoted to a compact two-column
+   index at the bottom. They are real and they are here, but they are not the
+   pitch. This is what stops the page reading as a template: one section is
+   allowed to be visually quiet.
+5. **The footer.** One line. No four-column footer.
 
-At 700px and up the page becomes two states, not a squeezed phone: the list moves
-left, the player becomes a fixed panel on the right with the album art at a
-larger size. Verified across the whole width range, not just two samples.
+The variation between blocks is the RHYTHM 2 evidence: a text block, then wide
+rows, then an uneven list, then a dense index, then one line.
 
 ## Motion (MOTION 1)
 
-Only two movements, both on user action:
+Hover underline on links, focus rings, and nothing else. No scroll reveals, no
+entrance animation, no floating. The page is a reference, not a show.
 
-- The row marker slides between rows when the selection changes.
-- The play button swaps between play and pause glyphs.
+## States
 
-No entrance animations, no floating, no pulses, no scrolling reveals.
+The page is static content, so the three required states apply to the parts that
+are fetched:
 
-## Player behaviour
+| Part | Empty | Loading | Error |
+|---|---|---|---|
+| Repo list | "Repo belum dimuat." plus a direct GitHub link | Row skeletons at real row height | "Tidak bisa memuat daftar repo." plus a direct GitHub link |
 
-Audio comes from the iTunes preview URL and plays through a real `<audio>`
-element, so it starts on the same tap that selects the row. The YouTube embed is
-a fallback for tracks with no preview, and it only appears when it is actually
-needed. Every state is drawn: searching, empty, no preview, load failed.
+The repo list is fetched from the GitHub API at load. If it fails, the page still
+works: the live tools block and every static link are real `href`s that do not
+depend on the fetch.
 
-## States (all three required)
+## Copy rules
 
-| State | What it says |
-|---|---|
-| Empty | "Belum ada lagu. Cari di kolom atas." plus the search field focused. |
-| Loading | The list keeps its rows as skeletons at the real row height, so nothing jumps. |
-| Error | What failed and the one thing to try: "Koneksi ke server pencarian gagal. Coba cari ulang." |
+No em dash. No emoji in the headings. No invented numbers, no visitor counts, no
+"trusted by". The only counts on the page are real ones that come from the API
+response (repo count), and they are written plainly.
 
 ## Exclusions
 
-No em dash in any text. No emoji in headings or buttons. No invented play counts,
-listener numbers, or "trending" labels: the only numbers on the page are the real
-track duration and position.
+No hero image, no fake terminal, no skill bars, no "about me" paragraph that says
+nothing, no downloadable CV that does not exist, no contact form that goes nowhere.

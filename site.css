@@ -1,0 +1,280 @@
+/* udincloud.me: shared shell.
+   One stylesheet for the domain root. Palette and type carry over from
+   music.html so the domain reads as a single place. */
+
+:root {
+  --surface: #0f0f11;
+  --raised: #16161a;
+  --line: #33333b;
+  --ink: #f2f2f3;
+  --muted: #9c9ca6;
+  --accent: #ff5c38;
+  --accent-ink: #ff8a6d;
+
+  --pad: 20px;
+  --measure: 62ch;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  /* Long repo names and URLs must never widen the page. */
+  overflow-x: hidden;
+  text-wrap: pretty;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 56px var(--pad) 72px;
+  overflow-x: clip;
+}
+
+/* On a wide screen a 760px column leaves the whole right half empty. Widen the
+   frame and keep the running text measured, so the page fills its canvas
+   without asking anyone to read a 1280px line. */
+@media (min-width: 1040px) {
+  .page {
+    max-width: 940px;
+    padding-left: 0;
+    padding-right: 0;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    column-gap: 64px;
+  }
+  .masthead { grid-column: 1; grid-row: 1 / span 4; position: sticky; top: 56px; align-self: start; margin-bottom: 0; padding-right: 28px; }
+  .block, .foot { grid-column: 2; }
+  .block:first-of-type { margin-top: 0; }
+  .standfirst { font-size: 1rem; }
+  .elsewhere { flex-direction: column; gap: 6px; }
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 120ms ease, color 120ms ease;
+}
+a:hover { border-bottom-color: var(--accent); }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Name block ─────────────────────────────────────────────────────────── */
+
+.masthead { margin-bottom: 44px; }
+
+.name {
+  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 8vw, 3.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  margin: 0 0 12px;
+}
+
+.standfirst {
+  color: var(--muted);
+  margin: 0 0 22px;
+  max-width: var(--measure);
+  font-size: 1.02rem;
+}
+
+.elsewhere {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.94rem;
+}
+.elsewhere a { color: var(--muted); }
+.elsewhere a:hover { color: var(--ink); }
+
+/* ── Section shell ─────────────────────────────────────────────────────── */
+
+.block { margin-top: 44px; }
+.block:first-of-type { margin-top: 0; }
+
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
+}
+
+.block-head h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: 1.12rem;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.tally { color: var(--muted); font-size: 0.86rem; }
+
+/* ── Live tools: wide rows, not cards ──────────────────────────────────── */
+
+.tools { list-style: none; margin: 0; padding: 0; }
+
+.tools li { border-bottom: 1px solid var(--line); }
+
+.tool {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: 18px 4px 18px 0;
+  border-bottom: 0;
+  min-width: 0;
+}
+/* The live state is carried by the row itself, not by a badge or a dot:
+   these rows respond on hover and the arrow shifts with them. That is the
+   affordance, and it is the only place the accent appears in this block. */
+.tool .tool-go { transition: transform 120ms ease, color 120ms ease; }
+.tool:hover { background: var(--raised); }
+.tool:hover .tool-go { color: var(--accent); transform: translateX(2px); }
+.tool:hover .tool-name { border-bottom-color: var(--accent); }
+
+.tool-body { min-width: 0; }
+
+.tool-name {
+  font-weight: 600;
+  font-size: 1.02rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease;
+}
+
+.tool-what {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 3px 0 0;
+}
+
+.tool-go {
+  color: var(--muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+/* ── Selected work: uneven list, real hierarchy ────────────────────────── */
+
+.work { list-style: none; margin: 0; padding: 0; }
+
+.work li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+.work li:last-child { border-bottom: 0; }
+
+.work-name {
+  font-weight: 600;
+  font-size: 1.02rem;
+  display: inline-block;
+  margin-bottom: 5px;
+  /* Repo names are long unbroken tokens. Wrap them at the hyphen rather than
+     inserting one in the middle of a word. */
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+.work-why {
+  color: var(--muted);
+  font-size: 0.94rem;
+  margin: 0 0 9px;
+  max-width: var(--measure);
+}
+
+.work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.work-meta .lang { color: var(--ink); }
+
+/* The one item allowed more room than the rest: it is the strongest piece. */
+.work li[data-weight="lead"] .work-name { font-size: 1.14rem; }
+.work li[data-weight="lead"] .work-why { font-size: 0.98rem; }
+
+/* ── Coursework: deliberately compact ──────────────────────────────────── */
+
+.minor {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 26px;
+  font-size: 0.88rem;
+}
+.minor li {
+  break-inside: avoid;
+  padding: 5px 0;
+  color: var(--muted);
+}
+.minor a { color: var(--muted); }
+.minor a:hover { color: var(--ink); }
+
+/* ── States ────────────────────────────────────────────────────────────── */
+
+.state {
+  padding: 22px 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.skeleton { list-style: none; margin: 0; padding: 0; }
+.skeleton li {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.skeleton .fill { min-width: 0; overflow: hidden; }
+.skeleton .fill i {
+  display: block;
+  height: 11px;
+  border-radius: 4px;
+  background: var(--raised);
+  margin-bottom: 9px;
+}
+.skeleton .fill i.w1 { width: 34%; }
+.skeleton .fill i.w2 { width: 72%; }
+.skeleton .fill i:last-child { margin-bottom: 0; }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+
+.foot {
+  margin-top: 60px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+@media (max-width: 520px) {
+  .page { padding-top: 40px; }
+  .minor { columns: 1; }
+  .tool { grid-template-columns: 1fr; }
+  .tool-go { grid-column: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a, .tool-name { transition: none; }
+}

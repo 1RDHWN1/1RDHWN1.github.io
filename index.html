@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1RDHWN1</title>
+<meta name="description" content="Halaman kerja 1RDHWN1. Tools yang bisa langsung dibuka dan repo yang dikerjakan.">
+<meta property="og:title" content="1RDHWN1">
+<meta property="og:description" content="Halaman kerja 1RDHWN1. Tools yang bisa langsung dibuka dan repo yang dikerjakan.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<main class="page">
+
+  <header class="masthead">
+    <h1 class="name">1RDHWN1</h1>
+    <p class="standfirst">
+      Mahasiswa UNSIL Tasikmalaya. Ini halaman kerja saya: tools yang bisa
+      langsung dibuka, dan repo yang sedang saya kerjakan.
+    </p>
+    <ul class="elsewhere">
+      <li><a href="https://github.com/1RDHWN1" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://instagram.com/fcdh_dx" target="_blank" rel="noopener">Instagram</a></li>
+      <li><a href="https://tiktok.com/@fcdh_15" target="_blank" rel="noopener">TikTok</a></li>
+      <li><a href="https://threads.net/@fcdh_dx" target="_blank" rel="noopener">Threads</a></li>
+    </ul>
+  </header>
+
+  <section class="block" aria-labelledby="live-head">
+    <div class="block-head">
+      <h2 id="live-head">Yang bisa langsung dibuka</h2>
+      <span class="tally">2 tools</span>
+    </div>
+    <ul class="tools">
+      <li>
+        <a class="tool" href="music.html">
+          <span class="tool-body">
+            <span class="tool-name">Pemutar musik</span>
+            <p class="tool-what">Cari lagu, daftarnya bisa digulir, lagu diputar penuh lewat pemutar YouTube. Dibuka dari bot WhatsApp lewat perintah <code>!music</code>.</p>
+          </span>
+          <span class="tool-go">&rarr; buka</span>
+        </a>
+      </li>
+      <li>
+        <a class="tool" href="player.html">
+          <span class="tool-body">
+            <span class="tool-name">Pemutar video</span>
+            <p class="tool-what">Memutar video YouTube sampai selesai di halaman sendiri, tanpa pindah ke aplikasi YouTube.</p>
+          </span>
+          <span class="tool-go">&rarr; buka</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="work-head">
+    <div class="block-head">
+      <h2 id="work-head">Yang sedang dikerjakan</h2>
+      <span class="tally" id="workTally"></span>
+    </div>
+    <ul class="work" id="workList" aria-live="polite" aria-busy="true"></ul>
+  </section>
+
+  <section class="block" aria-labelledby="minor-head">
+    <div class="block-head">
+      <h2 id="minor-head">Tugas kuliah dan sisanya</h2>
+      <span class="tally">repo lain</span>
+    </div>
+    <ul class="minor">
+      <li><a href="https://github.com/1RDHWN1/kalkulus" target="_blank" rel="noopener">kalkulus</a> &middot; UAS</li>
+      <li><a href="https://github.com/1RDHWN1/UAS-Sains-Data" target="_blank" rel="noopener">UAS Sains Data</a></li>
+      <li><a href="https://github.com/1RDHWN1/UAS-Sistem-Informasi" target="_blank" rel="noopener">UAS Sistem Informasi</a></li>
+      <li><a href="https://github.com/1RDHWN1/Project_Grafkom26" target="_blank" rel="noopener">Project Grafkom</a></li>
+      <li><a href="https://github.com/1RDHWN1/PABP_UTS_26" target="_blank" rel="noopener">PABP UTS</a></li>
+      <li><a href="https://github.com/1RDHWN1/CodingCamp-12Jan26-FachriRidhwan" target="_blank" rel="noopener">Coding Camp</a></li>
+      <li><a href="https://github.com/1RDHWN1/Sistem-Catat-buku-via-scan-barcode" target="_blank" rel="noopener">Catat buku via barcode</a></li>
+      <li><a href="https://github.com/1RDHWN1/bento-cake-3d" target="_blank" rel="noopener">bento cake 3D</a></li>
+      <li><a href="https://github.com/1RDHWN1/atlantik-setlist" target="_blank" rel="noopener">atlantik setlist</a></li>
+      <li><a href="https://github.com/1RDHWN1/text-to-image-template" target="_blank" rel="noopener">text-to-image template</a></li>
+      <li><a href="https://github.com/1RDHWN1/SH04-AI-Chatboot-LEXA" target="_blank" rel="noopener">LEXA chatbot</a></li>
+      <li><a href="https://github.com/1RDHWN1/SimpleScreenRecorder" target="_blank" rel="noopener">Simple Screen Recorder</a></li>
+      <li><a href="https://github.com/1RDHWN1" target="_blank" rel="noopener">Semua repo &rarr;</a></li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <p>Halaman ini dibuat sendiri. Sumbernya di <a href="https://github.com/1RDHWN1/1RDHWN1.github.io" target="_blank" rel="noopener">repo domain ini</a>.</p>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var API = 'https://api.github.com/users/1RDHWN1/repos?per_page=100&sort=updated';
+  var listEl = document.getElementById('workList');
+  var tallyEl = document.getElementById('workTally');
+  var GH = 'https://github.com/1RDHWN1';
+
+  /* Which repos carry the page, and the one line that says what each does.
+     Order matters: strongest first. Repos not listed here are coursework and
+     are already linked in the section below, so they are not repeated. */
+  var FEATURED = [
+    {
+      name: 'dynamic-evacuation-pathfinding',
+      why: 'Simulasi evakuasi pakai algoritma A*. Lingkungannya berubah terus (obstacle, asap, kerumunan), dan agennya menghitung ulang jalur tiap kali keadaan berubah.',
+      weight: 'lead'
+    },
+    {
+      name: 'bot-wa-Bayleys-',
+      why: 'Bot WhatsApp yang jalan sendiri di server, dibangun di atas Baileys. Dari sini asal halaman musik dan pemutar video di atas.',
+      weight: 'feature'
+    },
+    {
+      name: 'ClipAIv2',
+      why: 'Versi kedua dari ClipAI, dikerjakan ulang setelah versi pertamanya jalan.',
+      weight: 'feature'
+    },
+    {
+      name: 'UniversalRPC',
+      why: 'Menampilkan aktivitas yang sedang berjalan sebagai status di aplikasi lain, ditulis dengan C#.',
+      weight: 'feature'
+    },
+    {
+      name: 'PRIVIX',
+      why: 'Eksperimen antarmuka web yang jadi tempat saya belajar JavaScript lebih dalam.',
+      weight: 'feature'
+    },
+    {
+      name: 'EditorMedia',
+      why: 'Alat untuk menyunting berkas media lewat browser.',
+      weight: 'feature'
+    }
+  ];
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function renderSkeleton() {
+    var ul = el('ul', 'skeleton');
+    for (var i = 0; i < 4; i++) {
+      var li = el('li');
+      var fill = el('div', 'fill');
+      fill.appendChild(el('i', 'w1'));
+      fill.appendChild(el('i', 'w2'));
+      li.appendChild(fill);
+      ul.appendChild(li);
+    }
+    listEl.innerHTML = '';
+    listEl.appendChild(ul);
+    listEl.setAttribute('aria-busy', 'true');
+  }
+
+  function renderState(node) {
+    listEl.innerHTML = '';
+    listEl.appendChild(node);
+    listEl.setAttribute('aria-busy', 'false');
+  }
+
+  function renderError() {
+    var p = el('p', 'state');
+    p.appendChild(document.createTextNode('Tidak bisa memuat daftar repo. '));
+    var a = el('a', null, 'Buka daftar di GitHub');
+    a.href = GH + '?tab=repositories';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    p.appendChild(a);
+    p.appendChild(document.createTextNode('.'));
+    renderState(p);
+    tallyEl.textContent = '';
+  }
+
+  function renderEmpty() {
+    var p = el('p', 'state');
+    p.appendChild(document.createTextNode('Belum ada repo yang dimuat. '));
+    var a = el('a', null, 'Lihat di GitHub');
+    a.href = GH + '?tab=repositories';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    p.appendChild(a);
+    p.appendChild(document.createTextNode('.'));
+    renderState(p);
+  }
+
+  function render(byName) {
+    var shown = 0;
+    var ul = el('ul', 'work');
+    ul.id = 'workList';
+
+    FEATURED.forEach(function (item) {
+      var repo = byName[item.name];
+      /* If a repo was renamed or removed, drop the row. The section is a
+         curated list, so a missing entry is a gap, not a broken card. */
+      if (!repo) return;
+      shown++;
+
+      var li = el('li');
+      li.dataset.weight = item.weight;
+
+      var a = el('a', 'work-name', repo.name);
+      a.href = repo.html_url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      li.appendChild(a);
+
+      li.appendChild(el('p', 'work-why', item.why));
+
+      var meta = el('div', 'work-meta');
+      if (repo.language) meta.appendChild(el('span', 'lang', repo.language));
+      meta.appendChild(el('span', null, repo.stargazers_count > 0
+        ? repo.stargazers_count + ' bintang'
+        : 'belum ada bintang'));
+      meta.appendChild(el('span', null, 'terakhir diubah ' + when(repo.pushed_at)));
+      li.appendChild(meta);
+
+      ul.appendChild(li);
+    });
+
+    if (shown === 0) { renderEmpty(); return; }
+
+    listEl.innerHTML = '';
+    listEl.appendChild(ul);
+    listEl.setAttribute('aria-busy', 'false');
+    tallyEl.textContent = shown + ' repo';
+  }
+
+  function when(iso) {
+    if (!iso) return 'tidak diketahui';
+    var days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+    if (days <= 0) return 'hari ini';
+    if (days === 1) return 'kemarin';
+    if (days < 30) return days + ' hari lalu';
+    var months = Math.floor(days / 30);
+    if (months < 12) return months + ' bulan lalu';
+    return Math.floor(months / 12) + ' tahun lalu';
+  }
+
+  renderSkeleton();
+
+  fetch(API, { headers: { 'Accept': 'application/vnd.github+json' } })
+    .then(function (res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function (rows) {
+      if (!Array.isArray(rows)) throw new Error('bentuk data tidak dikenal');
+      var byName = {};
+      rows.forEach(function (r) { byName[r.name] = r; });
+      render(byName);
+    })
+    .catch(renderError);
+})();
+</script>
+</body>
+</html>
