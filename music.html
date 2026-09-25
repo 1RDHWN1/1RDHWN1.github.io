@@ -16,9 +16,9 @@
     --ink: #f4f4f5;
     --ink-muted: #a1a1aa;
     --accent: #ff5c38;
-    --row-h: 64px;
+    --row-h: 72px;
     --pad: 18px;
-    --player-h: 148px;
+    --player-h: 168px;
   }
 
   * { box-sizing: border-box; }
@@ -36,12 +36,15 @@
   body {
     min-height: 100dvh;
     padding-bottom: calc(var(--player-h) + env(safe-area-inset-bottom, 0px));
+    overflow-x: hidden;
   }
 
   .page {
     max-width: 1180px;
     margin: 0 auto;
     padding: 0 var(--pad) 32px;
+    /* Belt and braces: nothing in this page should ever widen the body. */
+    overflow-x: clip;
   }
 
   header { padding: 32px 0 18px; }
@@ -148,9 +151,12 @@
     align-items: center;
     gap: 12px;
     min-height: var(--row-h);
-    padding: 10px 4px 10px 14px;
+    padding: 13px 4px 13px 14px;
     border-bottom: 1px solid rgba(35, 35, 42, 0.6);
     cursor: pointer;
+    /* Flex children must be allowed to shrink or a long title widens the row. */
+    min-width: 0;
+    overflow: hidden;
   }
 
   /* The marker is the selection state: the only thing telling you which
@@ -182,7 +188,7 @@
     display: block;
   }
 
-  .meta { min-width: 0; flex: 1; }
+  .meta { min-width: 0; flex: 1 1 auto; overflow: hidden; }
 
   .meta .title {
     font-family: "Fraunces", Georgia, serif;
@@ -227,6 +233,8 @@
     min-height: var(--row-h);
     padding: 10px 4px 10px 14px;
     border-bottom: 1px solid rgba(35, 35, 42, 0.6);
+    min-width: 0;
+    overflow: hidden;
   }
 
   .skeleton .bar {
@@ -236,8 +244,10 @@
   }
 
   .skeleton .sq { width: 44px; height: 44px; border-radius: 6px; flex: 0 0 auto; }
-  .skeleton .fill { flex: 1; display: grid; gap: 7px; }
-  .skeleton .fill i { display: block; height: 10px; }
+  .skeleton .fill { flex: 1 1 auto; min-width: 0; display: grid; gap: 8px; }
+  .skeleton .fill i { display: block; height: 10px; max-width: 100%; }
+  .skeleton .fill .w1 { width: 62%; }
+  .skeleton .fill .w2 { width: 38%; }
 
   @keyframes breathe {
     0%, 100% { opacity: .5; }
@@ -287,7 +297,7 @@
     z-index: 20;
     background: #0e0e11;
     border-top: 1px solid var(--line);
-    padding: 13px var(--pad) calc(13px + env(safe-area-inset-bottom, 0px));
+    padding: 11px var(--pad) calc(11px + env(safe-area-inset-bottom, 0px));
   }
 
   .player-inner {
@@ -295,27 +305,27 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 12px;
   }
 
   .player-row {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 12px;
     min-width: 0;
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   .art-lg {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 8px;
     background: #1c1c21;
     object-fit: cover;
     flex: 0 0 auto;
   }
 
-  .now { min-width: 0; flex: 1; }
+  .now { min-width: 0; flex: 1 1 auto; overflow: hidden; }
 
   .now .title {
     font-family: "Fraunces", Georgia, serif;
@@ -583,7 +593,7 @@
     embedEl.src = '';
   }
 
-  // Loading state keeps the real row height so the list never jumps.
+  /* Loading state keeps the real row height so the list never jumps. */
   function renderSkeleton() {
     listEl.innerHTML = '';
     countEl.textContent = '';
@@ -591,9 +601,11 @@
     for (var i = 0; i < 4; i++) {
       var row = document.createElement('div');
       row.className = 'skeleton';
+      // Widths live in CSS classes, not inline styles: an inline % on a flex
+      // child is what let a stale skeleton row widen the page.
       row.innerHTML =
         '<div class="bar sq"></div>' +
-        '<div class="fill"><i class="bar" style="width:62%"></i><i class="bar" style="width:38%"></i></div>';
+        '<div class="fill"><i class="bar w1"></i><i class="bar w2"></i></div>';
       listEl.appendChild(row);
     }
   }
