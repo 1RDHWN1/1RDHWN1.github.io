@@ -379,16 +379,27 @@ h2 .dir { color: var(--green-dim); }
 .skeleton .w2 { width: 74%; margin-bottom: 7px; }
 .skeleton .w3 { width: 30%; }
 
-/* ── Reveal on scroll ──────────────────────────────────────────────────── */
+/* ── Reveal on scroll ──────────────────────────────────────────────────────
+   Default state is VISIBLE. Hidden state is added by JS, per element, only at
+   the instant that element is handed to the observer. So the failure mode is
+   always "the motion did not run", never "the content is gone": a slow script,
+   a dead observer, or JS off entirely all leave a complete, readable page. */
 
-.reveal {
+.reveal.pre {
   opacity: 0;
   transform: translateY(18px);
+}
+.reveal.anim {
   transition: opacity 620ms cubic-bezier(.2,.7,.3,1), transform 620ms cubic-bezier(.2,.7,.3,1);
   transition-delay: var(--d, 0ms);
-  will-change: opacity, transform;
 }
-.reveal.in { opacity: 1; transform: none; }
+
+/* Children cascaded by JS as a list prints itself in. */
+.casc > *.pre { opacity: 0; transform: translateY(10px); }
+.casc > *.anim {
+  transition: opacity 460ms cubic-bezier(.2,.7,.3,1), transform 460ms cubic-bezier(.2,.7,.3,1);
+  transition-delay: var(--d, 0ms);
+}
 
 /* ── Closing prompt and footer ────────────────────────────────────────── */
 
@@ -414,5 +425,5 @@ h2 .dir { color: var(--green-dim); }
   .caret { animation: none; }
   .skeleton i { animation: none; background: #14171c; }
   #progress { transition: none; }
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .will-reveal { opacity: 1; transform: none; transition: none; }
 }

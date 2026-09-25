@@ -181,25 +181,64 @@
     })();
   }
 
-  /* ── Reveal on scroll: once each, staggered by line ───────────────────── */
+  /* ── Reveal: content is safe first, motion is the bonus ────────────────
+     The reveal runs from a fail-safe direction. Every block is visible by
+     default in CSS and only hidden once JS has confirmed it can bring it back,
+     so a slow script, a dead observer, or JS off entirely can never leave a
+     section invisible. It also never depends on the visitor scrolling. */
 
-  function revealify() {
-    var nodes = document.querySelectorAll('.reveal');
-    if (reduce || !('IntersectionObserver' in window)) {
-      nodes.forEach(function (n) { n.classList.add('in'); });
-      return;
-    }
-    var io = new IntersectionObserver(function (entries) {
+  /* Hand one element to the observer. It is hidden in the same tick it is
+     observed, so it can never be hidden without something watching to bring it
+     back. If the observer is missing or reduce is on, the element is simply
+     left visible. */
+  var io = null;
+  if (!reduce && 'IntersectionObserver' in window) {
+    io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        e.target.classList.add('in');
+        e.target.classList.add('anim');
+        e.target.classList.remove('pre');
         io.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+  }
 
+  function watch(el, delay) {
+    if (!io || !el) return;
+    el.style.setProperty('--d', delay + 'ms');
+    el.classList.add('pre');
+    io.observe(el);
+    pending.push(el);
+  }
+
+  /* Fail-safe. Whatever the observer does, every watched element is shown
+     after 2.5s. The observer is an optimisation, never the only path to the
+     content: a backgrounded tab, a very short viewport, or a browser quirk
+     must not be able to leave a section invisible. */
+  var pending = [];
+  setTimeout(function () {
+    pending.forEach(function (el) {
+      el.classList.add('anim');
+      el.classList.remove('pre');
+      if (io) io.unobserve(el);
+    });
+    pending.length = 0;
+  }, 2500);
+
+  function revealify() {
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
     nodes.forEach(function (n, idx) {
-      n.style.setProperty('--d', Math.min(idx * 60, 240) + 'ms');
-      io.observe(n);
+      watch(n, Math.min(idx * 70, 280));
+    });
+  }
+
+  /* Print a list one row at a time, which is what makes it feel typed rather
+     than pasted. */
+  function cascade(parent) {
+    if (!parent) return;
+    parent.classList.add('casc');
+    Array.prototype.slice.call(parent.children).forEach(function (child, i) {
+      watch(child, Math.min(i * 55, 420));
     });
   }
 
@@ -312,6 +351,7 @@
     listEl.appendChild(ul);
     listEl.setAttribute('aria-busy', 'false');
     tallyEl.textContent = shown + ' repo';
+    cascade(ul);
   }
 
   function when(iso) {
@@ -356,11 +396,16 @@
   /* ── Start ────────────────────────────────────────────────────────────── */
 
   renderSkeleton();
-  afterTyping(function () {
-    revealify();
-    onScroll();
-    load(0);
-  });
+  // Watched from the first frame: the observer has to be live before anything
+  // is hidden, and the content must not wait on the typing effect to appear.
+  revealify();
+  cascade(document.querySelector('.tools'));
+  cascade(document.querySelector('.minor'));
+  onScroll();
+  load(0);
+
+  // The hero line still types itself, but nothing on the page depends on it.
+  afterTyping(function () {});
 })();
 </script>
 </body>
