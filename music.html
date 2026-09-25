@@ -438,7 +438,7 @@
   }
 
   .embed-wrap.on { display: block; }
-  .embed-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .embed-wrap iframe, .embed-wrap #embed { width: 100%; height: 100%; border: 0; display: block; }
 
   /* Source switch. Two real options, nothing decorative. */
   .modes {
@@ -573,8 +573,7 @@
         <button id="modeClip" class="mode" type="button" aria-pressed="false">Cuplikan 30 detik</button>
       </div>
       <div class="embed-wrap" id="embedWrap">
-        <iframe id="embed" src="" title="Pemutar lagu penuh"
-                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        <div id="embed" title="Pemutar lagu penuh"></div>
       </div>
     </section>
   </div>
@@ -900,13 +899,12 @@
   window.onYouTubeIframeAPIReady = function () {
     if (ytPlayer) return;
     ytReady = true;
-    ytPlayer = new YT.Player('embed', {
+    // Pass the id at construction when we already have it. loadVideoById on a
+    // player that has not finished mounting is a no-op, which is why the frame
+    // used to come up with an empty src.
+    var opts = {
       width: '100%',
       height: '100%',
-      // The wrapper is display:none until a full-song row is picked. Building
-      // the player inside a zero-size box is what leaves a black rectangle:
-      // YouTube cannot measure a hidden frame. So it is created on first use
-      // instead, from selectFull.
       playerVars: { rel: '0', playsinline: 1 },
       events: {
         onReady: function () {
@@ -933,7 +931,10 @@
           if (cur && cur.preview) selectClip(cur);
         }
       }
-    });
+    };
+    // Seed the id at construction so the first frame comes up already loaded.
+    if (pendingVideoId) { opts.videoId = pendingVideoId; pendingVideoId = null; }
+    ytPlayer = new YT.Player('embed', opts);
   };
 
   // The player's own clock drives the bar while it is the active source.
@@ -1078,7 +1079,6 @@
   // without the user touching anything.
   if (initialQuery) {
     qEl.value = initialQuery;
-    if (initialVideoId) ensureYouTubeApi();
     search(initialQuery);
   } else {
     qEl.focus();
