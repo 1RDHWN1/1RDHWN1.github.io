@@ -188,7 +188,9 @@
     display: block;
   }
 
-  .meta { min-width: 0; flex: 1 1 auto; overflow: hidden; }
+  /* The shrinking half of the row. width:0 (not just min-width:0) is what makes
+     flexbox actually honour the ellipsis on a long title in every engine. */
+  .meta { width: 0; min-width: 0; flex: 1 1 auto; overflow: hidden; }
 
   .meta .title {
     font-family: "Fraunces", Georgia, serif;
@@ -718,7 +720,11 @@
     var p = audio.play();
     if (p && typeof p.catch === 'function') {
       p.catch(function (err) {
-        noticeEl.textContent = 'Tekan tombol putar untuk mulai (' + (err && err.name ? err.name : 'diblokir') + ').';
+        // Autoplay is blocked until the page has had one real user gesture.
+        // Say what to do, not what the browser called the error.
+        noticeEl.textContent = (err && err.name === 'NotAllowedError')
+          ? 'Tap tombol putar untuk mulai.'
+          : 'Cuplikan tidak bisa diputar. Coba lagu lain.';
       });
     }
   }
