@@ -465,7 +465,10 @@
   .mode.on {
     background: var(--raised);
     color: var(--ink);
-    border-color: #3a3a44;
+    border-color: var(--accent);
+    /* A 2px accent underline, not a fill: states the selection without
+       shouting over the transport row above it. */
+    box-shadow: inset 0 -2px 0 0 var(--accent);
   }
 
   .mode:focus-visible {
