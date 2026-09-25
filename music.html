@@ -582,7 +582,6 @@
 
 <audio id="audio" preload="none" crossorigin="anonymous"></audio>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 (function () {
   'use strict';
@@ -624,6 +623,8 @@
   // because a 30 s sample is not what anyone came here for.
   var mode = 'full';
   var ytPlayer = null;
+  var ytReady = false;
+  var ytApiRequested = false;
 
   var params = new URLSearchParams(location.search);
   var initialQuery = (params.get('q') || '').trim();
@@ -804,19 +805,22 @@
     }
 
     noticeEl.textContent = 'Lagu penuh diputar lewat pemutar YouTube resmi.';
+    // Reveal the box first, then build the player into it: YouTube has to see
+    // a non-zero frame or it mounts a black rectangle.
     embedWrap.classList.add('on');
     setEnabled(true);
     barFill.style.width = '0%';
     tCur.textContent = '0:00';
     tDur.textContent = typeof t.seconds === 'number' ? fmt(t.seconds) : '0:00';
 
-    if (ytPlayer && ytPlayer.loadVideoById) {
+    if (ytReady && ytPlayer && ytPlayer.loadVideoById) {
       ytPlayer.loadVideoById(videoId);
       return;
     }
-    // First use: the API script may still be loading. Stash the id and let the
-    // ready handler start it, instead of racing the script.
+    // Player not built yet. Stash the id and get the API moving; the ready
+    // handler will start it once the frame has real dimensions.
     pendingVideoId = videoId;
+    ensureYouTubeApi();
   }
 
   function selectClip(t) {
@@ -894,10 +898,16 @@
   var pendingVideoId = null;
 
   window.onYouTubeIframeAPIReady = function () {
+    if (ytPlayer) return;
+    ytReady = true;
     ytPlayer = new YT.Player('embed', {
       width: '100%',
       height: '100%',
-      playerVars: { rel: '0', playsinline: 1, origin: location.origin },
+      // The wrapper is display:none until a full-song row is picked. Building
+      // the player inside a zero-size box is what leaves a black rectangle:
+      // YouTube cannot measure a hidden frame. So it is created on first use
+      // instead, from selectFull.
+      playerVars: { rel: '0', playsinline: 1 },
       events: {
         onReady: function () {
           if (pendingVideoId) { ytPlayer.loadVideoById(pendingVideoId); pendingVideoId = null; }
@@ -912,15 +922,15 @@
           }
         },
         onError: function () {
-          // Some uploads forbid embedding. Fall back to the clip rather than
-          // leaving a dead black rectangle.
-          noticeEl.innerHTML = 'Video ini tidak bisa diputar di halaman. Dicoba sebagai cuplikan. ' +
-            '<a href="https://www.youtube.com/results?search_query=' +
-            encodeURIComponent((titleEl.textContent || '') + ' ' + (artistEl.textContent || '')) +
-            '" target="_blank" rel="noopener">Buka di YouTube</a>';
-          if (mode === 'full') { mode = 'clip'; modeFull.classList.remove('on'); modeClip.classList.add('on'); }
-          var cur = tracks.filter(function (t) { return t.key === selectedKey; })[0];
-          if (cur) selectClip(cur);
+          // 101/150 = uploader forbids embedding. Say so and hand over a link
+          // instead of leaving a dead black box.
+          var cur = tracks.filter(function (x) { return x.key === selectedKey; })[0];
+          var vid = (cur && cur.videoId) || pendingVideoId || '';
+          noticeEl.innerHTML = 'Video ini tidak mengizinkan pemutaran di halaman lain. ' +
+            (vid ? '<a href="https://www.youtube.com/watch?v=' + encodeURIComponent(vid) +
+              '" target="_blank" rel="noopener">Buka di YouTube</a>. ' : '') +
+            'Mencoba cuplikan 30 detik.';
+          if (cur && cur.preview) selectClip(cur);
         }
       }
     });
@@ -1044,10 +1054,31 @@
     noticeEl.textContent = 'Cuplikan gagal dimuat. Coba pilih lagu lain atau pencarian ulang.';
   });
 
+  /* Load the YouTube API from our own code, after the ready handler exists.
+     A plain <script src> in the head fires onYouTubeIframeAPIReady before the
+     handler is defined on a fast connection, and the callback is lost: that is
+     what left the black, empty player box. */
+  function ensureYouTubeApi() {
+    if (ytApiRequested) return;
+    ytApiRequested = true;
+    if (window.YT && window.YT.Player) { window.onYouTubeIframeAPIReady(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    s.onerror = function () {
+      noticeEl.innerHTML = 'Pemutar YouTube gagal dimuat. ' +
+        '<a href="https://www.youtube.com/results?search_query=' +
+        encodeURIComponent(initialQuery || '') + '" target="_blank" rel="noopener">Cari di YouTube</a>.';
+    };
+    document.head.appendChild(s);
+    // The API calls onYouTubeIframeAPIReady when it lands; nothing else to do.
+  }
+
   // Init. The query arrives from the WhatsApp link, so the first search runs
   // without the user touching anything.
   if (initialQuery) {
     qEl.value = initialQuery;
+    if (initialVideoId) ensureYouTubeApi();
     search(initialQuery);
   } else {
     qEl.focus();
