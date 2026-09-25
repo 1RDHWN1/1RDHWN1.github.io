@@ -148,6 +148,10 @@ a:focus-visible, .tool:focus-visible {
   color: var(--ink);
 }
 
+/* The serif name is deliberately the only non-mono voice, and this line says
+   why out loud, so it reads as a person at a terminal and not as a mistake. */
+.name-note { margin-bottom: 20px; }
+
 .claim {
   margin: 0 0 18px;
   max-width: 56ch;
