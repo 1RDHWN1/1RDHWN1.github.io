@@ -379,27 +379,23 @@ h2 .dir { color: var(--green-dim); }
 .skeleton .w2 { width: 74%; margin-bottom: 7px; }
 .skeleton .w3 { width: 30%; }
 
-/* ── Reveal on scroll ──────────────────────────────────────────────────────
-   Default state is VISIBLE. Hidden state is added by JS, per element, only at
-   the instant that element is handed to the observer. So the failure mode is
-   always "the motion did not run", never "the content is gone": a slow script,
-   a dead observer, or JS off entirely all leave a complete, readable page. */
+/* ── Entrance motion ───────────────────────────────────────────────────────
+   One CSS animation, triggered by adding .enter from JS. There is no hidden
+   default state anywhere: if the class is never added, or the animation never
+   runs, or the whole script fails, every block is simply already in its final,
+   visible state. Content is never contingent on motion. */
 
-.reveal.pre {
-  opacity: 0;
-  transform: translateY(18px);
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
 }
-.reveal.anim {
-  transition: opacity 620ms cubic-bezier(.2,.7,.3,1), transform 620ms cubic-bezier(.2,.7,.3,1);
-  transition-delay: var(--d, 0ms);
+@keyframes slide {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: none; }
 }
 
-/* Children cascaded by JS as a list prints itself in. */
-.casc > *.pre { opacity: 0; transform: translateY(10px); }
-.casc > *.anim {
-  transition: opacity 460ms cubic-bezier(.2,.7,.3,1), transform 460ms cubic-bezier(.2,.7,.3,1);
-  transition-delay: var(--d, 0ms);
-}
+.enter { animation: rise 620ms cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d, 0ms); }
+.casc > .enter { animation: slide 460ms cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d, 0ms); }
 
 /* ── Closing prompt and footer ────────────────────────────────────────── */
 
@@ -425,5 +421,5 @@ h2 .dir { color: var(--green-dim); }
   .caret { animation: none; }
   .skeleton i { animation: none; background: #14171c; }
   #progress { transition: none; }
-  .will-reveal { opacity: 1; transform: none; transition: none; }
+  .enter { animation: none; }
 }
