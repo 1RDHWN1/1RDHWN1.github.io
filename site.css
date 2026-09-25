@@ -1,19 +1,29 @@
 /* udincloud.me: shared shell.
-   One stylesheet for the domain root. Palette and type carry over from
-   music.html so the domain reads as a single place. */
+   A terminal session, rebuilt for the web. Palette and the ember accent carry
+   over from music.html so the whole domain reads as one place.
+
+   Three patterns here sit next to the Hard Gate and are recorded in DESIGN.md
+   with the rule numbers and the job each one does: the 4% background grid
+   (R-07), the mono typeface (R-06), and the dose-capped glow (R-01/R-13).
+   Everything else in the slop list is absent on purpose. */
 
 :root {
-  --surface: #0f0f11;
-  --raised: #16161a;
-  --line: #33333b;
-  --ink: #f2f2f3;
-  --muted: #9c9ca6;
-  --accent: #ff5c38;
-  --accent-ink: #ff8a6d;
+  --surface: #08090b;
+  --raised: #0e1014;
+  --line: #1e2229;
+  --line-hot: #2b313b;
+  --ink: #e7e9ec;
+  --dim: #8b929e;
+  --faint: #78808c;
+  --green: #4ee08a;
+  --green-dim: #2f8f5b;
+  --ember: #ff5c38;
+
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
 
   --pad: 20px;
-  --measure: 62ch;
-  --radius: 10px;
+  --rail: 26px;
 }
 
 * { box-sizing: border-box; }
@@ -24,88 +34,151 @@ body {
   margin: 0;
   background: var(--surface);
   color: var(--ink);
-  font-family: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
-  /* Long repo names and URLs must never widen the page. */
+  font-family: var(--mono);
+  font-size: 14.5px;
+  line-height: 1.62;
   overflow-x: hidden;
-  text-wrap: pretty;
+  /* The terminal's own texture: a 32px cell grid at 4% opacity. Nearly
+     invisible by design, which is why it is the one pure decoration allowed. */
+  background-image:
+    linear-gradient(rgba(78, 224, 138, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78, 224, 138, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
+
+@media (min-width: 900px) { body { font-size: 15px; } }
+
+a { color: var(--ink); text-decoration: none; }
+a:focus-visible, .tool:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection { background: rgba(78, 224, 138, 0.28); }
+
+/* Scroll progress: one hairline, a position cue. */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px; width: 0;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(78, 224, 138, 0.55);
+  z-index: 60;
+  transition: width 90ms linear;
+}
+
+/* ── Page frame ────────────────────────────────────────────────────────── */
 
 .page {
-  max-width: 760px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 56px var(--pad) 72px;
-  overflow-x: clip;
+  padding: clamp(40px, 8vh, 74px) var(--pad) 96px;
+  padding-left: calc(var(--pad) + var(--rail));
+  position: relative;
 }
 
-/* On a wide screen a 760px column leaves the whole right half empty. Widen the
-   frame and keep the running text measured, so the page fills its canvas
-   without asking anyone to read a 1280px line. */
-@media (min-width: 1040px) {
-  .page {
-    max-width: 940px;
-    padding-left: 0;
-    padding-right: 0;
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    column-gap: 64px;
-  }
-  .masthead { grid-column: 1; grid-row: 1 / span 4; position: sticky; top: 56px; align-self: start; margin-bottom: 0; padding-right: 28px; }
-  .block, .foot { grid-column: 2; }
-  .block:first-of-type { margin-top: 0; }
-  .standfirst { font-size: 1rem; }
-  .elsewhere { flex-direction: column; gap: 6px; }
+/* A fixed gutter of line numbers in the terminal's own voice. Hidden on small
+   screens where there is no room for it. */
+.rail {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--rail);
+  height: 100%;
+  padding-top: clamp(40px, 8vh, 74px);
+  padding-right: 9px;
+  text-align: right;
+  font-size: 10.5px;
+  line-height: 1.62;
+  color: var(--faint);
+  user-select: none;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+@media (max-width: 720px) {
+  .rail { display: none; }
+  .page { padding-left: var(--pad); }
 }
 
-a {
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-  transition: border-color 120ms ease, color 120ms ease;
-}
-a:hover { border-bottom-color: var(--accent); }
-a:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 3px;
-}
+/* ── The prompt ────────────────────────────────────────────────────────── */
 
-/* ── Name block ─────────────────────────────────────────────────────────── */
+.prompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+.ps1 { color: var(--green); font-weight: 600; white-space: nowrap; }
+.ps1 .at { color: var(--green-dim); }
+.ps1 .path { color: var(--dim); }
+.cmd { color: var(--ink); }
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(78, 224, 138, 0.7);
+  transform: translateY(2px);
+  animation: blink 1.06s step-end infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ── Output ────────────────────────────────────────────────────────────── */
+
+.out {
+  margin: 0 0 10px;
+  color: var(--dim);
+  max-width: 62ch;
+}
+.out strong { color: var(--ink); font-weight: 600; }
+.comment { color: var(--faint); }
 
 .masthead { margin-bottom: 44px; }
 
 .name {
-  font-family: Fraunces, Georgia, "Times New Roman", serif;
+  font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(2.1rem, 8vw, 3.1rem);
-  line-height: 1.06;
-  letter-spacing: -0.015em;
-  margin: 0 0 12px;
+  font-size: clamp(2.1rem, 6.4vw, 3.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  margin: 2px 0 10px;
+  color: var(--ink);
 }
 
-.standfirst {
-  color: var(--muted);
-  margin: 0 0 22px;
-  max-width: var(--measure);
-  font-size: 1.02rem;
+.claim {
+  margin: 0 0 18px;
+  max-width: 56ch;
+  color: var(--dim);
+  font-size: 0.95rem;
 }
 
 .elsewhere {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  gap: 4px 18px;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 0.94rem;
+  font-size: 0.9rem;
 }
-.elsewhere a { color: var(--muted); }
-.elsewhere a:hover { color: var(--ink); }
+.elsewhere a {
+  color: var(--dim);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color 130ms ease, border-color 130ms ease;
+}
+.elsewhere a::before { content: './'; color: var(--faint); }
+.elsewhere a:hover { color: var(--green); border-bottom-color: var(--green); }
+/* The one exit to another site gets the ember, so leaving the domain looks
+   different from moving inside it. */
+.elsewhere a[href^="https://github.com"]:hover { color: var(--ember); border-bottom-color: var(--ember); }
 
-/* ── Section shell ─────────────────────────────────────────────────────── */
+/* ── Sections ──────────────────────────────────────────────────────────── */
 
-.block { margin-top: 44px; }
+.block { margin-top: 42px; }
 .block:first-of-type { margin-top: 0; }
 
 .block-head {
@@ -113,109 +186,146 @@ a:focus-visible {
   align-items: baseline;
   justify-content: space-between;
   gap: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 4px;
+  margin-bottom: 14px;
 }
-
-.block-head h2 {
-  font-family: Fraunces, Georgia, serif;
-  font-weight: 600;
-  font-size: 1.12rem;
-  letter-spacing: -0.005em;
+h2 {
   margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
 }
+h2 .dir { color: var(--green-dim); }
+.tally { color: var(--faint); font-size: 0.82rem; white-space: nowrap; }
 
-.tally { color: var(--muted); font-size: 0.86rem; }
-
-/* ── Live tools: wide rows, not cards ──────────────────────────────────── */
+/* ── Tool rows: the interactive summit of the page ─────────────────────── */
 
 .tools { list-style: none; margin: 0; padding: 0; }
-
-.tools li { border-bottom: 1px solid var(--line); }
+.tools li + li { margin-top: 6px; }
 
 .tool {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: baseline;
-  gap: 8px 16px;
-  padding: 18px 4px 18px 0;
-  border-bottom: 0;
+  gap: 4px 16px;
+  padding: 15px 16px 15px 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
   min-width: 0;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
 }
-/* The live state is carried by the row itself, not by a badge or a dot:
-   these rows respond on hover and the arrow shifts with them. That is the
-   affordance, and it is the only place the accent appears in this block. */
-.tool .tool-go { transition: transform 120ms ease, color 120ms ease; }
-.tool:hover { background: var(--raised); }
-.tool:hover .tool-go { color: var(--accent); transform: translateX(2px); }
-.tool:hover .tool-name { border-bottom-color: var(--accent); }
+/* The accent edge is a bar that wipes in from the top, not a static coloured
+   strip, so it reads as the row waking up under the pointer. */
+.tool::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(78, 224, 138, 0.6);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 180ms ease;
+}
+.tool:hover, .tool:focus-visible {
+  background: var(--raised);
+  border-color: var(--line-hot);
+  transform: translateX(3px);
+}
+.tool:hover::before, .tool:focus-visible::before { transform: scaleY(1); }
 
 .tool-body { min-width: 0; }
 
 .tool-name {
+  display: block;
   font-weight: 600;
-  font-size: 1.02rem;
-  border-bottom: 1px solid transparent;
-  transition: border-color 120ms ease;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: var(--ink);
 }
-
+.tool-name::before { content: '$ '; color: var(--green-dim); font-weight: 400; }
 .tool-what {
-  color: var(--muted);
-  font-size: 0.92rem;
-  margin: 3px 0 0;
+  margin: 0;
+  color: var(--dim);
+  font-size: 0.88rem;
+  max-width: 60ch;
 }
-
+.tool-what code {
+  font: inherit;
+  color: var(--green);
+  background: rgba(78, 224, 138, 0.08);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
 .tool-go {
-  color: var(--muted);
+  color: var(--faint);
   font-size: 0.82rem;
   white-space: nowrap;
+  transition: color 160ms ease, transform 160ms ease;
 }
+.tool:hover .tool-go, .tool:focus-visible .tool-go { color: var(--green); transform: translateX(2px); }
 
-/* ── Selected work: uneven list, real hierarchy ────────────────────────── */
+/* ── Work entries: commit-like, deliberately uneven ───────────────────── */
 
 .work { list-style: none; margin: 0; padding: 0; }
 
 .work li {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--line);
+  padding: 18px 0 18px 16px;
+  position: relative;
   min-width: 0;
 }
-.work li:last-child { border-bottom: 0; }
+.work li::before {
+  content: '*';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  color: var(--green-dim);
+  font-size: 0.9rem;
+}
+.work li:last-child { border-bottom: 1px solid var(--line); }
 
 .work-name {
+  display: inline-block;
   font-weight: 600;
   font-size: 1.02rem;
-  display: inline-block;
+  color: var(--ink);
   margin-bottom: 5px;
-  /* Repo names are long unbroken tokens. Wrap them at the hyphen rather than
-     inserting one in the middle of a word. */
+  border-bottom: 1px solid transparent;
+  transition: border-color 150ms ease, color 150ms ease;
   overflow-wrap: break-word;
   word-break: normal;
   hyphens: none;
 }
+.work-name:hover { color: var(--green); border-bottom-color: var(--green); }
 
 .work-why {
-  color: var(--muted);
-  font-size: 0.94rem;
   margin: 0 0 9px;
-  max-width: var(--measure);
+  color: var(--dim);
+  font-size: 0.88rem;
+  max-width: 66ch;
 }
 
-.work-meta {
+.meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 14px;
-  font-size: 0.82rem;
-  color: var(--muted);
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.79rem;
+  color: var(--faint);
 }
-.work-meta .lang { color: var(--ink); }
+.meta li { white-space: nowrap; }
+.meta li + li::before { content: '· '; color: var(--line-hot); }
 
 /* The one item allowed more room than the rest: it is the strongest piece. */
 .work li[data-weight="lead"] .work-name { font-size: 1.14rem; }
-.work li[data-weight="lead"] .work-why { font-size: 0.98rem; }
+.work li[data-weight="lead"] .work-why { font-size: 0.95rem; }
 
-/* ── Coursework: deliberately compact ──────────────────────────────────── */
+/* ── Coursework: a dense index, quiet on purpose ──────────────────────── */
 
 .minor {
   list-style: none;
@@ -223,58 +333,82 @@ a:focus-visible {
   padding: 0;
   columns: 2;
   column-gap: 26px;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 .minor li {
   break-inside: avoid;
-  padding: 5px 0;
-  color: var(--muted);
+  padding: 3px 0;
+  color: var(--faint);
+  min-width: 0;
 }
-.minor a { color: var(--muted); }
-.minor a:hover { color: var(--ink); }
+.minor a { color: var(--dim); }
+.minor a:hover { color: var(--green); }
 
-/* ── States ────────────────────────────────────────────────────────────── */
+/* ── States inside the fetched block ──────────────────────────────────── */
 
 .state {
-  padding: 22px 0;
-  color: var(--muted);
-  font-size: 0.94rem;
+  margin: 0;
+  padding: 16px 0;
+  color: var(--dim);
+  font-size: 0.88rem;
 }
+.state a { color: var(--green); border-bottom: 1px solid var(--green-dim); }
+.state.err { color: var(--ember); }
+.state.err a { color: var(--ember); border-bottom-color: var(--ember); }
 
 .skeleton { list-style: none; margin: 0; padding: 0; }
 .skeleton li {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  min-width: 0;
 }
-.skeleton .fill { min-width: 0; overflow: hidden; }
-.skeleton .fill i {
+.skeleton i {
   display: block;
   height: 11px;
-  border-radius: 4px;
-  background: var(--raised);
-  margin-bottom: 9px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #14171c 0%, #1d222a 50%, #14171c 100%);
+  background-size: 200% 100%;
+  animation: sweep 1.35s linear infinite;
 }
-.skeleton .fill i.w1 { width: 34%; }
-.skeleton .fill i.w2 { width: 72%; }
-.skeleton .fill i:last-child { margin-bottom: 0; }
+@keyframes sweep { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+.skeleton .w1 { width: 42%; margin-bottom: 9px; }
+.skeleton .w2 { width: 74%; margin-bottom: 7px; }
+.skeleton .w3 { width: 30%; }
 
-/* ── Footer ────────────────────────────────────────────────────────────── */
+/* ── Reveal on scroll ──────────────────────────────────────────────────── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 620ms cubic-bezier(.2,.7,.3,1), transform 620ms cubic-bezier(.2,.7,.3,1);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── Closing prompt and footer ────────────────────────────────────────── */
+
+.end { margin-top: 54px; }
 
 .foot {
-  margin-top: 60px;
-  padding-top: 18px;
+  margin-top: 22px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.84rem;
+  color: var(--faint);
+  font-size: 0.8rem;
 }
 
 @media (max-width: 520px) {
-  .page { padding-top: 40px; }
+  .page { padding-top: 38px; }
   .minor { columns: 1; }
   .tool { grid-template-columns: 1fr; }
   .tool-go { grid-column: 1; }
 }
 
+/* Everything above collapses to a complete, static page. */
 @media (prefers-reduced-motion: reduce) {
-  a, .tool-name { transition: none; }
+  .caret { animation: none; }
+  .skeleton i { animation: none; background: #14171c; }
+  #progress { transition: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }

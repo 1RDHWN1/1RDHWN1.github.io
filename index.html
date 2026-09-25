@@ -5,23 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>1RDHWN1</title>
 <meta name="description" content="Halaman kerja 1RDHWN1. Tools yang bisa langsung dibuka dan repo yang dikerjakan.">
+<meta name="color-scheme" content="dark">
 <meta property="og:title" content="1RDHWN1">
 <meta property="og:description" content="Halaman kerja 1RDHWN1. Tools yang bisa langsung dibuka dan repo yang dikerjakan.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
+
+<div id="progress" aria-hidden="true"></div>
+<div class="rail" id="rail" aria-hidden="true"></div>
+
 <main class="page">
 
-  <header class="masthead">
+  <!-- 1. The prompt, typed on load. -->
+  <p class="prompt">
+    <span class="ps1">user<span class="at">@</span>udincloud<span class="path">:~$</span></span>
+    <span class="cmd" id="typed"></span><span class="caret" aria-hidden="true"></span>
+  </p>
+
+  <!-- 2. The identity output. -->
+  <header class="masthead reveal">
+    <p class="out"><span class="comment"># </span><strong>Mahasiswa UNSIL Tasikmalaya.</strong> Halaman kerja saya: tools yang bisa langsung dibuka, dan repo yang sedang dikerjakan.</p>
     <h1 class="name">1RDHWN1</h1>
-    <p class="standfirst">
-      Mahasiswa UNSIL Tasikmalaya. Ini halaman kerja saya: tools yang bisa
-      langsung dibuka, dan repo yang sedang saya kerjakan.
-    </p>
     <ul class="elsewhere">
       <li><a href="https://github.com/1RDHWN1" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="https://instagram.com/fcdh_dx" target="_blank" rel="noopener">Instagram</a></li>
@@ -30,48 +39,48 @@
     </ul>
   </header>
 
-  <section class="block" aria-labelledby="live-head">
+  <section class="block reveal" aria-labelledby="live-head">
     <div class="block-head">
-      <h2 id="live-head">Yang bisa langsung dibuka</h2>
+      <h2 id="live-head"><span class="dir">$ </span>ls ~/tools</h2>
       <span class="tally">2 tools</span>
     </div>
     <ul class="tools">
       <li>
         <a class="tool" href="music.html">
           <span class="tool-body">
-            <span class="tool-name">Pemutar musik</span>
-            <p class="tool-what">Cari lagu, daftarnya bisa digulir, lagu diputar penuh lewat pemutar YouTube. Dibuka dari bot WhatsApp lewat perintah <code>!music</code>.</p>
+            <span class="tool-name">pemutar-musik</span>
+            <p class="tool-what">Cari lagu, daftarnya bisa digulir, lagu diputar penuh lewat pemutar YouTube. Dibuka dari bot WhatsApp lewat <code>!music</code>.</p>
           </span>
-          <span class="tool-go">&rarr; buka</span>
+          <span class="tool-go">buka &rarr;</span>
         </a>
       </li>
       <li>
         <a class="tool" href="player.html">
           <span class="tool-body">
-            <span class="tool-name">Pemutar video</span>
+            <span class="tool-name">pemutar-video</span>
             <p class="tool-what">Memutar video YouTube sampai selesai di halaman sendiri, tanpa pindah ke aplikasi YouTube.</p>
           </span>
-          <span class="tool-go">&rarr; buka</span>
+          <span class="tool-go">buka &rarr;</span>
         </a>
       </li>
     </ul>
   </section>
 
-  <section class="block" aria-labelledby="work-head">
+  <section class="block reveal" aria-labelledby="work-head">
     <div class="block-head">
-      <h2 id="work-head">Yang sedang dikerjakan</h2>
+      <h2 id="work-head"><span class="dir">$ </span>git log --projects</h2>
       <span class="tally" id="workTally"></span>
     </div>
     <ul class="work" id="workList" aria-live="polite" aria-busy="true"></ul>
   </section>
 
-  <section class="block" aria-labelledby="minor-head">
+  <section class="block reveal" aria-labelledby="minor-head">
     <div class="block-head">
-      <h2 id="minor-head">Tugas kuliah dan sisanya</h2>
+      <h2 id="minor-head"><span class="dir">$ </span>ls ~/coursework</h2>
       <span class="tally">repo lain</span>
     </div>
     <ul class="minor">
-      <li><a href="https://github.com/1RDHWN1/kalkulus" target="_blank" rel="noopener">kalkulus</a> &middot; UAS</li>
+      <li><a href="https://github.com/1RDHWN1/kalkulus" target="_blank" rel="noopener">kalkulus</a></li>
       <li><a href="https://github.com/1RDHWN1/UAS-Sains-Data" target="_blank" rel="noopener">UAS Sains Data</a></li>
       <li><a href="https://github.com/1RDHWN1/UAS-Sistem-Informasi" target="_blank" rel="noopener">UAS Sistem Informasi</a></li>
       <li><a href="https://github.com/1RDHWN1/Project_Grafkom26" target="_blank" rel="noopener">Project Grafkom</a></li>
@@ -87,9 +96,16 @@
     </ul>
   </section>
 
-  <footer class="foot">
-    <p>Halaman ini dibuat sendiri. Sumbernya di <a href="https://github.com/1RDHWN1/1RDHWN1.github.io" target="_blank" rel="noopener">repo domain ini</a>.</p>
-  </footer>
+  <!-- 6. The session ends where it can start again. -->
+  <div class="end reveal">
+    <p class="prompt">
+      <span class="ps1">user<span class="at">@</span>udincloud<span class="path">:~$</span></span>
+      <span class="caret" aria-hidden="true"></span>
+    </p>
+    <footer class="foot">
+      Halaman ini dibuat sendiri. Sumbernya di <a href="https://github.com/1RDHWN1/1RDHWN1.github.io" target="_blank" rel="noopener">repo domain ini</a>.
+    </footer>
+  </div>
 
 </main>
 
@@ -101,6 +117,7 @@
   var listEl = document.getElementById('workList');
   var tallyEl = document.getElementById('workTally');
   var GH = 'https://github.com/1RDHWN1';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Which repos carry the page, and the one line that says what each does.
      Order matters: strongest first. Repos not listed here are coursework and
@@ -145,14 +162,82 @@
     return n;
   }
 
+  /* ── Entry: the prompt types itself, then the first blocks appear ─────── */
+
+  var typedEl = document.getElementById('typed');
+  var LINE = 'whoami';
+
+  function afterTyping(fn) {
+    if (reduce) { typedEl.textContent = LINE; fn(); return; }
+    var i = 0;
+    (function step() {
+      typedEl.textContent = LINE.slice(0, ++i);
+      if (i < LINE.length) {
+        setTimeout(step, 78);
+      } else {
+        setTimeout(fn, 220);
+      }
+    })();
+  }
+
+  /* ── Reveal on scroll: once each, staggered by line ───────────────────── */
+
+  function revealify() {
+    var nodes = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      nodes.forEach(function (n) { n.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+
+    nodes.forEach(function (n, idx) {
+      n.style.setProperty('--d', Math.min(idx * 60, 240) + 'ms');
+      io.observe(n);
+    });
+  }
+
+  /* ── Scroll progress: one hairline ────────────────────────────────────── */
+
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    bar.style.width = (pct * 100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  /* ── A gutter of line numbers, in the terminal's own voice ────────────── */
+
+  (function buildRail() {
+    var rail = document.getElementById('rail');
+    if (!rail || window.innerWidth <= 720) return;
+    var n = Math.ceil(window.innerHeight / 24) + 2;
+    var frag = document.createDocumentFragment();
+    for (var i = 1; i <= n; i++) {
+      var d = document.createElement('div');
+      d.textContent = i;
+      frag.appendChild(d);
+    }
+    rail.appendChild(frag);
+  })();
+
+  /* ── The fetched list, with all three states ──────────────────────────── */
+
   function renderSkeleton() {
     var ul = el('ul', 'skeleton');
     for (var i = 0; i < 4; i++) {
       var li = el('li');
-      var fill = el('div', 'fill');
-      fill.appendChild(el('i', 'w1'));
-      fill.appendChild(el('i', 'w2'));
-      li.appendChild(fill);
+      li.appendChild(el('i', 'w1'));
+      li.appendChild(el('i', 'w2'));
+      li.appendChild(el('i', 'w3'));
       ul.appendChild(li);
     }
     listEl.innerHTML = '';
@@ -166,35 +251,30 @@
     listEl.setAttribute('aria-busy', 'false');
   }
 
-  function renderError() {
-    var p = el('p', 'state');
-    p.appendChild(document.createTextNode('Tidak bisa memuat daftar repo. '));
-    var a = el('a', null, 'Buka daftar di GitHub');
+  function stateLine(prefix, cls, message, linkText) {
+    var p = el('p', 'state' + (cls ? ' ' + cls : ''));
+    p.appendChild(document.createTextNode(prefix + ' ' + message + ' '));
+    var a = el('a', null, linkText);
     a.href = GH + '?tab=repositories';
     a.target = '_blank';
     a.rel = 'noopener';
     p.appendChild(a);
     p.appendChild(document.createTextNode('.'));
-    renderState(p);
+    return p;
+  }
+
+  function renderError() {
+    renderState(stateLine('!!', 'err', 'tidak bisa memuat daftar repo. exit 1', 'Buka daftar di GitHub'));
     tallyEl.textContent = '';
   }
 
   function renderEmpty() {
-    var p = el('p', 'state');
-    p.appendChild(document.createTextNode('Belum ada repo yang dimuat. '));
-    var a = el('a', null, 'Lihat di GitHub');
-    a.href = GH + '?tab=repositories';
-    a.target = '_blank';
-    a.rel = 'noopener';
-    p.appendChild(a);
-    p.appendChild(document.createTextNode('.'));
-    renderState(p);
+    renderState(stateLine('//', null, 'belum ada repo yang dimuat.', 'Lihat di GitHub'));
   }
 
   function render(byName) {
     var shown = 0;
     var ul = el('ul', 'work');
-    ul.id = 'workList';
 
     FEATURED.forEach(function (item) {
       var repo = byName[item.name];
@@ -214,12 +294,12 @@
 
       li.appendChild(el('p', 'work-why', item.why));
 
-      var meta = el('div', 'work-meta');
-      if (repo.language) meta.appendChild(el('span', 'lang', repo.language));
-      meta.appendChild(el('span', null, repo.stargazers_count > 0
+      var meta = el('ul', 'meta');
+      if (repo.language) meta.appendChild(el('li', null, repo.language));
+      meta.appendChild(el('li', null, repo.stargazers_count > 0
         ? repo.stargazers_count + ' bintang'
         : 'belum ada bintang'));
-      meta.appendChild(el('span', null, 'terakhir diubah ' + when(repo.pushed_at)));
+      meta.appendChild(el('li', null, 'terakhir diubah ' + when(repo.pushed_at)));
       li.appendChild(meta);
 
       ul.appendChild(li);
@@ -244,20 +324,42 @@
     return Math.floor(months / 12) + ' tahun lalu';
   }
 
-  renderSkeleton();
+  function load(attempt) {
+    var ctl = 'AbortController' in window ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 10000);
 
-  fetch(API, { headers: { 'Accept': 'application/vnd.github+json' } })
-    .then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
+    fetch(API, {
+      headers: { 'Accept': 'application/vnd.github+json' },
+      signal: ctl ? ctl.signal : undefined
     })
-    .then(function (rows) {
-      if (!Array.isArray(rows)) throw new Error('bentuk data tidak dikenal');
-      var byName = {};
-      rows.forEach(function (r) { byName[r.name] = r; });
-      render(byName);
-    })
-    .catch(renderError);
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (rows) {
+        clearTimeout(timer);
+        if (!Array.isArray(rows)) throw new Error('bentuk data tidak dikenal');
+        var byName = {};
+        rows.forEach(function (r) { byName[r.name] = r; });
+        render(byName);
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        /* A public API on a phone connection fails more often than one on a
+           desk, so one silent retry before the error state. */
+        if (attempt < 1) { setTimeout(function () { load(attempt + 1); }, 900); return; }
+        renderError();
+      });
+  }
+
+  /* ── Start ────────────────────────────────────────────────────────────── */
+
+  renderSkeleton();
+  afterTyping(function () {
+    revealify();
+    onScroll();
+    load(0);
+  });
 })();
 </script>
 </body>

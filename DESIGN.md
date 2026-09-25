@@ -1,108 +1,142 @@
-# DESIGN.md — udincloud.me
-
-> **Provenance:** the owner chose "draft without direction", so every style
-> decision in this file was written by the agent, not by the owner. That is the
-> exact case R-37 warns about: agent-authored direction tends toward default
-> taste. The result is therefore a **draft**, not a shippable deliverable, and it
-> is dialled honestly at **ENERGY 2 / RHYTHM 2 / MOTION 1** rather than being
-> dressed up as more bold than it is. The palette and typeface are not invented
-> from nothing: they carry over from the existing `music.html` direction, which
-> is the one real piece of identity this domain already has.
+# DESIGN.md: udincloud.me
 
 Direction for the personal index page at `udincloud.me`, the root of the domain.
 Every other page (music.html, player.html) is a thing opened *from* here.
 
 ## Reading
 
-Reading this as: a personal index page for someone who builds things, opened by a
-friend, a lecturer, or a recruiter who has exactly one link, in a
-**workshop-desk** visual language, dial **ENERGY 2 / RHYTHM 2 / MOTION 1**.
+Reading this as: a personal index page for a builder who works in Kali Linux all
+day, opened by a friend, a lecturer, or a recruiter with exactly one link, in a
+**live terminal session** visual language, dial **ENERGY 3 / RHYTHM 3 /
+MOTION 3**.
 
-The surface is **Explore** first and **Decide** second: the visitor is scanning
-what exists and then choosing one thing to open. It is not a marketing surface,
-so there is no hero-and-three-cards and no claim about a product.
+This is an **Explore** surface with a **Decide** job: scan what exists, then pick
+one thing to open.
+
+## Provenance, and the R-37 note
+
+The owner chose this direction in two steps, and both are recorded here because
+R-37 is about who wrote the direction:
+
+1. v1 was built after the owner said "draft without direction", so v1's direction
+   was agent-authored and it read as a text document. The owner rejected it:
+   "masih jelek hasilnya, gua mau yg lebih animatif dan berkesan wowwww".
+2. The owner then chose **motion-heavy** and the **dev / terminal / matrix**
+   register, and confirmed the register is **not decoration**: they use Kali
+   Linux and a terminal daily. That lived experience is the criterion R-37 asks
+   for. A terminal-styled page for someone who lives in a terminal is identity,
+   not costume.
+
+### Overrides, named and approved before building (R-37)
+
+Three patterns sit next to the Hard Gate. Each was named to the owner with its
+rule number before any code was written, and the owner chose to keep them on the
+condition that each has a stated job. They are recorded here so the exception is
+auditable rather than silent:
+
+| Rule | Pattern | Status | The job it does here |
+|---|---|---|---|
+| R-07 | Background grid | **Kept, owner-approved** | The terminal's own texture, at 4% opacity. It is the page's identity motif and the only purely decorative element on the page, which is exactly why it is nearly invisible. |
+| R-06 | Monospace type | **Kept, owner-approved** | The page is styled as a session log. Mono is the native voice of that medium: it is the type the subject reads all day, not a display font chosen to look technical. |
+| R-01 / R-13 | Glow | **Kept, owner-approved, dose-capped** | Glow marks **live state only**: the caret, the prompt line, the scroll bar, and a row the pointer is on. It never sits on static decoration. |
+
+Nothing else in the slop list was requested, and nothing else is present.
 
 ## Identity
 
-**What it is:** a desk with the work laid out on it. The live tools are at arm's
-reach; the repos are the drawer underneath.
+**What it is:** the page as a terminal session that has already run. The prompt
+is at the top, the output is the work, and the caret is still blinking.
 
-**Personality:** hands-on, unfussy, quietly confident. Someone who ships instead
-of someone who talks about shipping. Closer to a workshop bench than a homepage.
+**Personality:** fast, exact, a little cocky. It does not explain itself twice.
+It answers in output, not in paragraphs.
 
-**Not:** a portfolio template. No "Welcome to my portfolio", no skill bars, no
-percentage proficiency, no photographs of a desk plant. Nothing on this page is
-there because portfolios usually have it.
+**Not:** a "cyberpunk" theme park. No glitch text, no katakana rain, no fake
+breach logs, no scanlines over everything, no invented CVE numbers, no `ACCESS
+GRANTED` theatre. Those are the costume. The real thing is quieter and it works.
 
-## Palette (2 cores + 1 accent)
+## Palette (2 cores + 2 accents, each with one job)
 
 | Role | Value | Reason |
 |---|---|---|
-| Surface (core) | `#0f0f11` | The same near-black family as music.html, so the domain feels like one place. Warm-neutral, not blue-black. |
-| Ink (core) | `#f2f2f3` / `#9c9ca6` | Two-step text. Primary for names and headings, muted for descriptions and metadata. |
-| Accent | `#ff5c38` | The ember accent carried over from music.html. It is the identity thread across the whole domain. Used in exactly four places, and every one of them is a response to the pointer or the keyboard: the underline on a hovered link, the focus ring, the arrow on a hovered tool row, and the name of a hovered tool row. Never as a static fill, so the page stays quiet until someone touches it. |
-
-No gradients. No glow. No glass. Surface stays flat.
+| Surface (core) | `#08090b` | True near-black with a cold cast, the colour of an unlit terminal. Darker than v1 because the glow needs something to sit against. |
+| Surface (raised) | `#0e1014` | The row the pointer is on. One step up, so it needs no border. |
+| Ink (core) | `#e7e9ec` / `#8b929e` / `#78808c` | Three-step text: output, secondary, comment. The comment tier is what makes it read as a session rather than a list, and it is set at the lightest value that still clears 4.5:1 against both the surface and the raised row (4.99:1 and 4.77:1). |
+| Accent (primary) | `#4ee08a` | Terminal green, the colour of `user@host` in a prompt. Used for live state and for the page's own voice. |
+| Accent (secondary) | `#ff5c38` | The ember carried from `music.html`, kept deliberately: it is the thread tying this page to the music and video pages. It appears **once**, on the one link that leaves the domain, so the exits are visually distinct from internal navigation. |
 
 ## Typography
 
-- **Body and UI:** `Instrument Sans`. Same family as music.html. Chosen so the
-  domain reads as one system, and because it holds up at 14-16px without looking
-  like the browser default.
-- **Display, and nothing else:** `Fraunces`, for the name at the top and the one
-  section that deserves weight. One serif voice, used twice at most. It is the
-  page's hand-written label on the desk.
-- Scale is fluid with `clamp()`. No uppercase tracked labels, no monospace.
+- **Everything that is output:** `JetBrains Mono`, fallback `ui-monospace`, then
+  the system mono stack. One family for the page. No second mono.
+- **The name, and only the name:** `Fraunces`, carried from `music.html`. It is
+  the one human element in the session, which makes the page a person's desk
+  rather than a log file.
+- Scale is fluid with `clamp()`. The body sits at 14 to 15px because that is what
+  a terminal uses, not because small type looks technical.
 
 ## Layout, and why it is not a template
 
-The page is a **single scrolling column of differently-shaped blocks**, because
-the content is genuinely different in kind:
+The page is a **session transcript**: one column, top to bottom, in the order a
+person would actually run it.
 
-1. **The name block.** Name, one line of what this is, the three social links.
-   Text only, no card, no avatar, no badge.
-2. **Live tools, as a short list of wide rows.** These are the things a visitor
-   can actually open right now (`music.html`, `player.html`). A row, not a card,
-   because there are two of them and cards would be a grid pretending to be a
-   set. Each row states what it does in one line and answers on hover.
-3. **Selected work.** The repos that are actually interesting, each written as a
-   sentence about what it does, with the language and the link. This is a list
-   with real hierarchy, not an equal-weight grid: the pathfinding project and the
-   WhatsApp bot get more room than the coursework repos.
-4. **Coursework and the rest.** Deliberately demoted to a compact two-column
-   index at the bottom. They are real and they are here, but they are not the
-   pitch. This is what stops the page reading as a template: one section is
-   allowed to be visually quiet.
-5. **The footer.** One line. No four-column footer.
+1. **The prompt line.** `user@udincloud:~$ whoami`, and the output below it. This
+   is the entry point and it types itself out on load. Text only.
+2. **The identity output.** Name, one line of what this is, the social links, as
+   output rather than as a card.
+3. **`ls ~/tools`** then two rows for the things that open right now. These rows
+   are the most interactive element on the page.
+4. **`git log --projects`** then the repos that matter, each as a commit-like
+   entry: name, the sentence describing it, metadata. The strongest project gets
+   more weight than the rest.
+5. **`ls ~/coursework`** then the coursework as a compact index, visually quiet
+   on purpose.
+6. **The prompt line again, with a blinking caret.** The session ends where it
+   can start again.
 
-The variation between blocks is the RHYTHM 2 evidence: a text block, then wide
-rows, then an uneven list, then a dense index, then one line.
+The rhythm varies on purpose (RHYTHM 3): a typed line, then output, then a row
+list, then an uneven list, then a dense index, then a lone prompt.
 
-## Motion (MOTION 1)
+## Motion (MOTION 3: it is the point, not the garnish)
 
-Hover underline on links, focus rings, and nothing else. No scroll reveals, no
-entrance animation, no floating. The page is a reference, not a show.
+The owner asked for motion, so motion carries work instead of decorating:
+
+1. **Entry typing.** The prompt types character by character on load, caret
+   following. It sets the metaphor in two seconds.
+2. **Scroll reveal.** Blocks rise and fade in once each as they enter, staggered
+   by their own lines. It paces the read.
+3. **Row response.** Tool rows lift, show a text cursor, and their accent edge
+   fills. It is the affordance.
+4. **Scroll progress.** One hairline at the very top fills as the page is read.
+   It is a position cue.
+5. **Live caret.** The caret blinks forever, including at the closing prompt.
+
+Every one of the above collapses under `prefers-reduced-motion: reduce`, where
+the page renders complete and static.
 
 ## States
 
-The page is static content, so the three required states apply to the parts that
-are fetched:
+The page is static content, so the three required states apply to the repo list,
+written in the terminal's own voice:
 
-| Part | Empty | Loading | Error |
-|---|---|---|---|
-| Repo list | "Repo belum dimuat." plus a direct GitHub link | Row skeletons at real row height | "Tidak bisa memuat daftar repo." plus a direct GitHub link |
+| State | What it prints |
+|---|---|
+| Empty | `// belum ada repo yang dimuat.` plus the GitHub link |
+| Loading | Skeleton rows at real row height, with a `fetching...` line |
+| Error | `!! tidak bisa memuat daftar repo. exit 1` plus the GitHub link |
 
-The repo list is fetched from the GitHub API at load. If it fails, the page still
-works: the live tools block and every static link are real `href`s that do not
-depend on the fetch.
+The fetch has a 10 second timeout and retries once, because a public API on a
+phone connection fails more often than one on a desk. If it fails, the page still
+works: the tool rows and every static link are real `href`s that do not need it.
 
 ## Copy rules
 
-No em dash. No emoji in the headings. No invented numbers, no visitor counts, no
-"trusted by". The only counts on the page are real ones that come from the API
-response (repo count), and they are written plainly.
+No em dash. No fake logs, no invented exit codes on operations that did not
+happen, no numbers that did not come from the API, and no claim about a break-in.
+The terminal voice is used for what actually happened on this page, and nothing
+else.
 
 ## Exclusions
 
-No hero image, no fake terminal, no skill bars, no "about me" paragraph that says
-nothing, no downloadable CV that does not exist, no contact form that goes nowhere.
+No glitch effect, no katakana rain, no scanline overlay, no fake `ACCESS
+GRANTED`, no audio, no pointer trap, and no motion for a visitor who asked the
+system for less.
