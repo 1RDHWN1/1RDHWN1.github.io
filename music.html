@@ -440,6 +440,39 @@
   .embed-wrap.on { display: block; }
   .embed-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+  /* Source switch. Two real options, nothing decorative. */
+  .modes {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .mode {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-muted);
+    font: inherit;
+    font-size: 12.5px;
+    cursor: pointer;
+  }
+
+  .mode:hover { color: var(--ink); border-color: #3a3a44; }
+
+  .mode.on {
+    background: var(--raised);
+    color: var(--ink);
+    border-color: #3a3a44;
+  }
+
+  .mode:focus-visible {
+    outline: 3px solid rgba(255, 92, 56, 0.5);
+    outline-offset: 2px;
+  }
+
   @media (min-width: 700px) {
     .panes {
       grid-template-columns: minmax(0, 1fr) 360px;
@@ -532,8 +565,13 @@
         </div>
       </div>
       <p class="notice" id="notice"></p>
+      <div class="modes">
+        <button id="modeFull" class="mode on" type="button" aria-pressed="true">Lagu penuh</button>
+        <button id="modeClip" class="mode" type="button" aria-pressed="false">Cuplikan 30 detik</button>
+      </div>
       <div class="embed-wrap" id="embedWrap">
-        <iframe id="embed" src="" title="Pemutar cadangan" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+        <iframe id="embed" src="" title="Pemutar lagu penuh"
+                allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
     </section>
   </div>
@@ -541,6 +579,7 @@
 
 <audio id="audio" preload="none" crossorigin="anonymous"></audio>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 (function () {
   'use strict';
@@ -571,13 +610,43 @@
   var noticeEl = document.getElementById('notice');
   var embedWrap = document.getElementById('embedWrap');
   var embedEl = document.getElementById('embed');
+  var modeFull = document.getElementById('modeFull');
+  var modeClip = document.getElementById('modeClip');
 
   var tracks = [];
   var page = 1;
   var selectedKey = null;
+  // 'full' plays the whole song through the YouTube player; 'clip' plays the
+  // 30 s iTunes preview in the plain <audio> element. Full is the default
+  // because a 30 s sample is not what anyone came here for.
+  var mode = 'full';
+  var ytPlayer = null;
 
   var params = new URLSearchParams(location.search);
   var initialQuery = (params.get('q') || '').trim();
+  // The bot resolves exactly one id for the song the user asked for. That row
+  // gets real full-song playback; the rest of the list is a starting point.
+  var initialVideoId = (params.get('v') || '').replace(/[^A-Za-z0-9_-]/g, '');
+
+  /* Attach the bot's video id to the best-matching row after the list loads.
+     Title match first, then artist, so the id never lands on a wrong song. */
+  function applyInitialVideoId() {
+    if (!initialVideoId || !tracks.length) return;
+    var q = initialQuery.toLowerCase();
+    var best = null;
+    var bestScore = 0;
+    tracks.forEach(function (t) {
+      var hay = (t.title + ' ' + t.artist).toLowerCase();
+      var score = 0;
+      if (hay.indexOf(q) !== -1 && q) score += 2;
+      // Word overlap as a cheap similarity, no dependency needed.
+      q.split(/\s+/).forEach(function (w) {
+        if (w.length > 2 && hay.indexOf(w) !== -1) score += 1;
+      });
+      if (score > bestScore) { bestScore = score; best = t; }
+    });
+    if (best) best.videoId = initialVideoId;
+  }
 
   function fmt(sec) {
     if (!isFinite(sec) || sec < 0) sec = 0;
@@ -590,11 +659,6 @@
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  function clearEmbed() {
-    embedWrap.classList.remove('on');
-    embedEl.src = '';
   }
 
   /* Loading state keeps the real row height so the list never jumps. */
@@ -684,6 +748,17 @@
     barTrack.setAttribute('aria-disabled', on ? 'false' : 'true');
   }
 
+  function setMode(next) {
+    mode = next;
+    var full = next === 'full';
+    modeFull.classList.toggle('on', full);
+    modeClip.classList.toggle('on', !full);
+    modeFull.setAttribute('aria-pressed', full ? 'true' : 'false');
+    modeClip.setAttribute('aria-pressed', full ? 'false' : 'true');
+    var cur = tracks.filter(function (t) { return t.key === selectedKey; })[0];
+    if (cur) select(cur);
+  }
+
   function select(t) {
     selectedKey = t.key;
 
@@ -696,26 +771,59 @@
     artLg.src = t.art ? t.art.replace('100x100', '300x300') : '';
     artLg.alt = t.art ? ('Sampul ' + t.title) : '';
 
-    clearEmbed();
+    // Stop whichever source was running before switching.
+    audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+    if (ytPlayer && ytPlayer.stopVideo) { try { ytPlayer.stopVideo(); } catch (e) {} }
+    embedWrap.classList.remove('on');
 
-    // Playable only with a preview URL. Without one the row still selects and
-    // the embed takes over, with the reason stated instead of failing quietly.
-    if (!t.preview) {
-      audio.removeAttribute('src');
-      audio.load();
-      barFill.style.width = '0%';
-      tCur.textContent = '0:00';
-      tDur.textContent = typeof t.seconds === 'number' ? fmt(t.seconds) : '0:00';
-      setEnabled(false);
-      embedWrap.classList.add('on');
-      embedEl.src = 'https://www.youtube-nocookie.com/embed?listType=search&list=' +
-        encodeURIComponent(t.title + ' ' + t.artist) + '&autoplay=1&rel=0';
-      noticeEl.innerHTML = 'Lagu ini tidak punya cuplikan audio, jadi diputar lewat pemutar cadangan. ' +
+    if (mode === 'clip') {
+      selectClip(t);
+    } else {
+      selectFull(t);
+    }
+  }
+
+  /* Full song. The YouTube IFrame player is the only source that can legally
+     and reliably serve a whole track from a static page: it is served by
+     YouTube itself, so there is no CORS wall and no server in the middle.
+     The bot resolves one video id per link; rows without one fall back to the
+     clip, with a YouTube search link beside it. */
+  function selectFull(t) {
+    var videoId = t.videoId;
+    if (!videoId) {
+      noticeEl.innerHTML = 'Lagu ini belum punya padanan video, jadi diputar sebagai cuplikan. ' +
         '<a href="https://www.youtube.com/results?search_query=' +
-        encodeURIComponent(t.title + ' ' + t.artist) + '" target="_blank" rel="noopener">Buka di YouTube</a>';
+        encodeURIComponent(t.title + ' ' + t.artist) + '" target="_blank" rel="noopener">Cari di YouTube</a>';
+      selectClip(t);
       return;
     }
 
+    noticeEl.textContent = 'Lagu penuh diputar lewat pemutar YouTube resmi.';
+    embedWrap.classList.add('on');
+    setEnabled(true);
+    barFill.style.width = '0%';
+    tCur.textContent = '0:00';
+    tDur.textContent = typeof t.seconds === 'number' ? fmt(t.seconds) : '0:00';
+
+    if (ytPlayer && ytPlayer.loadVideoById) {
+      ytPlayer.loadVideoById(videoId);
+      return;
+    }
+    // First use: the API script may still be loading. Stash the id and let the
+    // ready handler start it, instead of racing the script.
+    pendingVideoId = videoId;
+  }
+
+  function selectClip(t) {
+    if (!t.preview) {
+      noticeEl.innerHTML = 'Cuplikan tidak tersedia. ' +
+        '<a href="https://www.youtube.com/results?search_query=' +
+        encodeURIComponent(t.title + ' ' + t.artist) + '" target="_blank" rel="noopener">Cari di YouTube</a>';
+      setEnabled(false);
+      return;
+    }
     noticeEl.textContent = 'Cuplikan resmi 30 detik dari iTunes.';
     audio.src = t.preview;
     setEnabled(true);
@@ -742,7 +850,7 @@
       .then(function (data) {
         var rows = (data && data.results) || [];
         tracks = rows
-          .filter(function (r) { return r.previewUrl || r.trackName; })
+          .filter(function (r) { return r.trackName; })
           .map(function (r, i) {
             return {
               key: (r.trackId || i) + ':' + (r.trackName || ''),
@@ -759,16 +867,74 @@
           return;
         }
 
+        // The one id the bot resolved wins for the song it named; every other
+        // row is played by handing YouTube the search, which keeps the page
+        // backend-free.
+        applyInitialVideoId();
+
         page = 1;
         selectedKey = null;
         renderList();
-        select(tracks[0]);
+        var first = tracks.filter(function (t) { return t.videoId; })[0] || tracks[0];
+        select(first);
       })
       .catch(function (err) {
         tracks = [];
         renderState('<strong>Koneksi ke server pencarian gagal.</strong><br>Coba cari ulang. Kalau masih gagal, periksa koneksi internet. (' + escapeHtml(err.message || 'error') + ')');
       });
   }
+
+  // ── YouTube IFrame player ───────────────────────────────────────────────
+  // Serves the whole song. It has to be the real iframe API (not a plain
+  // <iframe src>) because only the API gives us progress, play/pause and seek,
+  // which the transport row and the progress bar are wired to.
+  var pendingVideoId = null;
+
+  window.onYouTubeIframeAPIReady = function () {
+    ytPlayer = new YT.Player('embed', {
+      width: '100%',
+      height: '100%',
+      playerVars: { rel: '0', playsinline: 1, origin: location.origin },
+      events: {
+        onReady: function () {
+          if (pendingVideoId) { ytPlayer.loadVideoById(pendingVideoId); pendingVideoId = null; }
+        },
+        onStateChange: function (e) {
+          if (e.data === YT.PlayerState.PLAYING) {
+            playBtn.innerHTML = '&#10073;&#10073;';
+            playBtn.setAttribute('aria-label', 'Jeda');
+          } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+            playBtn.innerHTML = '&#9654;';
+            playBtn.setAttribute('aria-label', 'Putar');
+          }
+        },
+        onError: function () {
+          // Some uploads forbid embedding. Fall back to the clip rather than
+          // leaving a dead black rectangle.
+          noticeEl.innerHTML = 'Video ini tidak bisa diputar di halaman. Dicoba sebagai cuplikan. ' +
+            '<a href="https://www.youtube.com/results?search_query=' +
+            encodeURIComponent((titleEl.textContent || '') + ' ' + (artistEl.textContent || '')) +
+            '" target="_blank" rel="noopener">Buka di YouTube</a>';
+          if (mode === 'full') { mode = 'clip'; modeFull.classList.remove('on'); modeClip.classList.add('on'); }
+          var cur = tracks.filter(function (t) { return t.key === selectedKey; })[0];
+          if (cur) selectClip(cur);
+        }
+      }
+    });
+  };
+
+  // The player's own clock drives the bar while it is the active source.
+  setInterval(function () {
+    if (mode !== 'full' || !ytPlayer || !ytPlayer.getCurrentTime) return;
+    var d = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
+    var c = ytPlayer.getCurrentTime() || 0;
+    if (d > 0) {
+      barFill.style.width = (c / d * 100).toFixed(2) + '%';
+      barTrack.setAttribute('aria-valuenow', Math.round(c / d * 100));
+      tDur.textContent = fmt(d);
+    }
+    tCur.textContent = fmt(c);
+  }, 500);
 
   function paintProgress() {
     var d = audio.duration;
@@ -796,35 +962,68 @@
   });
 
   playBtn.addEventListener('click', function () {
+    if (mode === 'full') {
+      if (!ytPlayer || !ytPlayer.getPlayerState) return;
+      if (ytPlayer.getPlayerState() === 1) ytPlayer.pauseVideo();
+      else ytPlayer.playVideo();
+      return;
+    }
     if (!audio.src) return;
     if (audio.paused) { audio.play().catch(function () {}); }
     else { audio.pause(); }
   });
 
   backBtn.addEventListener('click', function () {
+    if (mode === 'full') {
+      if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+      ytPlayer.seekTo(Math.max(0, ytPlayer.getCurrentTime() - 10), true);
+      return;
+    }
     if (!audio.src) return;
     audio.currentTime = Math.max(0, audio.currentTime - 10);
   });
 
   fwdBtn.addEventListener('click', function () {
+    if (mode === 'full') {
+      if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+      var dur = ytPlayer.getDuration ? ytPlayer.getDuration() : 0;
+      ytPlayer.seekTo(Math.min(dur, ytPlayer.getCurrentTime() + 10), true);
+      return;
+    }
     if (!audio.src || !isFinite(audio.duration)) return;
     audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
   });
 
   function seekFromEvent(e) {
-    if (!audio.src || !isFinite(audio.duration) || audio.duration <= 0) return;
     var rect = barTrack.getBoundingClientRect();
     var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     var ratio = Math.min(1, Math.max(0, x / rect.width));
+    if (mode === 'full') {
+      if (!ytPlayer || !ytPlayer.getDuration) return;
+      var d = ytPlayer.getDuration();
+      if (d > 0) ytPlayer.seekTo(ratio * d, true);
+      return;
+    }
+    if (!audio.src || !isFinite(audio.duration) || audio.duration <= 0) return;
     audio.currentTime = ratio * audio.duration;
   }
 
   barTrack.addEventListener('click', seekFromEvent);
   barTrack.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    var delta = e.key === 'ArrowRight' ? 5 : -5;
+    if (mode === 'full') {
+      if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+      ytPlayer.seekTo(Math.max(0, ytPlayer.getCurrentTime() + delta), true);
+      return;
+    }
     if (!audio.src || !isFinite(audio.duration)) return;
-    if (e.key === 'ArrowRight') { e.preventDefault(); audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); audio.currentTime = Math.max(0, audio.currentTime - 5); }
+    audio.currentTime = Math.min(audio.duration, Math.max(0, audio.currentTime + delta));
   });
+
+  modeFull.addEventListener('click', function () { setMode('full'); });
+  modeClip.addEventListener('click', function () { setMode('clip'); });
 
   audio.addEventListener('timeupdate', paintProgress);
   audio.addEventListener('loadedmetadata', paintProgress);
