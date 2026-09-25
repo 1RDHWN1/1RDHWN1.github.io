@@ -630,6 +630,9 @@
   // The bot resolves exactly one id for the song the user asked for. That row
   // gets real full-song playback; the rest of the list is a starting point.
   var initialVideoId = (params.get('v') || '').replace(/[^A-Za-z0-9_-]/g, '');
+  // 'video' opens straight on the moving picture with sound, 'full' on the
+  // audio-first view. Same page, same player, only the framing differs.
+  var initialMode = params.get('mode') === 'video' ? 'video' : 'full';
 
   /* Attach the bot's video id to the best-matching row after the list loads.
      Title match first, then artist, so the id never lands on a wrong song. */
@@ -753,11 +756,14 @@
 
   function setMode(next) {
     mode = next;
-    var full = next === 'full';
+    // Both full and video play the whole track through the same YouTube
+    // player; only the chip state differs, so video is treated as full here.
+    var full = next === 'full' || next === 'video';
     modeFull.classList.toggle('on', full);
     modeClip.classList.toggle('on', !full);
     modeFull.setAttribute('aria-pressed', full ? 'true' : 'false');
     modeClip.setAttribute('aria-pressed', full ? 'false' : 'true');
+    modeFull.textContent = next === 'video' ? 'Video penuh' : 'Lagu penuh';
     var cur = tracks.filter(function (t) { return t.key === selectedKey; })[0];
     if (cur) select(cur);
   }
@@ -1079,6 +1085,7 @@
   // without the user touching anything.
   if (initialQuery) {
     qEl.value = initialQuery;
+    if (initialMode === 'video') setMode('video');
     search(initialQuery);
   } else {
     qEl.focus();
