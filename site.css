@@ -379,6 +379,11 @@ h2 .dir { color: var(--green-dim); }
 .skeleton .w2 { width: 74%; margin-bottom: 7px; }
 .skeleton .w3 { width: 30%; }
 
+/* Says when the committed snapshot was taken. Quiet, because a stale list is
+   not a problem, it just should not be a surprise. */
+.stamp { margin: 6px 0 0; font-size: .76rem; color: var(--faint); }
+.stamp:empty { display: none; }
+
 /* ── Entrance motion ───────────────────────────────────────────────────────
    One CSS animation, triggered by adding .enter from JS. There is no hidden
    default state anywhere: if the class is never added, or the animation never

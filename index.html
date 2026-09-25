@@ -72,6 +72,7 @@
       <h2 id="work-head"><span class="dir">$ </span>git log --projects</h2>
       <span class="tally" id="workTally"></span>
     </div>
+    <p class="stamp" id="fresh"></p>
     <ul class="work" id="workList" aria-live="polite" aria-busy="true"></ul>
   </section>
 
@@ -114,7 +115,6 @@
 (function () {
   'use strict';
 
-  var API = 'https://api.github.com/users/1RDHWN1/repos?per_page=100&sort=updated';
   var listEl = document.getElementById('workList');
   var tallyEl = document.getElementById('workTally');
   var GH = 'https://github.com/1RDHWN1';
@@ -338,32 +338,53 @@
     return Math.floor(months / 12) + ' tahun lalu';
   }
 
+  /* Read the list that ships with the page.
+     This used to call api.github.com from the browser, which is a 60-per-hour
+     budget per IP address. It ran out in practice and the section showed an
+     error for every visitor until it recovered, so the list is now generated
+     by tools/snapshot-repos.sh and committed as a normal static asset. */
+  var REPOS_URL = 'repos.json';
+
   function load(attempt) {
     var ctl = 'AbortController' in window ? new AbortController() : null;
     var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 10000);
 
-    fetch(API, {
-      headers: { 'Accept': 'application/vnd.github+json' },
-      signal: ctl ? ctl.signal : undefined
-    })
+    fetch(REPOS_URL, { cache: 'no-cache', signal: ctl ? ctl.signal : undefined })
       .then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
-      .then(function (rows) {
+      .then(function (payload) {
         clearTimeout(timer);
+        var rows = payload && payload.repos;
         if (!Array.isArray(rows)) throw new Error('bentuk data tidak dikenal');
+        if (payload.generated) showFreshness(payload.generated);
         var byName = {};
         rows.forEach(function (r) { byName[r.name] = r; });
         render(byName);
       })
       .catch(function () {
         clearTimeout(timer);
-        /* A public API on a phone connection fails more often than one on a
-           desk, so one silent retry before the error state. */
+        /* A phone connection drops more often than a desk one, so one silent
+           retry before the error state. */
         if (attempt < 1) { setTimeout(function () { load(attempt + 1); }, 900); return; }
         renderError();
       });
+  }
+
+  /* Say how old the snapshot is. A stale list is fine; an unexplained one is
+     not, and the visitor can always click through to the live view. */
+  function showFreshness(iso) {
+    var el = document.getElementById('fresh');
+    if (!el) return;
+    var then = Date.parse(iso);
+    if (isNaN(then)) return;
+    var days = Math.floor((Date.now() - then) / 86400000);
+    var when = days <= 0 ? 'hari ini'
+      : days === 1 ? 'kemarin'
+      : days < 30 ? days + ' hari lalu'
+      : Math.floor(days / 30) + ' bulan lalu';
+    el.textContent = '# daftar per ' + when;
   }
 
   /* ── Start ────────────────────────────────────────────────────────────── */
