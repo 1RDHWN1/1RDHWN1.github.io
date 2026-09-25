@@ -40,7 +40,7 @@ there because portfolios usually have it.
 |---|---|---|
 | Surface (core) | `#0f0f11` | The same near-black family as music.html, so the domain feels like one place. Warm-neutral, not blue-black. |
 | Ink (core) | `#f2f2f3` / `#9c9ca6` | Two-step text. Primary for names and headings, muted for descriptions and metadata. |
-| Accent | `#ff5c38` | The ember accent carried over from music.html. It is the identity thread across the whole domain. Used in exactly three places: the status dot on live tools, the hover underline on links, and the focus ring. |
+| Accent | `#ff5c38` | The ember accent carried over from music.html. It is the identity thread across the whole domain. Used in exactly four places, and every one of them is a response to the pointer or the keyboard: the underline on a hovered link, the focus ring, the arrow on a hovered tool row, and the name of a hovered tool row. Never as a static fill, so the page stays quiet until someone touches it. |
 
 No gradients. No glow. No glass. Surface stays flat.
 
@@ -64,7 +64,7 @@ the content is genuinely different in kind:
 2. **Live tools, as a short list of wide rows.** These are the things a visitor
    can actually open right now (`music.html`, `player.html`). A row, not a card,
    because there are two of them and cards would be a grid pretending to be a
-   set. Each row states what it does in one line and carries the accent dot.
+   set. Each row states what it does in one line and answers on hover.
 3. **Selected work.** The repos that are actually interesting, each written as a
    sentence about what it does, with the language and the link. This is a list
    with real hierarchy, not an equal-weight grid: the pathfinding project and the
