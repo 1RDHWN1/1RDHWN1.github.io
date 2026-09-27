@@ -1,14 +1,23 @@
 {
-  "generated": "2026-09-25T10:28:40Z",
+  "generated": "2026-09-27T18:09:01Z",
   "source": "github.com/1RDHWN1",
   "repos": [
+    {
+      "archived": false,
+      "description": "Aplikasi Digital Signature pada Dokumen PDF Berbasis QR-Code - Tugas Proyek UTS Keamanan Informasi 20261",
+      "html_url": "https://github.com/1RDHWN1/uts-ki-digital-signature",
+      "language": "Python",
+      "name": "uts-ki-digital-signature",
+      "pushed": "2026-09-27T18:00:57Z",
+      "stars": 0
+    },
     {
       "archived": false,
       "description": null,
       "html_url": "https://github.com/1RDHWN1/1RDHWN1.github.io",
       "language": "HTML",
       "name": "1RDHWN1.github.io",
-      "pushed": "2026-09-25T10:25:08Z",
+      "pushed": "2026-09-25T10:43:00Z",
       "stars": 0
     },
     {
