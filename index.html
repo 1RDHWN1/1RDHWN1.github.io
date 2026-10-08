@@ -48,8 +48,16 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg);
 }
-html:has(:focus) {
+html:has(input:focus, textarea:focus, select:focus) {
   scroll-behavior: auto;
+}
+#clipai,
+#signacerta,
+#infrastruktur,
+#infrastructure,
+#infra,
+#pipeline {
+  scroll-margin-top: 96px;
 }
 body {
   margin: 0;
@@ -179,11 +187,33 @@ img {
   background: rgba(56, 189, 248, 0.08);
 }
 .nav-links {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
 }
+.nav-active-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  width: 0;
+  border-radius: 7px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+  will-change: transform, width;
+}
 .nav-links a {
+  position: relative;
+  z-index: 2;
   min-height: 44px;
   min-width: 44px;
   padding: 0 14px;
@@ -199,6 +229,10 @@ img {
 .nav-links a:hover {
   color: var(--text-main);
   background: rgba(255, 255, 255, 0.05);
+}
+.nav-links a.active {
+  color: var(--text-main);
+  font-weight: 600;
 }
 .btn-nav {
   min-height: 44px;
@@ -1605,6 +1639,9 @@ html.js-ready .reveal-item.is-revealed {
   html {
     scroll-behavior: auto;
   }
+  .nav-active-pill {
+    transition: none !important;
+  }
   *, *::before, *::after {
     transition-duration: 0s !important;
     animation-duration: 0s !important;
@@ -1639,6 +1676,7 @@ html.js-ready .reveal-item.is-revealed {
       <span>UdinCloud <span class="brand-lab">LAB</span></span>
     </a>
     <nav class="nav-links navlinks" aria-label="Primary navigation">
+      <span class="nav-active-pill" aria-hidden="true"></span>
       <a href="#produk">Produk</a>
       <a href="#clipai">ClipAI</a>
       <a href="#signacerta">SignaCerta</a>
@@ -1821,7 +1859,7 @@ html.js-ready .reveal-item.is-revealed {
             </figcaption>
           </figure>
 
-          <ul class="pipeline-list" aria-label="ClipAI pipeline architecture">
+          <ul class="pipeline-list" id="pipeline" aria-label="ClipAI pipeline architecture">
             <li class="pipeline-card spotlight-card reveal-item" data-stagger="0">
               <span class="pipeline-num">01</span>
               <div>
@@ -1992,6 +2030,7 @@ html.js-ready .reveal-item.is-revealed {
   <!-- Sovereign Infrastructure Asymmetric Bento Grid -->
   <section class="section-infra" id="infrastruktur" aria-labelledby="infra-heading">
     <div id="infrastructure"></div>
+    <div id="infra"></div>
     <div class="shell">
       <div class="section-intro reveal-item" data-stagger="0">
         <span class="tag">SOVEREIGN CLOUD FABRIC</span>
@@ -2759,6 +2798,209 @@ html.js-ready .reveal-item.is-revealed {
       telLatency.textContent = latencies[latIdx];
     }, 2800);
   }
+
+  // --- 8. Kinetic Spring Momentum Smooth Scroll & Sliding Active Pill ---
+  (function initKineticNav() {
+    const navWrap = document.querySelector('.nav-wrap');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const navPill = document.querySelector('.nav-active-pill');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if (!navLinksContainer) return;
+
+    let isAutoScrolling = false;
+    let autoScrollTimer = null;
+
+    function getStickyOffset() {
+      return navWrap ? navWrap.offsetHeight : 76;
+    }
+
+    function getTargetScrollY(targetEl) {
+      if (!targetEl) return 0;
+      const targetId = targetEl.getAttribute('id');
+      const offset = getStickyOffset();
+
+      // Top-level hero section begins at 77px
+      if (targetId === 'produk') {
+        return Math.max(0, targetEl.offsetTop);
+      }
+
+      const rect = targetEl.getBoundingClientRect();
+      const pageY = rect.top + window.scrollY;
+      return Math.max(0, Math.round(pageY - offset));
+    }
+
+    function updatePill(targetLink, immediate) {
+      if (!navPill || !targetLink) return;
+      const containerRect = navLinksContainer.getBoundingClientRect();
+      const linkRect = targetLink.getBoundingClientRect();
+
+      const x = Math.round(linkRect.left - containerRect.left);
+      const y = Math.round(linkRect.top - containerRect.top);
+      const w = Math.round(linkRect.width);
+      const h = Math.round(linkRect.height);
+
+      if (immediate || prefersReducedMotion) {
+        navPill.style.transition = 'none';
+      } else {
+        navPill.style.transition = '';
+      }
+
+      navPill.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+      navPill.style.width = w + 'px';
+      navPill.style.height = h + 'px';
+      navPill.style.opacity = '1';
+    }
+
+    function setActiveLink(targetId, immediate) {
+      if (!targetId) return;
+      let activeLink = null;
+      navLinks.forEach(function(link) {
+        const href = link.getAttribute('href');
+        if (href === '#' + targetId || (targetId === 'produk' && href === '#produk')) {
+          link.classList.add('active');
+          activeLink = link;
+        } else if (href && href.startsWith('#')) {
+          link.classList.remove('active');
+        }
+      });
+
+      if (activeLink) {
+        updatePill(activeLink, immediate);
+      }
+    }
+
+    // Interactive Anchor Click Handling with Kinetic Easing Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#') return;
+        const targetId = href.slice(1);
+        let targetEl = document.getElementById(targetId);
+
+        if (!targetEl) {
+          if (targetId === 'infra') targetEl = document.getElementById('infrastruktur') || document.getElementById('infrastructure');
+          if (targetId === 'pipeline') targetEl = document.getElementById('pipeline');
+        }
+        if (!targetEl) return;
+
+        e.preventDefault();
+        const targetY = getTargetScrollY(targetEl);
+
+        isAutoScrolling = true;
+        if (autoScrollTimer) clearTimeout(autoScrollTimer);
+
+        setActiveLink(targetId, false);
+
+        window.scrollTo({
+          top: targetY,
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        });
+
+        if (history.pushState) {
+          history.pushState(null, '', '#' + targetId);
+        }
+
+        autoScrollTimer = setTimeout(function() {
+          isAutoScrolling = false;
+        }, 850);
+      });
+    });
+
+    // Magnetic Highlight Hover Effect on Nav Links
+    navLinks.forEach(function(link) {
+      link.addEventListener('mouseenter', function() {
+        if (!prefersReducedMotion) {
+          updatePill(link, false);
+        }
+      });
+    });
+
+    navLinksContainer.addEventListener('mouseleave', function() {
+      const activeLink = document.querySelector('.nav-links a.active');
+      if (activeLink) {
+        updatePill(activeLink, false);
+      }
+    });
+
+    // ScrollSpy via IntersectionObserver
+    const spyTargets = [
+      { el: document.querySelector('.hero'), linkId: 'produk' },
+      { el: document.getElementById('clipai'), linkId: 'clipai' },
+      { el: document.getElementById('signacerta'), linkId: 'signacerta' },
+      { el: document.getElementById('infrastruktur'), linkId: 'infrastruktur' }
+    ].filter(function(item) { return item.el; });
+
+    if ('IntersectionObserver' in window && spyTargets.length > 0) {
+      const intersectingEntries = new Map();
+
+      const observer = new IntersectionObserver(function(entries) {
+        if (isAutoScrolling) return;
+
+        entries.forEach(function(entry) {
+          let linkId = null;
+          for (let i = 0; i < spyTargets.length; i++) {
+            if (spyTargets[i].el === entry.target) {
+              linkId = spyTargets[i].linkId;
+              break;
+            }
+          }
+          if (!linkId) return;
+
+          if (entry.isIntersecting) {
+            intersectingEntries.set(linkId, entry);
+          } else {
+            intersectingEntries.delete(linkId);
+          }
+        });
+
+        if (intersectingEntries.size === 0) return;
+
+        let bestId = null;
+        let bestScore = -Infinity;
+
+        intersectingEntries.forEach(function(entry, linkId) {
+          const rect = entry.target.getBoundingClientRect();
+          const score = entry.intersectionRatio * 2 - Math.abs(rect.top - 80) / window.innerHeight;
+          if (score > bestScore) {
+            bestScore = score;
+            bestId = linkId;
+          }
+        });
+
+        if (bestId) {
+          setActiveLink(bestId, false);
+        }
+      }, {
+        rootMargin: '-76px 0px -35% 0px',
+        threshold: [0.05, 0.2, 0.4, 0.6]
+      });
+
+      spyTargets.forEach(function(item) {
+        observer.observe(item.el);
+      });
+    }
+
+    // Top and Bottom Viewport Edge Guards
+    window.addEventListener('scroll', function() {
+      if (isAutoScrolling) return;
+      if (window.scrollY < 60) {
+        setActiveLink('produk', false);
+      } else if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        setActiveLink('infrastruktur', false);
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', function() {
+      const activeLink = document.querySelector('.nav-links a.active') || navLinks[0];
+      if (activeLink) updatePill(activeLink, true);
+    });
+
+    const initialHash = window.location.hash ? window.location.hash.slice(1) : 'produk';
+    setActiveLink(initialHash, true);
+    setTimeout(function() {
+      setActiveLink(initialHash, true);
+    }, 120);
+  })();
 })();
 </script>
 </body>
