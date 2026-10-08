@@ -1,141 +1,288 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <title>udincloud | perangkat lunak yang kami jalankan sendiri</title>
-  <meta name="description" content="ClipAI dan SignaCerta: dua aplikasi web yang dibangun dan dijalankan oleh udincloud.">
-  <meta property="og:title" content="udincloud | perangkat lunak yang kami jalankan sendiri">
-  <meta property="og:description" content="ClipAI mengolah video. SignaCerta menjaga keaslian dokumen digital.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://udincloud.me/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23101114'/%3E%3Ctext x='7' y='29' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='%23f1f0ed'%3Eu%3C/text%3E%3Ccircle cx='31' cy='30' r='3' fill='%23c6f36a'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* Critical rendering styles: the page remains legible if the external CSS fails. */
-    :root{color-scheme:dark;--bg:#101114;--panel:#191b20;--text:#f1f0ed;--muted:#b2b4bb;--lime:#c6f36a;--line:#666a73;--blue:#8ab6ff;--sans:Arial,system-ui,sans-serif;--mono:ui-monospace,monospace}
-    *{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 var(--sans)}a{color:inherit;text-decoration:none}a:focus-visible{outline:2px solid var(--lime);outline-offset:4px}.skip-link{position:absolute;left:-10000px;top:8px;z-index:10;padding:10px 16px;background:var(--lime);color:#171b0d}.skip-link:focus{left:8px}
-    .site-header{min-height:76px;max-width:1240px;margin:auto;padding:0 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line)}.wordmark{min-height:44px;display:inline-flex;align-items:center;font-size:1.28rem;font-weight:700;letter-spacing:-.065em}.wordmark span,.visual-mark,.feature-number{color:var(--lime)}.site-header nav{display:flex;align-items:center;gap:24px}.site-header nav a,.header-contact{min-height:44px;display:inline-flex;align-items:center;color:var(--muted)}
-    .intro,.product-section,.operations,.site-footer{max-width:1240px;margin:auto;padding-left:36px;padding-right:36px}.intro{padding-top:100px;padding-bottom:110px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:70px}.kicker,.product-label,.section-index,.visual-top,.visual-bottom,.track-index,.track-kind,.product-url,.demo-header,.timeline-caption,.result-meta>span,.result-meta small,.feature-number,.sign-proof,.stack-list span,.footer-year{font-family:var(--mono)}.kicker,.product-label{color:var(--lime)}.intro h1{max-width:690px;margin:0 0 24px;font-size:clamp(2.8rem,5.8vw,5.1rem);line-height:1.03;letter-spacing:-.075em}.intro-text,.product-description,.operations-copy{color:var(--muted);line-height:1.75}.text-link{min-height:44px;padding:0 6px;display:inline-flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}.intro-visual,.clip-demo,.sign-visual{border:1px solid #727781;border-radius:14px;background:#17191e}.intro-visual{min-height:340px;padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between}.visual-top,.visual-bottom{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.68rem}.visual-track{margin:40px 0;display:grid;gap:12px}.track-item{min-height:68px;padding:0 16px;display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:12px;background:var(--panel);border:1px solid #727781;border-radius:5px}.track-name{font-size:1.12rem;font-weight:600}.track-clip .track-index,.product-label{color:var(--lime)}.track-sign .track-index,.sign-label{color:var(--blue)}
-    .product-section,.operations{padding-top:72px;padding-bottom:82px;border-top:1px solid var(--line)}.section-index{display:flex;gap:18px;margin-bottom:40px;color:var(--muted);font-size:.7rem}.section-index span:first-child{color:var(--lime)}.product-layout,.sign-layout{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:70px}.product-copy h2,.operations h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.08;letter-spacing:-.06em}.button{min-height:48px;padding:0 20px;display:inline-flex;align-items:center;border-radius:5px;font-weight:700}.button-lime{background:var(--lime);color:#171b0d}.button-outline{border:1px solid #727781}.product-url{color:var(--muted);font-size:.68rem}.clip-demo,.sign-visual{padding:24px}.demo-header,.timeline,.clip-result,.paper-head,.paper-foot,.verify-line{display:flex;justify-content:space-between;gap:18px}.demo-header,.paper-head{padding-bottom:14px;border-bottom:1px solid var(--line);font-size:.68rem}.timeline{padding:20px 0}.timeline-caption{display:block;color:var(--muted);font-size:.58rem}.timeline-bar,.cut-bars{height:12px;margin-top:8px;background:#555;border-radius:2px}.cut-bars{display:flex;background:var(--lime)}.clip-result{justify-content:center;align-items:center;min-height:180px;border-top:1px solid var(--line)}.portrait-frame{width:100px;height:145px;padding:7px;border:1px solid var(--line);background:#22252b}.portrait-scene{height:100%;background:linear-gradient(145deg,#303842,#192027 62%,#42423a);position:relative}.face-frame{position:absolute;width:54px;height:72px;left:16px;top:18px;border:1px solid var(--lime);border-radius:45%}.subtitle-line{position:absolute;bottom:16px;left:4px;right:4px;background:var(--lime);color:#111;text-align:center;font-size:.48rem}.result-meta{display:flex;flex-direction:column}.result-meta strong{color:var(--lime);font-size:2.4rem}.demo-note,.product-url{color:var(--muted);font-size:.72rem}.feature-line,.sign-proof{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px 34px}.feature-line>div{flex:1 1 180px;display:grid;gap:8px;color:var(--muted)}
-    .paper-sheet{max-width:400px;margin:auto;padding:20px;background:#e8e8e4;color:#242831}.paper-head,.paper-foot{color:#454a52}.paper-lines{padding-top:20px;display:grid;gap:10px}.paper-lines i{height:4px;background:#b8bbc0}.signature{margin:22px 0;color:#293347;font:700 .7rem var(--mono);letter-spacing:.04em}.qr{width:42px;height:42px;display:inline-grid;grid-template-columns:repeat(3,1fr);gap:2px;background:white}.qr i{background:#252a32}.verify-line{margin-top:20px;color:var(--blue);font: .62rem var(--mono)}.sign-proof{color:var(--muted);font:.72rem var(--mono)}.operations{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px 70px}.stack-list{grid-column:2;border-top:1px solid var(--line)}.stack-list>div{min-height:54px;display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:14px;border-bottom:1px solid var(--line)}.stack-list span,.footer-year{color:var(--muted);font-size:.65rem}.site-footer{padding-top:24px;padding-bottom:32px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}.site-footer p{color:var(--muted);font-size:.8rem}.footer-links{display:flex;gap:14px}.footer-links a{min-width:44px;min-height:44px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
-    @media(max-width:760px){.site-header{padding:0 20px;gap:10px}.site-header nav{gap:8px}.site-header nav a{font-size:.76rem}.site-header nav a:nth-child(2){display:none}.header-contact{font-size:.76rem;white-space:nowrap}.intro{padding:68px 22px 76px;grid-template-columns:1fr;gap:38px}.intro h1{font-size:clamp(2.7rem,10vw,4.3rem)}.intro-visual{min-height:290px}.product-section,.operations{padding:56px 22px 64px}.product-layout,.sign-layout,.operations{grid-template-columns:1fr;gap:34px}.stack-list{grid-column:1}.sign-visual{order:2}.site-footer{padding:24px 22px 30px;flex-wrap:wrap}.site-footer p{flex-basis:100%}}
-    @media(max-width:390px){.site-header{padding:0 14px}.site-header nav{gap:3px}.site-header nav a{font-size:.7rem}.header-contact{font-size:.67rem}.intro,.product-section,.operations{padding-left:18px;padding-right:18px}.intro h1{font-size:2.55rem}.visual-top,.visual-bottom{font-size:.58rem}.track-item{grid-template-columns:30px 1fr auto;padding:0 12px}.stack-list>div{grid-template-columns:86px 1fr auto;gap:7px}.stack-list span{font-size:.55rem}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
-  </style>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>udincloud | perangkat lunak yang kami bangun dan jalankan</title>
+<meta name="description" content="udincloud adalah studio perangkat lunak kecil. ClipAI memotong video YouTube menjadi klip vertikal, SignaCerta menandatangani dan memverifikasi PDF.">
+<meta property="og:title" content="udincloud">
+<meta property="og:description" content="Dua produk perangkat lunak yang dibangun dan dijalankan sendiri: ClipAI dan SignaCerta.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://udincloud.me/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23191712'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Arial,sans-serif' font-size='19' font-weight='700' fill='%23f4f0e8'%3Eu%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f0e8;
+  --surface:#fbf8f2;
+  --ink:#191712;
+  --muted:#55504a;
+  --line:#7d766a;
+  --accent:#b8380f;
+  --accent-dark:#a13109;
+  --night:#14120f;
+  --night-text:#f2efe7;
+  --night-muted:#c2bcb0;
+  --night-line:#6a655c;
+  --night-signal:#ff9b7a;
+  --doc:#ece6dc;
+  --doc-2:#f8f4ec;
+  --sans:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wrap:1180px;
+  --pad:clamp(20px,5vw,56px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1.0625rem/1.62 var(--sans);overflow-wrap:break-word}
+h1,h2,h3,p,figure,dl,dd,dt{margin:0}
+ol,ul{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+img{display:block}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.skip{position:absolute;left:-9999px;top:0;z-index:50;background:var(--ink);color:var(--paper);padding:12px 18px;font-weight:600}
+.skip:focus{left:12px;top:12px}
+
+.site-head{border-bottom:1px solid var(--line);background:var(--paper)}
+.head-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:74px}
+.brand{display:inline-flex;align-items:center;min-height:44px;font-weight:700;font-size:1.2rem;letter-spacing:-.03em}
+.brand b{color:var(--accent)}
+.navlinks{display:flex;align-items:center;gap:4px}
+.navlinks a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 12px;font-size:.94rem;color:var(--muted);border-radius:6px;transition:color .15s ease,background .15s ease}
+.navlinks a:hover{color:var(--ink);background:var(--surface)}
+.navlinks a:active{color:var(--accent)}
+.contact{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 17px;font-size:.92rem;font-weight:600;background:var(--ink);color:var(--paper);border-radius:8px;transition:background .15s ease,color .15s ease}
+.contact:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.contact:active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.hero{padding:clamp(52px,7vw,104px) 0 clamp(44px,6vw,84px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(34px,6vw,76px);align-items:center}
+h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em;font-weight:600;text-wrap:balance}
+.lede{margin-top:26px;max-width:46ch;color:var(--muted);font-size:1.12rem}
+.index{display:flex;flex-direction:column;gap:8px}
+.idx{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding:18px 46px 18px 18px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--surface);transition:transform .16s ease,border-color .16s ease,background .16s ease}
+.idx::after{content:'';position:absolute;right:18px;top:0;bottom:0;margin:auto;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:border-color .16s ease,transform .16s ease}
+.idx:hover{transform:translateY(-2px);border-color:var(--ink)}
+.idx:hover::after{border-color:var(--accent);transform:rotate(-45deg) translateX(3px)}
+.idx:active{transform:translateY(0);background:var(--paper)}
+.idx .n{font:500 .82rem var(--mono);color:var(--accent);padding-top:2px}
+.idx .body{display:flex;flex-direction:column;gap:3px;min-width:0}
+.idx .name{font-weight:600;font-size:1.08rem}
+.idx .desc{color:var(--muted);font-size:.94rem}
+.idx .dom{margin-top:5px;font:.78rem var(--mono);color:var(--muted);overflow-wrap:anywhere}
+
+.kicker{font:500 .8rem var(--mono);color:var(--accent);letter-spacing:.01em}
+.h2{margin-top:16px;font-size:clamp(1.85rem,3.5vw,2.85rem);line-height:1.08;letter-spacing:-.03em;font-weight:600;text-wrap:balance}
+.body-t{margin-top:20px;max-width:52ch;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:44px;padding:0 20px;border-radius:10px;font-weight:600;font-size:.98rem;transition:transform .15s ease,background .15s ease,color .15s ease,border-color .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-ghost{border:1px solid var(--line)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn-light{background:var(--paper);color:var(--night)}
+.btn-light:hover{background:#fff}
+.btn-outline-light{border:1px solid var(--night-line);color:var(--night-text)}
+.btn-outline-light:hover{background:var(--night-text);color:var(--night);border-color:var(--night-text)}
+
+.clipai{background:var(--night);color:var(--night-text);padding:clamp(56px,8vw,116px) 0}
+.clipai-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);gap:clamp(34px,5vw,68px);align-items:center}
+.clipai .kicker{color:var(--night-signal)}
+.clipai .h2{color:var(--night-text)}
+.clipai .body-t{color:var(--night-muted)}
+.clipai :focus-visible{outline-color:var(--night-text)}
+.flow{margin-top:30px;border-top:1px solid var(--night-line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.flow li{padding:18px 22px 2px 0;border-right:1px solid var(--night-line)}
+.flow li:last-child{border-right:0}
+.flow .fn{display:block;font:500 .76rem var(--mono);color:var(--night-signal);margin-bottom:9px}
+.flow strong{display:block;font-weight:600;font-size:1rem;margin-bottom:6px;color:var(--night-text)}
+.flow p{color:var(--night-muted);font-size:.92rem}
+.proof{margin-top:26px;padding:16px 18px;border:1px solid var(--night-line);border-radius:10px;color:var(--night-muted);font-size:.95rem;max-width:60ch}
+
+.signacerta{background:var(--doc);padding:clamp(56px,8vw,116px) 0}
+.signacerta-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(34px,5vw,68px);align-items:center}
+.specs{margin-top:28px;border-top:1px solid var(--line)}
+.specs>div{display:grid;grid-template-columns:minmax(148px,.5fr) minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.specs dt{font:500 .84rem var(--mono);color:var(--ink)}
+.specs dd{color:var(--muted);font-size:.96rem}
+
+.shot{margin:0;display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:12px;border-radius:14px}
+.shot img{display:block;height:auto;border-radius:8px}
+.shot figcaption{font:.72rem/1.5 var(--mono)}
+.shot-dark{background:var(--night);border:1px solid var(--night-line)}
+.shot-dark figcaption{color:var(--night-muted)}
+.shot-doc{background:var(--doc-2);border:1px solid var(--line)}
+.shot-doc figcaption{color:var(--muted)}
+
+.infra{padding:clamp(56px,8vw,116px) 0}
+.infra-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(30px,5vw,64px);align-items:start}
+.facts{border-top:1px solid var(--line)}
+.facts li{display:grid;grid-template-columns:minmax(150px,.42fr) minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.facts .k{font:500 .82rem var(--mono);color:var(--accent);overflow-wrap:anywhere}
+.facts .v{color:var(--muted);font-size:.96rem;overflow-wrap:anywhere}
+
+.site-foot{background:var(--ink);color:#ece7de;padding:clamp(40px,5vw,64px) 0}
+.foot-inner{display:flex;flex-wrap:wrap;gap:26px 40px;align-items:flex-start;justify-content:space-between}
+.foot-brand{display:flex;flex-direction:column;gap:8px}
+.foot-brand .brand{color:#ece7de}
+.foot-note{color:#b8b2a6;font-size:.9rem;max-width:40ch}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 10px}
+.foot-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 13px;font-size:.92rem;color:#ece7de;border:1px solid var(--night-line);border-radius:8px;transition:background .15s ease,color .15s ease,transform .15s ease}
+.foot-links a:hover{background:#ece7de;color:var(--ink);border-color:#ece7de}
+.foot-links a:active{transform:translateY(1px)}
+.site-foot :focus-visible{outline-color:#ece7de}
+
+@media (max-width:900px){
+  .hero-grid,.clipai-grid,.signacerta-grid,.infra-grid{grid-template-columns:minmax(0,1fr);gap:36px}
+  .flow{grid-template-columns:minmax(0,1fr)}
+  .flow li{padding:16px 0 14px;border-right:0;border-bottom:1px solid var(--night-line)}
+  .flow li:last-child{border-bottom:0;padding-bottom:2px}
+  .signacerta-grid .shot-doc{order:2}
+}
+@media (max-width:640px){
+  .navlinks{display:none}
+  .head-inner{min-height:66px}
+  h1{font-size:clamp(1.95rem,8.6vw,2.6rem)}
+  .specs>div,.facts li{grid-template-columns:minmax(0,1fr);gap:5px}
+  .actions{flex-direction:column;align-items:stretch}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .idx,.btn,.navlinks a,.contact,.foot-links a{transition:none}
+}
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#produk">Lewati ke produk</a>
-  <header class="site-header">
-    <a class="wordmark" href="/" aria-label="udincloud, beranda">udincloud<span>.</span></a>
-    <nav aria-label="Navigasi utama">
+<a class="skip" href="#produk">Lewati ke produk</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/" aria-label="udincloud, beranda">udincloud<b>.</b></a>
+    <nav class="navlinks" aria-label="Navigasi utama">
       <a href="#produk">Produk</a>
-      <a href="#cara-kerja">Cara kerja</a>
-      <a href="https://me.udincloud.me">Tentang pembuat</a>
+      <a href="#infrastruktur">Infrastruktur</a>
     </nav>
-    <a class="header-contact" href="mailto:founder@udincloud.me">Hubungi founder</a>
-  </header>
+    <a class="contact" href="mailto:founder@udincloud.me">Email founder</a>
+  </div>
+</header>
 
-  <main>
-    <section class="intro" aria-labelledby="intro-title">
-      <div class="intro-copy">
-        <p class="kicker">Perangkat lunak dari udincloud</p>
-        <h1 id="intro-title">Kami membangun alat yang menyelesaikan pekerjaan nyata.</h1>
-        <p class="intro-text">Dua aplikasi kami mengerjakan dua hal berbeda: mengubah video panjang menjadi klip siap terbit, dan membuktikan keaslian dokumen PDF.</p>
-        <a class="text-link" href="#produk">Lihat produk <span aria-hidden="true">↓</span></a>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 id="hero-title">Perangkat lunak yang kami bangun, kami juga yang menjalankannya.</h1>
+        <p class="lede">udincloud adalah studio perangkat lunak kecil. Dua produknya berjalan di server yang kami kelola sendiri, dan keduanya bisa Anda buka sekarang.</p>
       </div>
-      <div class="intro-visual" aria-label="Dua produk udincloud: ClipAI untuk video dan SignaCerta untuk dokumen" role="img">
-        <div class="visual-top"><span>udincloud / products</span><span>01 / 02</span></div>
-        <div class="visual-track">
-          <div class="track-item track-clip"><span class="track-index">01</span><span class="track-name">ClipAI</span><span class="track-kind">video</span></div>
-          <div class="track-item track-sign"><span class="track-index">02</span><span class="track-name">SignaCerta</span><span class="track-kind">documents</span></div>
-        </div>
-        <div class="visual-bottom"><span>dibangun · dijalankan · diperbaiki</span><span class="visual-mark">uc / 26</span></div>
+      <div class="index">
+        <a class="idx" href="#clipai">
+          <span class="n">01</span>
+          <span class="body">
+            <span class="name">ClipAI</span>
+            <span class="desc">Video YouTube jadi klip vertikal 9:16.</span>
+            <span class="dom">clipai.udincloud.me</span>
+          </span>
+        </a>
+        <a class="idx" href="#signacerta">
+          <span class="n">02</span>
+          <span class="body">
+            <span class="name">SignaCerta</span>
+            <span class="desc">Tanda tangan dan verifikasi PDF.</span>
+            <span class="dom">signacerta.udincloud.me</span>
+          </span>
+        </a>
       </div>
-    </section>
-
-    <section class="product-section clip-section" id="produk" aria-labelledby="clip-title">
-      <div class="section-index"><span>01</span><span>VIDEO WORKFLOW</span></div>
-      <div class="product-layout">
-        <div class="product-copy">
-          <p class="product-label">ClipAI</p>
-          <h2 id="clip-title">Dari satu tautan YouTube, jadi klip vertikal.</h2>
-          <p class="product-description">ClipAI mencari momen yang layak dipotong, menyusun subtitle, lalu membingkai ulang video untuk format 9:16.</p>
-          <a class="button button-lime" href="https://clipai.udincloud.me">Buka ClipAI</a>
-          <p class="product-url">clipai.udincloud.me</p>
-        </div>
-        <div class="clip-demo" aria-label="Ilustrasi alur kerja ClipAI: sumber video, pemilihan momen, hasil klip vertikal">
-          <div class="demo-header"><span>CLIPAI / OUTPUT</span><span>9:16</span></div>
-          <div class="timeline">
-            <div class="timeline-source"><span class="timeline-caption">SUMBER</span><span class="timeline-bar"></span></div>
-            <div class="timeline-cut"><span class="timeline-caption">MOMEN DIPILIH</span><div class="cut-bars"><i></i><i></i><i></i></div></div>
-          </div>
-          <div class="clip-result">
-            <div class="portrait-frame"><div class="portrait-scene"><span class="face-frame"></span><span class="subtitle-line">ini bagian penting</span></div></div>
-            <div class="result-meta"><span>KLIP 01</span><strong>91<span>/100</span></strong><small>skor momen · uji internal</small></div>
-          </div>
-          <p class="demo-note">Contoh hasil dari video sumber 19 detik. Sistem menghasilkan 3 klip.</p>
-        </div>
-      </div>
-      <div class="feature-line" aria-label="Fitur ClipAI">
-        <div><span class="feature-number">01</span><span>Transkripsi Whisper</span></div>
-        <div><span class="feature-number">02</span><span>Skor hook, pacing, retention, payoff</span></div>
-        <div><span class="feature-number">03</span><span>Subtitle per kata dan reframe wajah</span></div>
-        <div><span class="feature-number">04</span><span>Judul, deskripsi, tagar otomatis</span></div>
-      </div>
-    </section>
-
-    <section class="product-section sign-section" aria-labelledby="sign-title">
-      <div class="section-index"><span>02</span><span>DOCUMENT INTEGRITY</span></div>
-      <div class="sign-layout">
-        <div class="sign-visual" aria-label="Ilustrasi alur tanda tangan dan verifikasi PDF">
-          <div class="paper-sheet">
-            <div class="paper-head"><span>PDF / SIGNED</span><span>SHA-256</span></div>
-            <div class="paper-lines"><i></i><i></i><i></i><i></i></div>
-            <div class="signature">TANDA TANGAN DIGITAL</div>
-            <div class="paper-foot"><span>ECDSA · P-256</span><span class="qr" aria-label="kode QR ilustratif"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-          </div>
-          <div class="verify-line"><span></span><span>VERIFIKASI PUBLIK</span><span>PDF → QR</span></div>
-        </div>
-        <div class="product-copy sign-copy">
-          <p class="product-label sign-label">SignaCerta</p>
-          <h2 id="sign-title">Tanda tangani PDF. Periksa apakah isinya berubah.</h2>
-          <p class="product-description">Tanda tangan digital berbasis ECDSA P-256 dan hash SHA-256. Siapa pun dapat memeriksa keaslian dokumen melalui QR.</p>
-          <a class="button button-outline" href="https://signacerta.udincloud.me">Buka SignaCerta</a>
-          <p class="product-url">signacerta.udincloud.me</p>
-        </div>
-      </div>
-      <div class="sign-proof"><span>ECDSA NIST P-256</span><span>SHA-256</span><span>Deteksi perubahan PDF</span><span>Verifikasi QR publik</span></div>
-    </section>
-
-    <section class="operations" id="cara-kerja" aria-labelledby="ops-title">
-      <div class="operations-heading">
-        <p class="kicker">Di balik aplikasi</p>
-        <h2 id="ops-title">Dibangun dan dijalankan sendiri.</h2>
-      </div>
-      <p class="operations-copy">ClipAI berjalan di server yang kami kelola sendiri. Antrean pekerjaan memakai Redis dan BullMQ; FFmpeg merender klip dengan akselerasi AMD VAAPI. SignaCerta memakai tanda tangan ECDSA dan hash SHA-256 untuk pemeriksaan dokumen.</p>
-      <div class="stack-list" aria-label="Teknologi yang digunakan">
-        <div><span>01 / VIDEO</span><strong>Node.js · Express</strong><span>aplikasi</span></div>
-        <div><span>02 / JOBS</span><strong>BullMQ · Redis</strong><span>antrean</span></div>
-        <div><span>03 / MEDIA</span><strong>yt-dlp · FFmpeg</strong><span>proses video</span></div>
-        <div><span>04 / RENDER</span><strong>AMD VAAPI</strong><span>akselerasi</span></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <a class="wordmark footer-mark" href="/">udincloud<span>.</span></a>
-    <p>Dua aplikasi web. Dibuat dengan tangan, dijalankan sendiri.</p>
-    <div class="footer-links">
-      <a href="https://github.com/1RDHWN1">GitHub</a>
-      <a href="https://me.udincloud.me">Tentang</a>
-      <a href="mailto:founder@udincloud.me">Email</a>
     </div>
-    <span class="footer-year">Tasikmalaya · 2026</span>
-  </footer>
+  </section>
+
+  <section class="products" id="produk" aria-label="Dua produk udincloud">
+
+    <article class="clipai" id="clipai" aria-labelledby="clipai-title">
+      <div class="wrap clipai-grid">
+        <div>
+          <p class="kicker">01 / ClipAI</p>
+          <h2 id="clipai-title" class="h2">Satu URL YouTube jadi beberapa klip vertikal.</h2>
+          <p class="body-t">ClipAI mengunduh video, mentranskripsinya dengan Whisper, menilai setiap momen, lalu merender klip 1080x1920 yang siap diunggah ke Shorts, Reels, atau TikTok.</p>
+          <ol class="flow">
+            <li><span class="fn">01</span><strong>Transkripsi</strong><p>Whisper mengubah audio menjadi teks bertimestamp.</p></li>
+            <li><span class="fn">02</span><strong>Penilaian momen</strong><p>Skor untuk hook, pacing, retention, dan payoff.</p></li>
+            <li><span class="fn">03</span><strong>Render</strong><p>Subtitle per kata, reframe wajah 9:16, output 1080x1920.</p></li>
+          </ol>
+          <p class="proof">Pada satu uji internal, sumber video 19 detik menghasilkan 3 klip. Skor momen tertinggi 91 dari 100. ClipAI juga menyusun judul, deskripsi, dan tagar. Antreannya memakai BullMQ dan Redis, render-nya memakai FFmpeg di GPU AMD dengan VAAPI.</p>
+          <div class="actions">
+            <a class="btn btn-light" href="https://clipai.udincloud.me">Buka ClipAI</a>
+            <a class="btn btn-outline-light" href="https://github.com/1RDHWN1/ClipAIv2">Lihat kode ClipAI</a>
+          </div>
+        </div>
+        <figure class="shot shot-dark">
+          <img src="assets-clipai.png" alt="Tangkapan layar ClipAI: kolom URL YouTube, pilihan rasio 9:16, dan mode tata letak adaptif.">
+          <figcaption>Antarmuka ClipAI yang berjalan di clipai.udincloud.me</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="signacerta" id="signacerta" aria-labelledby="signacerta-title">
+      <div class="wrap signacerta-grid">
+        <figure class="shot shot-doc">
+          <img src="assets-signacerta.png" alt="Tangkapan layar SignaCerta: halaman pembangkitan pasangan kunci ECDSA NIST P-256 dengan kolom passphrase.">
+          <figcaption>Antarmuka SignaCerta yang berjalan di signacerta.udincloud.me</figcaption>
+        </figure>
+        <div>
+          <p class="kicker">02 / SignaCerta</p>
+          <h2 id="signacerta-title" class="h2">Menandatangani PDF, lalu memberi cara untuk memeriksanya.</h2>
+          <p class="body-t">SignaCerta menandatangani dokumen PDF secara digital dan menyisipkan QR untuk verifikasi. Siapa pun bisa memindai QR itu untuk memastikan dokumen asli dan belum berubah.</p>
+          <dl class="specs">
+            <div><dt>ECDSA NIST P-256</dt><dd>Tanda tangan digital pada dokumen.</dd></div>
+            <div><dt>SHA-256</dt><dd>Sidik jari isi dokumen.</dd></div>
+            <div><dt>QR code</dt><dd>Cara memeriksa keaslian dokumen.</dd></div>
+            <div><dt>Deteksi perubahan</dt><dd>Isi yang berubah setelah ditandatangani akan ketahuan.</dd></div>
+          </dl>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://signacerta.udincloud.me">Buka SignaCerta</a>
+            <a class="btn btn-ghost" href="https://github.com/1RDHWN1/uts-ki-digital-signature">Lihat kode SignaCerta</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <section class="infra" id="infrastruktur" aria-labelledby="infra-title">
+    <div class="wrap infra-grid">
+      <div>
+        <p class="kicker">Infrastruktur</p>
+        <h2 id="infra-title" class="h2">Dijalankan di server sendiri.</h2>
+        <p class="body-t">Kedua produk tidak menumpang platform orang lain. Kami mengurus servernya sendiri, dari mesin virtual sampai antrean render video.</p>
+      </div>
+      <ul class="facts">
+        <li><span class="k">Proxmox VE</span><span class="v">3 kontainer Debian LXC untuk memisahkan beban kerja.</span></li>
+        <li><span class="k">Cloudflare Tunnels</span><span class="v">Akses masuk tanpa membuka port ke publik.</span></li>
+        <li><span class="k">Redis</span><span class="v">Antrean kerja ClipAI berjalan di server kami sendiri.</span></li>
+        <li><span class="k">GPU AMD</span><span class="v">Render video memakai VAAPI di kartu grafis AMD.</span></li>
+        <li><span class="k">Host aktif</span><span class="v">proxmox.udincloud.me dan tiga kontainer LXC yang menjalankan layanan internal.</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      <span class="brand">udincloud<b>.</b></span>
+      <p class="foot-note">Studio perangkat lunak kecil. Dua produk, dijalankan sendiri.</p>
+    </div>
+    <nav class="foot-links" aria-label="Tautan">
+      <a href="https://clipai.udincloud.me">ClipAI</a>
+      <a href="https://signacerta.udincloud.me">SignaCerta</a>
+      <a href="https://me.udincloud.me">me.udincloud.me</a>
+      <a href="https://github.com/1RDHWN1">GitHub</a>
+      <a href="mailto:founder@udincloud.me">Email founder</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
