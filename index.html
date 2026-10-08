@@ -174,6 +174,13 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
   .specs>div,.facts li{grid-template-columns:minmax(0,1fr);gap:5px}
   .actions{flex-direction:column;align-items:stretch}
 }
+@media print{
+  .js [data-reveal]{opacity:1!important;transform:none!important}
+  .js .hero-copy,.js .index .idx{animation:none!important}
+  .site-foot{background:#fff;color:var(--ink)}
+  .foot-brand .brand,.foot-links a{color:var(--ink)}
+  .foot-note{color:var(--muted)}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .idx,.btn,.navlinks a,.contact,.foot-links a{transition:none}
