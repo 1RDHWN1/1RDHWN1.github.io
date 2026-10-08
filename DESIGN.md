@@ -90,3 +90,21 @@ Before publishing, test the candidate in a browser at mobile and desktop sizes; 
 focus, all internal anchors, reduced motion, no-JavaScript render, CSS failure fallback, computed
 contrast, touch targets, and every real outbound destination. Do not claim completion before a
 fresh PASS after the final edit.
+
+## Motion pass (2026-10-08, revisi owner)
+
+Owner menilai versi sebelumnya terlalu kaku dan meminta animasi. Dial diubah
+dari MOTION 1 menjadi **MOTION 2**, dengan alasan per animasi (R-19, R-31):
+
+| Animasi | Alasan (R-31) |
+|---|---|
+| Reveal saat scroll pada blok konten | Memandu mata mengikuti urutan bagian saat halaman turun, bukan sekadar menghias. |
+| Stagger pada `.flow` dan `.specs` dan `.facts` | Menunjukkan urutan baca 01, 02, 03 pada tiap daftar, jadi urutannya terasa. |
+| `rise` sekali di hero | Memberi satu fokus masuk di layar pertama; tidak diulang di elemen lain. |
+
+Batas yang dijaga:
+- Bukan template-animation serentak (R-19): hanya reveal scroll, stagger daftar, dan
+  satu animasi hero; tidak ada floating, scale, atau bounce.
+- Konten tetap terlihat tanpa JavaScript: kelas `js` hanya ditambah lewat JS, dan
+  ada pengaman 3 detik yang melepas kelas itu bila observer tidak pernah jalan.
+- `prefers-reduced-motion: reduce` mematikan semua animasi dan transisi.

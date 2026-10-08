@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>document.documentElement.className+=' js';window.__rv=false;setTimeout(function(){if(!window.__rv){document.documentElement.className=document.documentElement.className.replace(/\bjs\b/,'')}},3000);</script>
 <meta name="color-scheme" content="light">
 <title>udincloud | perangkat lunak yang kami bangun dan jalankan</title>
 <meta name="description" content="udincloud adalah studio perangkat lunak kecil. ClipAI memotong video YouTube menjadi klip vertikal, SignaCerta menandatangani dan memverifikasi PDF.">
@@ -56,8 +57,8 @@ img{display:block}
 .navlinks a:hover{color:var(--ink);background:var(--surface)}
 .navlinks a:active{color:var(--accent)}
 .contact{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 17px;font-size:.92rem;font-weight:600;background:var(--ink);color:var(--paper);border-radius:8px;transition:background .15s ease,color .15s ease}
-.contact:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.contact:active{background:var(--accent);border-color:var(--accent);color:#fff}
+.contact:hover{background:var(--accent);color:#fff}
+.contact:active{background:var(--accent);color:#fff}
 
 .hero{padding:clamp(52px,7vw,104px) 0 clamp(44px,6vw,84px)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(34px,6vw,76px);align-items:center}
@@ -137,6 +138,28 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 .foot-links a:active{transform:translateY(1px)}
 .site-foot :focus-visible{outline-color:#ece7de}
 
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+  .js [data-reveal]{opacity:0;transform:translateY(20px)}
+  .js [data-reveal].is-in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.22,.68,.24,1);transition-delay:var(--rd,0s)}
+  .js [data-reveal][data-delay="1"]{--rd:.12s}
+  .js [data-reveal][data-delay="2"]{--rd:.2s}
+  .js .hero-copy{animation:rise .55s cubic-bezier(.22,.68,.24,1) backwards}
+  .js .index .idx{animation:rise .55s cubic-bezier(.22,.68,.24,1) backwards}
+  .js .index .idx:nth-child(2){animation-delay:.1s}
+  .js [data-reveal].is-in .flow li{animation:rise .45s cubic-bezier(.22,.68,.24,1) backwards}
+  .js [data-reveal].is-in .flow li:nth-child(2){animation-delay:.09s}
+  .js [data-reveal].is-in .flow li:nth-child(3){animation-delay:.18s}
+  .js [data-reveal].is-in .specs>div{animation:rise .42s cubic-bezier(.22,.68,.24,1) backwards}
+  .js [data-reveal].is-in .specs>div:nth-child(2){animation-delay:.07s}
+  .js [data-reveal].is-in .specs>div:nth-child(3){animation-delay:.14s}
+  .js [data-reveal].is-in .specs>div:nth-child(4){animation-delay:.21s}
+  .js [data-reveal].is-in .facts li{animation:rise .42s cubic-bezier(.22,.68,.24,1) backwards}
+  .js [data-reveal].is-in .facts li:nth-child(2){animation-delay:.06s}
+  .js [data-reveal].is-in .facts li:nth-child(3){animation-delay:.12s}
+  .js [data-reveal].is-in .facts li:nth-child(4){animation-delay:.18s}
+  .js [data-reveal].is-in .facts li:nth-child(5){animation-delay:.24s}
+}
 @media (max-width:900px){
   .hero-grid,.clipai-grid,.signacerta-grid,.infra-grid{grid-template-columns:minmax(0,1fr);gap:36px}
   .flow{grid-template-columns:minmax(0,1fr)}
@@ -154,6 +177,8 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .idx,.btn,.navlinks a,.contact,.foot-links a{transition:none}
+  .js [data-reveal]{opacity:1;transform:none}
+  .js .hero-copy,.js .index .idx{animation:none}
 }
 </style>
 </head>
@@ -174,7 +199,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
-      <div>
+      <div class="hero-copy">
         <h1 id="hero-title">Perangkat lunak yang kami bangun, kami juga yang menjalankannya.</h1>
         <p class="lede">udincloud adalah studio perangkat lunak kecil. Dua produknya berjalan di server yang kami kelola sendiri, dan keduanya bisa Anda buka sekarang.</p>
       </div>
@@ -203,7 +228,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 
     <article class="clipai" id="clipai" aria-labelledby="clipai-title">
       <div class="wrap clipai-grid">
-        <div>
+        <div data-reveal>
           <p class="kicker">01 / ClipAI</p>
           <h2 id="clipai-title" class="h2">Satu URL YouTube jadi beberapa klip vertikal.</h2>
           <p class="body-t">ClipAI mengunduh video, mentranskripsinya dengan Whisper, menilai setiap momen, lalu merender klip 1080x1920 yang siap diunggah ke Shorts, Reels, atau TikTok.</p>
@@ -218,7 +243,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
             <a class="btn btn-outline-light" href="https://github.com/1RDHWN1/ClipAIv2">Lihat kode ClipAI</a>
           </div>
         </div>
-        <figure class="shot shot-dark">
+        <figure class="shot shot-dark" data-reveal data-delay="1">
           <img src="assets-clipai.png" alt="Tangkapan layar ClipAI: kolom URL YouTube, pilihan rasio 9:16, dan mode tata letak adaptif.">
           <figcaption>Antarmuka ClipAI yang berjalan di clipai.udincloud.me</figcaption>
         </figure>
@@ -227,11 +252,11 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 
     <article class="signacerta" id="signacerta" aria-labelledby="signacerta-title">
       <div class="wrap signacerta-grid">
-        <figure class="shot shot-doc">
+        <figure class="shot shot-doc" data-reveal>
           <img src="assets-signacerta.png" alt="Tangkapan layar SignaCerta: halaman pembangkitan pasangan kunci ECDSA NIST P-256 dengan kolom passphrase.">
           <figcaption>Antarmuka SignaCerta yang berjalan di signacerta.udincloud.me</figcaption>
         </figure>
-        <div>
+        <div data-reveal data-delay="1">
           <p class="kicker">02 / SignaCerta</p>
           <h2 id="signacerta-title" class="h2">Menandatangani PDF, lalu memberi cara untuk memeriksanya.</h2>
           <p class="body-t">SignaCerta menandatangani dokumen PDF secara digital dan menyisipkan QR untuk verifikasi. Siapa pun bisa memindai QR itu untuk memastikan dokumen asli dan belum berubah.</p>
@@ -253,12 +278,12 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 
   <section class="infra" id="infrastruktur" aria-labelledby="infra-title">
     <div class="wrap infra-grid">
-      <div>
+      <div data-reveal>
         <p class="kicker">Infrastruktur</p>
         <h2 id="infra-title" class="h2">Dijalankan di server sendiri.</h2>
         <p class="body-t">Kedua produk tidak menumpang platform orang lain. Kami mengurus servernya sendiri, dari mesin virtual sampai antrean render video.</p>
       </div>
-      <ul class="facts">
+      <ul class="facts" data-reveal data-delay="1">
         <li><span class="k">Proxmox VE</span><span class="v">3 kontainer Debian LXC untuk memisahkan beban kerja.</span></li>
         <li><span class="k">Cloudflare Tunnels</span><span class="v">Akses masuk tanpa membuka port ke publik.</span></li>
         <li><span class="k">Redis</span><span class="v">Antrean kerja ClipAI berjalan di server kami sendiri.</span></li>
@@ -270,7 +295,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
 </main>
 
 <footer class="site-foot">
-  <div class="wrap foot-inner">
+  <div class="wrap foot-inner" data-reveal>
     <div class="foot-brand">
       <span class="brand">udincloud<b>.</b></span>
       <p class="foot-note">Studio perangkat lunak kecil. Dua produk, dijalankan sendiri.</p>
@@ -284,5 +309,23 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
     </nav>
   </div>
 </footer>
+
+<script>
+(function(){
+  window.__rv=true;
+  var els=document.querySelectorAll('[data-reveal]');
+  if(!els.length)return;
+  function showAll(){for(var i=0;i<els.length;i++)els[i].classList.add('is-in')}
+  if(!('IntersectionObserver' in window)){showAll();return}
+  try{
+    var io=new IntersectionObserver(function(list){
+      for(var j=0;j<list.length;j++){
+        if(list[j].isIntersecting){list[j].target.classList.add('is-in');io.unobserve(list[j].target)}
+      }
+    },{rootMargin:'0px 0px -60px 0px',threshold:0.1});
+    for(var k=0;k<els.length;k++)io.observe(els[k]);
+  }catch(e){showAll()}
+})();
+</script>
 </body>
 </html>
