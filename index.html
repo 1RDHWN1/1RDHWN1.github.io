@@ -4,357 +4,1634 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
-<title>UdinCloud Technologies | Autonomous Multimodal Video Intelligence</title>
-<meta name="description" content="UdinCloud engineers high-throughput pipelines for automated video repurposing and zero-trust cryptographic document verification.">
+<title>UdinCloud Technologies | Autonomous Multimodal Video Intelligence and Verifiable Systems</title>
+<meta name="description" content="UdinCloud engineers sovereign multimodal pipelines for automated video repurposing and zero-trust cryptographic document verification.">
 <meta property="og:title" content="UdinCloud Technologies">
 <meta property="og:description" content="Autonomous Multimodal Video Intelligence and Verifiable Systems.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://udincloud.me/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308090d'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%2338bdf8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308090b'/%3E%3Cpath d='M9 16h14M16 9v14' stroke='%2338bdf8' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#07080b;
-  --bg-surface:#0d0f15;
-  --bg-card:#12151f;
-  --bg-elevated:#181c28;
-  --line:rgba(255,255,255,0.09);
-  --line-strong:#64748b;
-  --nav-border:#64748b;
-  --text-main:#f1f4fa;
-  --text-muted:#949cb0;
-  --text-dim:#9ca3af;
-  --accent-cyan:#38bdf8;
-  --accent-blue:#60a5fa;
-  --accent-indigo:#818cf8;
-  --signal-live:#34d399;
-  --font-sans:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-  --font-mono:'JetBrains Mono',ui-monospace,monospace;
-  --max-w:1200px;
+:root {
+  --bg: #08090b;
+  --bg-surface: #0e1117;
+  --bg-card: #141822;
+  --bg-elevated: #1c2130;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: #64748b;
+  --nav-border: #64748b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dim: #9ca3af;
+  --accent-cyan: #38bdf8;
+  --accent-cyan-dim: rgba(56, 189, 248, 0.12);
+  --accent-emerald: #10b981;
+  --accent-emerald-bright: #34d399;
+  --accent-emerald-dim: rgba(16, 185, 129, 0.15);
+  --accent-rose: #f43f5e;
+  --accent-rose-dim: rgba(244, 63, 94, 0.15);
+  --signal-live: #10b981;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --max-w: 1200px;
 }
-*,*::before,*::after{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--text-main);font:400 1rem/1.65 var(--font-sans);-webkit-font-smoothing:antialiased}
-h1,h2,h3,p,figure,ul,ol,dl,dd,dt{margin:0}
-ul,ol{list-style:none;padding:0}
-a{color:inherit;text-decoration:none}
-img{display:block;max-inline-size:stretch;max-inline-size:-webkit-fill-available}
-:focus-visible{outline:2px solid var(--accent-cyan);outline-offset:3px}
-.shell{max-width:var(--max-w);margin:0 auto;padding-left:clamp(20px,5vw,48px);padding-right:clamp(20px,5vw,48px)}
-.skip-link{position:absolute;left:-9999px;top:0;z-index:99;background:var(--accent-cyan);color:#000;padding:12px 18px;font-weight:700}
-.skip-link:focus{left:16px;top:16px}
+*, *::before, *::after {
+  box-sizing: border-box;
+  min-width: 0;
+}
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+html:has(:focus) {
+  scroll-behavior: auto;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-main);
+  font: 400 1rem/1.65 var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, figure, ul, ol, dl, dd, dt {
+  margin: 0;
+}
+ul, ol {
+  list-style: none;
+  padding: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  display: block;
+  max-inline-size: stretch;
+  max-inline-size: -webkit-fill-available;
+}
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+.shell {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: clamp(20px, 5vw, 48px);
+  padding-right: clamp(20px, 5vw, 48px);
+}
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--accent-cyan);
+  color: #020617;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+}
 
-/* Top Navbar */
-.nav-wrap{border-bottom:1px solid var(--nav-border);background:rgba(7,8,11,0.92)}
-.nav{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:14px;flex-wrap:nowrap}
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1.18rem;letter-spacing:-0.03em;min-height:44px;min-width:44px;white-space:nowrap}
-.brand-icon{width:22px;height:22px;border-radius:5px;background:var(--accent-cyan);display:grid;place-items:center;color:#000;font-size:13px;font-weight:800}
-.brand span{color:var(--accent-cyan)}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{min-height:44px;min-width:44px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.92rem;font-weight:500;border-radius:7px;transition:color 0.15s,background 0.15s}
-.nav-links a:hover{color:var(--text-main);background:var(--bg-surface)}
-.btn-nav{min-height:44px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent-cyan);color:#030712;font-size:0.9rem;font-weight:700;border-radius:8px;white-space:nowrap;transition:opacity 0.15s,transform 0.15s}
-.btn-nav:hover{opacity:0.92;transform:translateY(-1px)}
+/* Navigation Shell */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: rgba(8, 9, 11, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--nav-border);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  gap: 16px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+  min-height: 44px;
+  min-width: 44px;
+  white-space: nowrap;
+}
+.brand-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--accent-cyan);
+  display: grid;
+  place-items: center;
+  color: #020617;
+  font-size: 13px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+.brand span {
+  color: var(--text-main);
+}
+.brand .brand-lab {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  margin-left: 4px;
+  font-weight: 600;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-links a {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: 7px;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:hover {
+  color: var(--text-main);
+  background: var(--bg-surface);
+}
+.btn-nav {
+  min-height: 44px;
+  padding: 0 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-cyan);
+  color: #020617;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.btn-nav:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
 
-/* Hero Section */
-.hero{padding:clamp(60px,9vw,110px) 0 clamp(48px,7vw,90px);border-bottom:1px solid var(--line)}
-.hero-tag{display:inline-flex;align-items:center;gap:9px;padding:6px 14px;border:1px solid var(--line-strong);border-radius:100px;background:var(--bg-surface);font:500 0.76rem var(--font-mono);color:var(--accent-cyan);letter-spacing:0.02em;margin-bottom:26px}
-.hero-tag::before{content:'';width:7px;height:7px;border-radius:99px;background:var(--signal-live)}
-h1{font-size:clamp(2.35rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-0.04em;font-weight:700;max-width:20ch;text-wrap:balance}
-.hero-sub{margin-top:26px;max-width:54ch;color:var(--text-muted);font-size:1.15rem;line-height:1.7}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
-.btn-primary{min-height:50px;min-width:44px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;background:var(--accent-cyan);color:#020617;font-weight:700;font-size:0.96rem;border-radius:9px;transition:opacity 0.15s,transform 0.15s}
-.btn-primary:hover{opacity:0.92;transform:translateY(-2px)}
-.btn-secondary{min-height:50px;min-width:44px;padding:0 22px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-strong);background:var(--bg-surface);color:var(--text-main);font-weight:600;font-size:0.96rem;border-radius:9px;transition:background 0.15s,border-color 0.15s,transform 0.15s}
-.btn-secondary:hover{background:var(--bg-card);border-color:rgba(255,255,255,0.3);transform:translateY(-2px)}
+/* Systems Lab Hero */
+.hero {
+  padding: clamp(60px, 9vw, 110px) 0 clamp(48px, 7vw, 90px);
+  border-bottom: 1px solid var(--line);
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 100px;
+  background: var(--bg-surface);
+  font: 500 0.76rem var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.02em;
+  margin-bottom: 26px;
+}
+.hero-tag::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--signal-live);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+h1 {
+  font-size: clamp(2.35rem, 5.6vw, 4.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: var(--text-main);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.hero-sub {
+  margin-top: 26px;
+  max-width: 58ch;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+.btn-primary {
+  min-height: 50px;
+  min-width: 44px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-cyan);
+  color: #020617;
+  font-weight: 700;
+  font-size: 0.96rem;
+  border-radius: 8px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  min-height: 50px;
+  min-width: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-strong);
+  border-top: 1px solid var(--line-strong);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.96rem;
+  border-radius: 8px;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.btn-secondary:hover {
+  background: var(--bg-card);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
 
-/* KPI Strip */
-.kpi-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:clamp(40px,6vw,70px)}
-.kpi-item{background:var(--bg-surface);padding:20px 22px}
-.kpi-val{font:600 1.25rem var(--font-mono);color:var(--text-main)}
-.kpi-lbl{font-size:0.82rem;color:var(--text-muted);margin-top:4px}
+/* KPI Spec Strip */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line-strong);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: clamp(40px, 6vw, 70px);
+}
+.kpi-item {
+  background: var(--bg-surface);
+  padding: 22px 24px;
+}
+.kpi-val {
+  font: 600 1.25rem var(--font-mono);
+  color: var(--text-main);
+}
+.kpi-lbl {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
 
-/* Section Header */
-.section-intro{margin-bottom:clamp(36px,5vw,56px)}
-.tag{font:500 0.78rem var(--font-mono);color:var(--accent-cyan);letter-spacing:0.04em}
-.h2{font-size:clamp(1.9rem,3.8vw,3.1rem);line-height:1.12;letter-spacing:-0.035em;font-weight:700;margin-top:12px;text-wrap:balance}
-.sub-copy{color:var(--text-muted);font-size:1.06rem;margin-top:14px;max-width:58ch}
+/* Section Header Styles */
+.section-intro {
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+.tag {
+  font: 500 0.78rem var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.04em;
+}
+.h2 {
+  font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 12px;
+  text-wrap: balance;
+}
+.sub-copy {
+  color: var(--text-muted);
+  font-size: 1.06rem;
+  margin-top: 14px;
+  max-width: 58ch;
+  line-height: 1.68;
+}
 
-/* Product Section 1: ClipAI */
-.section-clipai{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--line)}
-.clipai-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);gap:clamp(36px,6vw,72px);align-items:center}
-.pipeline-list{display:grid;gap:12px;margin:28px 0}
-.pipeline-card{background:var(--bg-surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start}
-.pipeline-num{font:500 0.8rem var(--font-mono);color:var(--accent-cyan);padding-top:2px}
-.pipeline-title{font-weight:600;font-size:0.98rem;color:var(--text-main)}
-.pipeline-desc{color:var(--text-muted);font-size:0.88rem;margin-top:3px}
-.benchmark-box{padding:18px 20px;border-left:3px solid var(--accent-cyan);background:var(--bg-surface);border-radius:0 10px 10px 0;margin-top:26px}
-.benchmark-tag{font:600 0.74rem var(--font-mono);color:var(--accent-cyan)}
-.benchmark-text{font-size:0.92rem;color:var(--text-muted);margin-top:6px}
+/* Section 1: ClipAI Flagship & Simulator */
+.section-clipai {
+  padding: clamp(64px, 9vw, 120px) 0;
+  border-bottom: 1px solid var(--line);
+}
+.clipai-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(36px, 5vw, 64px);
+  align-items: start;
+}
+.pipeline-list {
+  display: grid;
+  gap: 12px;
+  margin: 28px 0;
+}
+.pipeline-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.pipeline-num {
+  font: 500 0.82rem var(--font-mono);
+  color: var(--accent-cyan);
+  padding-top: 2px;
+}
+.pipeline-title {
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--text-main);
+}
+.pipeline-desc {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.benchmark-box {
+  padding: 18px 20px;
+  border-left: 3px solid var(--accent-cyan);
+  background: var(--bg-surface);
+  border-radius: 0 10px 10px 0;
+  margin-top: 26px;
+}
+.benchmark-tag {
+  font: 600 0.74rem var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.03em;
+}
+.benchmark-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.55;
+}
+
+/* Interactive Simulator Container */
+.sim-console {
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sim-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.sim-title {
+  font: 600 0.85rem var(--font-mono);
+  color: var(--text-main);
+  letter-spacing: 0.02em;
+}
+.tab-controls {
+  display: inline-flex;
+  gap: 6px;
+  background: var(--bg-surface);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+.btn-tab {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font: 500 0.8rem var(--font-mono);
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.btn-tab.active {
+  background: var(--bg-elevated);
+  color: var(--accent-cyan);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+.sim-display-frame {
+  position: relative;
+  background: #040507;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: inline-size;
+}
+.sim-grid-canvas {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.bounding-box {
+  position: absolute;
+  border: 2px dashed var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 100%;
+}
+.box-mode-16-9 {
+  width: min(130px, 42cqi);
+  height: 80%;
+  left: 28%;
+  top: 10%;
+}
+.box-mode-9-16 {
+  width: min(120px, 40cqi);
+  height: 88%;
+  left: 30%;
+  top: 6%;
+  border-style: solid;
+  border-color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.06);
+}
+.bounding-tag {
+  font: 600 0.68rem var(--font-mono);
+  color: #020617;
+  background: var(--accent-cyan);
+  padding: 2px 6px;
+  border-radius: 3px;
+  align-self: flex-start;
+}
+.bounding-coords {
+  font: 500 0.65rem var(--font-mono);
+  color: var(--accent-cyan);
+  background: rgba(2, 6, 23, 0.85);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.hud-timestamp {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font: 600 0.78rem var(--font-mono);
+  color: var(--text-main);
+  background: rgba(8, 9, 11, 0.85);
+  border: 1px solid var(--line-strong);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.hud-safe-zone {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px;
+  font: 500 0.62rem var(--font-mono);
+  color: var(--text-dim);
+}
+
+/* Scrubber Controls */
+.scrubber-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scrubber-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 500 0.8rem var(--font-mono);
+}
+.scrubber-label {
+  color: var(--text-muted);
+}
+.scrubber-time-val {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+.scrubber-track-wrap {
+  position: relative;
+  width: stretch;
+  max-inline-size: -webkit-fill-available;
+  inline-size: -webkit-fill-available;
+}
+.scrubber-input {
+  width: stretch;
+  max-inline-size: -webkit-fill-available;
+  inline-size: -webkit-fill-available;
+  height: 44px;
+  cursor: pointer;
+  accent-color: var(--accent-cyan);
+  background: transparent;
+  margin: 0;
+}
+.marker-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.marker-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.marker-btn:hover {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border-color: var(--line-strong);
+}
+.marker-btn.active {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+}
+.marker-time {
+  font: 600 0.72rem var(--font-mono);
+}
+.marker-label {
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+/* Whisper Token Alignment Box */
+.whisper-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+.whisper-header {
+  font: 600 0.72rem var(--font-mono);
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+.whisper-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.w-token {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.w-token.active {
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+/* Retention Gauge Card */
+.retention-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+}
+.retention-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.retention-title {
+  font: 600 0.74rem var(--font-mono);
+  color: var(--text-muted);
+}
+.retention-status {
+  font: 600 0.7rem var(--font-mono);
+  color: var(--accent-emerald-bright);
+}
+.retention-metrics {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+.retention-main-number {
+  font: 700 2.2rem var(--font-mono);
+  color: var(--accent-cyan);
+  line-height: 1;
+}
+.retention-denom {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.retention-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.score-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.score-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+.score-track {
+  height: 6px;
+  background: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.score-bar {
+  height: 6px;
+  background: var(--accent-cyan);
+  border-radius: 3px;
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
 
 /* UI Preview Frame */
-.preview-shell{container-type:inline-size;max-width:calc(100vw - 40px);background:var(--bg-card);border:1px solid var(--line-strong);border-radius:14px;padding:10px;box-shadow:0 24px 60px rgba(0,0,0,0.5)}
-.preview-img{width:100cqi;max-width:100cqi;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.06)}
-.preview-meta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between;padding:12px 6px 4px;font:500 0.74rem var(--font-mono);color:var(--text-dim)}
-.preview-live-dot{display:inline-flex;align-items:center;gap:6px;color:var(--signal-live)}
-.preview-live-dot::before{content:'';width:6px;height:6px;border-radius:99px;background:var(--signal-live)}
+.preview-shell {
+  container-type: inline-size;
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  border-top: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}
+.preview-img {
+  width: 100cqi;
+  max-width: 100cqi;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 6px 4px;
+  font: 500 0.74rem var(--font-mono);
+  color: var(--text-dim);
+}
+.preview-live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--signal-live);
+}
+.preview-live-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--signal-live);
+}
 
-/* Product Section 2: SignaCerta */
-.section-signa{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--line);background:var(--bg-surface)}
-.signa-grid{display:grid;grid-template-columns:minmax(0,0.95fr) minmax(0,1.05fr);gap:clamp(36px,6vw,72px);align-items:center}
-.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0}
-.spec-item{background:var(--bg-surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
-.spec-title{font:600 0.88rem var(--font-mono);color:var(--text-main)}
-.spec-desc{font-size:0.85rem;color:var(--text-muted);margin-top:4px}
+/* Section 2: SignaCerta Cryptographic Verifier */
+.section-signa {
+  padding: clamp(64px, 9vw, 120px) 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-surface);
+}
+.signa-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(36px, 5vw, 64px);
+  align-items: start;
+}
+.verifier-console {
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.verifier-header {
+  font: 600 0.85rem var(--font-mono);
+  color: var(--text-main);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.doc-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.btn-doc {
+  min-height: 48px;
+  min-width: 44px;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  transition: all 0.15s ease;
+}
+.btn-doc:hover {
+  background: var(--bg-elevated);
+  border-color: var(--line-strong);
+  color: var(--text-main);
+}
+.btn-doc.active {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+  color: var(--text-main);
+}
+.doc-name {
+  font: 600 0.8rem var(--font-mono);
+}
+.doc-meta {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+.hash-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+.hash-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font: 600 0.72rem var(--font-mono);
+}
+.hash-title {
+  color: var(--text-muted);
+}
+.hash-algo {
+  color: var(--accent-cyan);
+}
+.hash-display-code {
+  font: 500 0.75rem var(--font-mono);
+  color: var(--text-main);
+  word-break: break-all;
+  background: #050608;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  letter-spacing: -0.01em;
+}
+.tamper-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  gap: 12px;
+}
+.tamper-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tamper-title {
+  font: 600 0.84rem var(--font-sans);
+  color: var(--text-main);
+}
+.tamper-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+.btn-toggle {
+  min-height: 44px;
+  min-width: 74px;
+  padding: 8px 14px;
+  border-radius: 24px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font: 600 0.78rem var(--font-mono);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.btn-toggle.active {
+  background: var(--accent-rose);
+  border-color: var(--accent-rose);
+  color: #020617;
+  font-weight: 700;
+}
 
-/* Infrastructure Section */
-.section-infra{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--line)}
-.infra-grid{display:grid;grid-template-columns:minmax(0,0.95fr) minmax(0,1.05fr);gap:clamp(36px,6vw,72px);align-items:start}
-.node-list{display:grid;gap:12px}
-.node-card{background:var(--bg-surface);border:1px solid var(--line);border-radius:10px;padding:16px 20px;display:grid;grid-template-columns:minmax(160px,0.45fr) minmax(0,1fr);gap:16px;align-items:baseline}
-.node-id{font-weight:600;font-size:0.92rem;color:var(--accent-cyan);letter-spacing:-0.01em}
-.node-desc{font-size:0.9rem;color:var(--text-muted)}
+/* Attestation Verdict Banner */
+.verdict-banner {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-emerald);
+  background: var(--accent-emerald-dim);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+.verdict-banner.tampered {
+  border-color: var(--accent-rose);
+  background: var(--accent-rose-dim);
+}
+.verdict-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 99px;
+  background: var(--accent-emerald-bright);
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.verdict-banner.tampered .verdict-indicator {
+  background: var(--accent-rose);
+}
+.verdict-status {
+  font: 700 0.88rem var(--font-mono);
+  color: var(--accent-emerald-bright);
+  letter-spacing: 0.02em;
+}
+.verdict-banner.tampered .verdict-status {
+  color: var(--accent-rose);
+}
+.verdict-explanation {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.crypto-details {
+  display: grid;
+  gap: 6px;
+  background: #050608;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.crypto-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 8px;
+  font: 500 0.72rem var(--font-mono);
+}
+.c-lbl {
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.c-val {
+  color: var(--text-main);
+  word-break: break-all;
+  max-width: 100%;
+}
+.qr-attest-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.qr-thumb {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.qr-meta {
+  font: 500 0.72rem var(--font-mono);
+  color: var(--text-muted);
+  line-height: 1.4;
+  word-break: break-all;
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.qr-meta-code {
+  color: var(--accent-cyan);
+  font-weight: 600;
+  word-break: break-all;
+}
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+.spec-item {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.spec-title {
+  font: 600 0.88rem var(--font-mono);
+  color: var(--text-main);
+}
+.spec-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* Section 3: Sovereign Infrastructure Fabric Bento Grid */
+.section-infra {
+  padding: clamp(64px, 9vw, 120px) 0;
+  border-bottom: 1px solid var(--line);
+}
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 36px;
+}
+.bento-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  transition: border-color 0.15s ease;
+}
+.bento-card:hover {
+  border-color: var(--line-strong);
+}
+.bento-span-2 {
+  grid-column: span 2;
+}
+.bento-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.node-id {
+  font: 600 1.05rem var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: -0.01em;
+}
+.node-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.62;
+}
+.bento-telemetry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.tel-chip {
+  font: 500 0.72rem var(--font-mono);
+  background: var(--bg-card);
+  border: 1px solid var(--line-strong);
+  color: var(--text-main);
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.node-cluster-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+.node-row-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: 500 0.76rem var(--font-mono);
+}
+.node-row-label {
+  color: var(--text-main);
+}
+.node-row-status {
+  color: var(--accent-emerald-bright);
+}
 
 /* Global Footer */
-.footer{padding:clamp(48px,7vw,84px) 0 44px;background:#050608}
-.footer-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,0.7fr) minmax(0,0.7fr);gap:clamp(32px,5vw,64px);padding-bottom:44px;border-bottom:1px solid var(--line)}
-.footer-brand{font-size:1.15rem;font-weight:700;letter-spacing:-0.03em}
-.footer-bio{margin-top:12px;max-width:38ch;color:var(--text-muted);font-size:0.9rem;line-height:1.6}
-.footer-col-title{font:600 0.8rem var(--font-mono);color:var(--text-main);margin-bottom:14px;letter-spacing:0.02em}
-.footer-links-list{display:grid;gap:6px}
-.footer-links-list a{color:var(--text-muted);font-size:0.88rem;transition:color 0.15s,transform 0.15s;min-height:44px;min-width:44px;display:inline-flex;align-items:center}
-.footer-links-list a:hover{color:var(--accent-cyan)}
-.footer-links-list a:active{color:var(--accent-cyan);transform:translateY(1px)}
-.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:28px;font-size:0.84rem;color:var(--text-dim)}
+.footer {
+  padding: clamp(48px, 7vw, 84px) 0 44px;
+  background: #050608;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+  gap: clamp(32px, 5vw, 64px);
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line);
+}
+.footer-brand {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+}
+.footer-bio {
+  margin-top: 12px;
+  max-width: 42ch;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.62;
+}
+.footer-col-title {
+  font: 600 0.8rem var(--font-mono);
+  color: var(--text-main);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+.footer-links-list {
+  display: grid;
+  gap: 6px;
+}
+.footer-links-list a {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  transition: color 0.15s, transform 0.15s;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.footer-links-list a:hover {
+  color: var(--accent-cyan);
+}
+.footer-links-list a:active {
+  color: var(--accent-cyan);
+  transform: translateY(1px);
+}
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 28px;
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
 
-@media(max-width:960px){
-  .kpi-strip{grid-template-columns:repeat(2,1fr)}
-  .clipai-grid,.signa-grid,.infra-grid{grid-template-columns:1fr;gap:40px}
-  .signa-grid .preview-shell{order:2}
-  .footer-grid{grid-template-columns:1fr 1fr}
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .clipai-layout, .signa-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
-@media(max-width:880px){
-  .nav-links{display:none}
+@media (max-width: 960px) {
+  .kpi-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-span-2 {
+    grid-column: span 1;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
-@media(max-width:640px){
-  .kpi-strip{grid-template-columns:1fr}
-  .spec-grid{grid-template-columns:1fr}
-  .node-card{grid-template-columns:1fr;gap:4px}
-  .footer-grid{grid-template-columns:1fr;gap:32px}
-  .hero-cta{flex-direction:column;align-items:stretch}
+@media (max-width: 880px) {
+  .nav-links {
+    display: none;
+  }
 }
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .btn-primary,.btn-secondary,.btn-nav,.nav-links a{transition:none}
+@media (max-width: 640px) {
+  .kpi-strip {
+    grid-template-columns: 1fr;
+  }
+  .spec-grid {
+    grid-template-columns: 1fr;
+  }
+  .doc-selector-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-primary, .btn-secondary {
+    width: stretch;
+    max-inline-size: -webkit-fill-available;
+    inline-size: -webkit-fill-available;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
 }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#products">Skip to primary products</a>
+<a class="skip-link skip" href="#clipai">Skip to primary products</a>
 
 <header class="nav-wrap">
   <div class="shell nav">
     <a class="brand" href="/" aria-label="UdinCloud Technologies, Home">
       <span class="brand-icon">U</span>
-      <span>UdinCloud</span>
+      <span>UdinCloud <span class="brand-lab">LAB</span></span>
     </a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#products">Products</a>
+    <nav class="nav-links navlinks" aria-label="Primary navigation">
+      <a href="#produk">Produk</a>
       <a href="#clipai">ClipAI</a>
       <a href="#signacerta">SignaCerta</a>
-      <a href="#infrastructure">Infrastructure</a>
-      <a href="https://github.com/1RDHWN1">GitHub</a>
+      <a href="#infrastruktur">Infrastruktur</a>
+      <a href="https://github.com/1RDHWN1" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <a class="btn-nav" href="https://clipai.udincloud.me">Launch Studio</a>
   </div>
 </header>
 
-<main id="products">
-  <!-- Hero Section -->
+<main id="produk">
+  <!-- Systems Lab Hero Section -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="shell">
-      <div class="hero-tag">CLOUDFLARE ARGO TUNNEL : DISTRIBUTED WORKER PIPELINE v2.4</div>
+      <div class="hero-tag status" data-state="online">
+        CLOUDFLARE ZERO-TRUST EDGE : SOVEREIGN CLUSTER ONLINE
+      </div>
       <h1 id="hero-heading">Autonomous Video Intelligence and Verifiable Systems.</h1>
-      <p class="hero-sub">UdinCloud engineers high-throughput pipelines for automated media repurposing and zero-trust cryptographic document verification. Transform raw streams into high-retention vertical clips and certify digital assets with mathematical proof.</p>
+      <p class="hero-sub">UdinCloud engineers sovereign multimodal pipelines for automated video repurposing and zero-trust cryptographic document verification. Transform raw streams into high-retention vertical cuts and certify digital assets with mathematical proof.</p>
       
       <div class="hero-cta">
-        <a class="btn-primary" href="https://clipai.udincloud.me">Launch ClipAI Studio</a>
-        <a class="btn-secondary" href="https://signacerta.udincloud.me">Explore SignaCerta Engine</a>
+        <a class="btn-primary cta" href="https://clipai.udincloud.me">Launch ClipAI Studio</a>
+        <a class="btn-secondary" href="https://signacerta.udincloud.me">Verify Document Signatures</a>
       </div>
 
       <div class="kpi-strip" aria-label="Engineering specifications">
         <div class="kpi-item">
-          <div class="kpi-val">1080x1920</div>
-          <div class="kpi-lbl">9:16 Adaptive Reframe</div>
-        </div>
-        <div class="kpi-item">
           <div class="kpi-val">Whisper STT</div>
-          <div class="kpi-lbl">Timestamped Alignment</div>
+          <div class="kpi-lbl">Word-Level Timestamp Alignment</div>
         </div>
         <div class="kpi-item">
-          <div class="kpi-val">NIST P-256</div>
-          <div class="kpi-lbl">ECDSA Cryptography</div>
+          <div class="kpi-val">9:16 Adaptive Reframe</div>
+          <div class="kpi-lbl">Face Tracking Computer Vision</div>
         </div>
         <div class="kpi-item">
-          <div class="kpi-val">Hardware GPU</div>
-          <div class="kpi-lbl">VAAPI and AMF Acceleration</div>
+          <div class="kpi-val">NIST P-256 ECDSA</div>
+          <div class="kpi-lbl">FIPS 186-4 Digital Signatures</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">AMD GPU Acceleration</div>
+          <div class="kpi-lbl">VAAPI and AMF Hardware Encoders</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Product 1: ClipAI -->
+  <!-- Product 1: ClipAI Flagship & Simulator -->
   <section class="section-clipai" id="clipai" aria-labelledby="clipai-heading">
-    <div class="shell clipai-grid">
-      <div>
-        <div class="section-intro">
-          <span class="tag">FLAGSHIP ENGINE : 01</span>
-          <h2 id="clipai-heading" class="h2">Automated long-form video intelligence to high-retention vertical shorts.</h2>
-          <p class="sub-copy">ClipAI ingests source video feeds, transcribes audio at word-level precision, evaluates narrative virality through AI moment scoring, and renders production-ready vertical cuts in seconds.</p>
-        </div>
-
-        <ul class="pipeline-list" aria-label="ClipAI pipeline architecture">
-          <li class="pipeline-card">
-            <span class="pipeline-num">01</span>
-            <div>
-              <div class="pipeline-title">Whisper Transcription and Alignment</div>
-              <div class="pipeline-desc">Speech-to-text pipeline generating word-by-word timestamped transcriptions.</div>
-            </div>
-          </li>
-          <li class="pipeline-card">
-            <span class="pipeline-num">02</span>
-            <div>
-              <div class="pipeline-title">Semantic Narrative Scoring</div>
-              <div class="pipeline-desc">AI evaluation algorithms calculating hook retention, pacing, and viewer payoff probability.</div>
-            </div>
-          </li>
-          <li class="pipeline-card">
-            <span class="pipeline-num">03</span>
-            <div>
-              <div class="pipeline-title">Dynamic Reframing and Viral Headlines</div>
-              <div class="pipeline-desc">Computer vision face tracking for 9:16 framing, edge-to-edge headline banners, and animated typography.</div>
-            </div>
-          </li>
-          <li class="pipeline-card">
-            <span class="pipeline-num">04</span>
-            <div>
-              <div class="pipeline-title">Hardware-Accelerated Transcoding</div>
-              <div class="pipeline-desc">BullMQ and Redis distributed queue driving FFmpeg GPU encoding with HTTP 206 streaming delivery.</div>
-            </div>
-          </li>
-        </ul>
-
-        <div class="benchmark-box">
-          <div class="benchmark-tag">VERIFIED CLOUD BENCHMARK</div>
-          <div class="benchmark-text">In an internal verification run, a 19-second video source generated 3 production-grade vertical cuts with a peak moment retention score of 91 out of 100.</div>
-        </div>
-
-        <div class="hero-cta" style="margin-top:28px;">
-          <a class="btn-primary" href="https://clipai.udincloud.me">Open ClipAI Studio</a>
-          <a class="btn-secondary" href="https://github.com/1RDHWN1/ClipAIv2">View Engine Repository</a>
-        </div>
+    <div class="shell">
+      <div class="section-intro">
+        <span class="tag">FLAGSHIP PIPELINE : 01</span>
+        <h2 id="clipai-heading" class="h2">Automated long-form video intelligence to high-retention vertical shorts.</h2>
+        <p class="sub-copy">ClipAI ingests source media feeds, transcribes audio at word-level timestamp precision, evaluates narrative virality through semantic moment scoring, and renders production vertical cuts in seconds.</p>
       </div>
 
-      <figure class="preview-shell">
-        <img class="preview-img" src="assets-clipai.png" alt="ClipAI Production Interface showing URL input and automated clipping pipeline">
-        <figcaption class="preview-meta">
-          <span>ClipAI Studio Interface</span>
-          <span class="preview-live-dot">Live at clipai.udincloud.me</span>
-        </figcaption>
-      </figure>
+      <div class="clipai-layout">
+        <!-- Interactive Simulator Console -->
+        <div class="sim-console idx" id="clipai-simulator">
+          <div class="sim-header">
+            <span class="sim-title">CLIPAI ADAPTIVE SIMULATOR</span>
+            <div class="tab-controls" role="tablist" aria-label="Aspect ratio format">
+              <button type="button" class="btn-tab active" id="tab-16-9" role="tab" aria-selected="true" data-mode="16-9">16:9 Landscape</button>
+              <button type="button" class="btn-tab" id="tab-9-16" role="tab" aria-selected="false" data-mode="9-16">9:16 Vertical</button>
+            </div>
+          </div>
+
+          <div class="sim-display-frame" id="sim-frame">
+            <div class="sim-grid-canvas"></div>
+            <div class="hud-safe-zone">
+              <span>FORMAT: <span id="hud-format">16:9 SOURCE</span></span>
+              <span>RENDER: AMD VAAPI HARDWARE</span>
+            </div>
+            <div class="bounding-box box-mode-16-9" id="bounding-box">
+              <span class="bounding-tag" id="hud-tag">FACE_TRACK_01</span>
+              <span class="bounding-coords" id="hud-coords">X: 520 Y: 180 (CONF: 0.98)</span>
+            </div>
+            <div class="hud-timestamp" id="hud-time">00:08 / 00:19</div>
+          </div>
+
+          <div class="scrubber-panel">
+            <div class="scrubber-header">
+              <span class="scrubber-label">TIMELINE SCRUBBER</span>
+              <span class="scrubber-time-val" id="scrubber-display">00:08s (NARRATIVE CLIMAX)</span>
+            </div>
+            <div class="scrubber-track-wrap">
+              <input type="range" class="scrubber-input" id="timeline-scrubber" min="0" max="19" value="8" step="1" aria-label="ClipAI video timeline position">
+            </div>
+            <div class="marker-buttons">
+              <button type="button" class="marker-btn" data-sec="3">
+                <span class="marker-time">0:03</span>
+                <span class="marker-label">Hook Point</span>
+              </button>
+              <button type="button" class="marker-btn active" data-sec="8">
+                <span class="marker-time">0:08</span>
+                <span class="marker-label">Climax Peak</span>
+              </button>
+              <button type="button" class="marker-btn" data-sec="15">
+                <span class="marker-time">0:15</span>
+                <span class="marker-label">Payoff Moment</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="whisper-box">
+            <div class="whisper-header">WHISPER TIMESTAMPED TOKEN STREAM</div>
+            <div class="whisper-tokens" id="whisper-tokens">
+              <span class="w-token" data-start="0" data-end="2">[00:00] In this sovereign systems engineering lab</span>
+              <span class="w-token" data-start="3" data-end="7">[00:03] we ingest raw streams and multi-track audio</span>
+              <span class="w-token active" data-start="8" data-end="14">[00:08] calculate semantic viral retention vectors</span>
+              <span class="w-token" data-start="15" data-end="19">[00:15] and render vertical shorts without manual editing.</span>
+            </div>
+          </div>
+
+          <div class="retention-box">
+            <div class="retention-top">
+              <span class="retention-title">VIRAL RETENTION TELEMETRY</span>
+              <span class="retention-status" id="retention-status">RETENTION PEAK CONFIRMED</span>
+            </div>
+            <div class="retention-metrics">
+              <div>
+                <span class="retention-main-number" id="retention-score">91</span>
+                <span class="retention-denom">/100</span>
+              </div>
+              <div class="retention-bars">
+                <div class="score-row">
+                  <div class="score-meta"><span>Hook Retention</span><span id="val-hook">94 / 100</span></div>
+                  <div class="score-track"><div class="score-bar" id="bar-hook" style="transform: scaleX(0.94);"></div></div>
+                </div>
+                <div class="score-row">
+                  <div class="score-meta"><span>Narrative Pacing</span><span id="val-pacing">88 / 100</span></div>
+                  <div class="score-track"><div class="score-bar" id="bar-pacing" style="transform: scaleX(0.88);"></div></div>
+                </div>
+                <div class="score-row">
+                  <div class="score-meta"><span>Climax Payoff</span><span id="val-payoff">92 / 100</span></div>
+                  <div class="score-track"><div class="score-bar" id="bar-payoff" style="transform: scaleX(0.92);"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specifications & Preview Figure -->
+        <div>
+          <figure class="preview-shell">
+            <img class="preview-img" src="assets-clipai.png" alt="ClipAI Production Interface showing automated clipping pipeline">
+            <figcaption class="preview-meta">
+              <span>ClipAI Studio Interface</span>
+              <span class="preview-live-dot">Live at clipai.udincloud.me</span>
+            </figcaption>
+          </figure>
+
+          <ul class="pipeline-list" aria-label="ClipAI pipeline architecture">
+            <li class="pipeline-card">
+              <span class="pipeline-num">01</span>
+              <div>
+                <div class="pipeline-title">Whisper Transcription and Alignment</div>
+                <div class="pipeline-desc">Speech-to-text pipeline generating word-by-word timestamped transcriptions.</div>
+              </div>
+            </li>
+            <li class="pipeline-card">
+              <span class="pipeline-num">02</span>
+              <div>
+                <div class="pipeline-title">Semantic Narrative Scoring</div>
+                <div class="pipeline-desc">AI evaluation algorithms calculating hook retention, pacing, and viewer payoff probability.</div>
+              </div>
+            </li>
+            <li class="pipeline-card">
+              <span class="pipeline-num">03</span>
+              <div>
+                <div class="pipeline-title">Dynamic Reframing and Viral Headlines</div>
+                <div class="pipeline-desc">Computer vision face tracking for 9:16 framing, edge-to-edge headline banners, and animated typography.</div>
+              </div>
+            </li>
+            <li class="pipeline-card">
+              <span class="pipeline-num">04</span>
+              <div>
+                <div class="pipeline-title">Hardware-Accelerated Transcoding</div>
+                <div class="pipeline-desc">BullMQ and Redis distributed queue driving FFmpeg GPU encoding with HTTP 206 streaming delivery.</div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="benchmark-box">
+            <div class="benchmark-tag">VERIFIED CLOUD BENCHMARK</div>
+            <div class="benchmark-text">In an internal verification run, a 19-second video source generated 3 production-grade vertical cuts with a peak moment retention score of 91 out of 100.</div>
+          </div>
+
+          <div class="hero-cta" style="margin-top:24px;">
+            <a class="btn-primary" href="https://clipai.udincloud.me">Open ClipAI Studio</a>
+            <a class="btn-secondary" href="https://github.com/1RDHWN1/ClipAIv2">View Engine Repository</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Product 2: SignaCerta -->
+  <!-- Product 2: SignaCerta Cryptographic Verifier -->
   <section class="section-signa" id="signacerta" aria-labelledby="signa-heading">
-    <div class="shell signa-grid">
-      <figure class="preview-shell">
-        <img class="preview-img" src="assets-signacerta.png" alt="SignaCerta Asymmetric Key Generation and Cryptographic Attestation Interface">
-        <figcaption class="preview-meta">
-          <span>SignaCerta Cryptographic Console</span>
-          <span class="preview-live-dot">Live at signacerta.udincloud.me</span>
-        </figcaption>
-      </figure>
+    <div class="shell">
+      <div class="section-intro">
+        <span class="tag">CRYPTOGRAPHIC INTEGRITY : 02</span>
+        <h2 id="signa-heading" class="h2">Zero-knowledge digital document attestation and public verification.</h2>
+        <p class="sub-copy">SignaCerta provides tamper-proof document attestation using NIST P-256 elliptic curve cryptography and SHA-256 digests. Documents are mathematically provable via instant public QR verification without exposing sensitive contents.</p>
+      </div>
 
-      <div>
-        <div class="section-intro">
-          <span class="tag">CRYPTOGRAPHIC SECURITY : 02</span>
-          <h2 id="signa-heading" class="h2">Zero-knowledge digital document attestation and public verification.</h2>
-          <p class="sub-copy">SignaCerta provides tamper-proof document attestation using NIST P-256 elliptic curve cryptography and SHA-256 digests. Documents are mathematically provable via instant public QR verification without exposing sensitive contents.</p>
+      <div class="signa-layout">
+        <!-- Interactive Verifier Console -->
+        <div class="verifier-console idx" id="signacerta-verifier">
+          <div class="verifier-header">SIGNACERTA CRYPTOGRAPHIC VERIFIER</div>
+
+          <div class="doc-selector-grid" role="radiogroup" aria-label="Signed document sample">
+            <button type="button" class="btn-doc active" id="btn-doc-1" role="radio" aria-checked="true" data-doc="1">
+              <span class="doc-name">audit-attestation-2026.pdf</span>
+              <span class="doc-meta">248 KB : NIST P-256 ECDSA</span>
+            </button>
+            <button type="button" class="btn-doc" id="btn-doc-2" role="radio" aria-checked="false" data-doc="2">
+              <span class="doc-name">cluster-manifest-v2.pdf</span>
+              <span class="doc-meta">114 KB : NIST P-256 ECDSA</span>
+            </button>
+          </div>
+
+          <div class="hash-panel">
+            <div class="hash-title-row">
+              <span class="hash-title">SHA-256 PAYLOAD DIGEST</span>
+              <span class="hash-algo">FIPS 180-4 SECURE HASH</span>
+            </div>
+            <div class="hash-display-code" id="hash-val">7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</div>
+          </div>
+
+          <div class="tamper-control">
+            <div class="tamper-text-wrap">
+              <span class="tamper-title">1-Bit Payload Alteration Simulation</span>
+              <span class="tamper-desc">Mutate single byte at offset 0x004A2F to test avalanche invalidation</span>
+            </div>
+            <button type="button" class="btn-toggle" id="tamper-btn" aria-pressed="false">
+              <span id="tamper-btn-text">OFF</span>
+            </button>
+          </div>
+
+          <div class="verdict-banner" id="verdict-banner">
+            <div class="verdict-indicator" id="verdict-dot"></div>
+            <div>
+              <div class="verdict-status" id="verdict-status">CRYPTOGRAPHIC ATTESTATION : VALID</div>
+              <div class="verdict-explanation" id="verdict-explanation">Payload digest matches certified ECDSA signature. Zero byte mutations detected.</div>
+            </div>
+          </div>
+
+          <div class="crypto-details">
+            <div class="crypto-row">
+              <span class="c-lbl">PUBLIC KEY</span>
+              <span class="c-val">04:7f:21:9a:c4:e8:11:02:d9:44:b6:90:31:ec:44:19</span>
+            </div>
+            <div class="crypto-row">
+              <span class="c-lbl">ALGORITHM</span>
+              <span class="c-val">ECDSA with NIST P-256 (secp256r1)</span>
+            </div>
+            <div class="crypto-row">
+              <span class="c-lbl">MATCH DELTA</span>
+              <span class="c-val" id="delta-val" style="color: var(--accent-emerald-bright);">0 BITS (EXACT MATCH)</span>
+            </div>
+          </div>
+
+          <div class="qr-attest-box">
+            <svg class="qr-thumb" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" aria-hidden="true">
+              <rect x="2" y="2" width="7" height="7"/>
+              <rect x="15" y="2" width="7" height="7"/>
+              <rect x="2" y="15" width="7" height="7"/>
+              <rect x="5" y="5" width="1" height="1"/>
+              <rect x="18" y="5" width="1" height="1"/>
+              <rect x="5" y="18" width="1" height="1"/>
+              <path d="M15 15h2v2h-2zM19 15h3v2h-3zM15 19h3v3h-3zM20 20h2v2h-2z"/>
+            </svg>
+            <div class="qr-meta">
+              <div>ATTESTATION ID: <span class="qr-meta-code">SC-2026-NIST-8841</span></div>
+              <div>VERIFIER: <span class="qr-meta-code">signacerta.udincloud.me/verify</span></div>
+            </div>
+          </div>
         </div>
 
-        <div class="spec-grid" aria-label="SignaCerta cryptographic specifications">
-          <div class="spec-item">
-            <div class="spec-title">NIST P-256 ECDSA</div>
-            <div class="spec-desc">FIPS 186-4 asymmetric digital signatures with AES-256 encrypted private keys.</div>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">SHA-256 Digest</div>
-            <div class="spec-desc">Cryptographic hashing creating an immutable fingerprint of document contents.</div>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">Public QR Verification</div>
-            <div class="spec-desc">Scannable cryptographic attestation linking directly to decentralized proof.</div>
-          </div>
-          <div class="spec-item">
-            <div class="spec-title">Tamper Detection</div>
-            <div class="spec-desc">Instant mathematical invalidation if a signed PDF is altered by even one bit.</div>
-          </div>
-        </div>
+        <!-- Specifications & Preview Figure -->
+        <div>
+          <figure class="preview-shell">
+            <img class="preview-img" src="assets-signacerta.png" alt="SignaCerta Asymmetric Key Generation and Cryptographic Attestation Interface">
+            <figcaption class="preview-meta">
+              <span>SignaCerta Cryptographic Console</span>
+              <span class="preview-live-dot">Live at signacerta.udincloud.me</span>
+            </figcaption>
+          </figure>
 
-        <div class="hero-cta" style="margin-top:28px;">
-          <a class="btn-primary" href="https://signacerta.udincloud.me">Launch SignaCerta Engine</a>
-          <a class="btn-secondary" href="https://github.com/1RDHWN1/uts-ki-digital-signature">View Security Repository</a>
+          <div class="spec-grid" aria-label="SignaCerta cryptographic specifications">
+            <div class="spec-item">
+              <div class="spec-title">NIST P-256 ECDSA</div>
+              <div class="spec-desc">FIPS 186-4 asymmetric digital signatures with AES-256 encrypted private keys.</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-title">SHA-256 Digest</div>
+              <div class="spec-desc">Cryptographic hashing creating an immutable fingerprint of document contents.</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-title">Public QR Verification</div>
+              <div class="spec-desc">Scannable cryptographic attestation linking directly to decentralized proof.</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-title">Tamper Detection</div>
+              <div class="spec-desc">Instant mathematical invalidation if a signed PDF is altered by even one bit.</div>
+            </div>
+          </div>
+
+          <div class="hero-cta" style="margin-top:24px;">
+            <a class="btn-primary" href="https://signacerta.udincloud.me">Launch SignaCerta Engine</a>
+            <a class="btn-secondary" href="https://github.com/1RDHWN1/uts-ki-digital-signature">View Security Repository</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Infrastructure Section -->
-  <section class="section-infra" id="infrastructure" aria-labelledby="infra-heading">
-    <div class="shell infra-grid">
+  <!-- Sovereign Infrastructure Asymmetric Bento Grid -->
+  <section class="section-infra" id="infrastruktur" aria-labelledby="infra-heading">
+    <div id="infrastructure"></div>
+    <div class="shell">
       <div class="section-intro">
         <span class="tag">SOVEREIGN CLOUD FABRIC</span>
         <h2 id="infra-heading" class="h2">Engineered on isolated, self-hosted infrastructure.</h2>
         <p class="sub-copy">Every AI worker, model pipeline, and cryptographic service runs on an isolated cluster managed by UdinCloud, fronted by Cloudflare zero-trust network tunnels.</p>
       </div>
 
-      <ul class="node-list" aria-label="Infrastructure nodes">
-        <li class="node-card">
-          <span class="node-id">Proxmox VE Cluster</span>
-          <span class="node-desc">Three isolated Debian LXC container environments decoupling media ingest, queue workers, and cryptographic processes.</span>
-        </li>
-        <li class="node-card">
-          <span class="node-id">Cloudflare Argo Tunnels</span>
-          <span class="node-desc">Encrypted zero-trust edge routing delivering low-latency traffic without exposing public network ports.</span>
-        </li>
-        <li class="node-card">
-          <span class="node-id">BullMQ and Redis Broker</span>
-          <span class="node-desc">Distributed in-memory task queue managing asynchronous video transcode jobs with atomic state handling.</span>
-        </li>
-        <li class="node-card">
-          <span class="node-id">AMD GPU Acceleration</span>
-          <span class="node-desc">Hardware encoding pipelines leveraging AMD VAAPI on Linux and AMD AMF on Windows for rapid H.264 rendering.</span>
-        </li>
-        <li class="node-card">
-          <span class="node-id">Active Cluster Hosts</span>
-          <span class="node-desc">proxmox.udincloud.me orchestrating private internal compute instances.</span>
-        </li>
-      </ul>
+      <div class="bento-grid">
+        <!-- Bento 1: Proxmox VE Cluster (Span 2) -->
+        <div class="bento-card bento-span-2">
+          <div class="bento-top">
+            <span class="node-id">Proxmox VE 8.4 Virtualization Cluster</span>
+            <p class="node-desc">Three isolated Debian LXC container environments decoupling media ingest, queue workers, and cryptographic processes. Network ingress is routed exclusively through Cloudflare Zero-Trust Argo Tunnel without exposing open public firewall ports.</p>
+            <div class="node-cluster-list">
+              <div class="node-row-item">
+                <span class="node-row-label">LXC 101 : Media Ingest Gateway (FastAPI / Node.js)</span>
+                <span class="node-row-status">CLUSTER ONLINE</span>
+              </div>
+              <div class="node-row-item">
+                <span class="node-row-label">LXC 102 : BullMQ Worker (AMD GPU Transcoding)</span>
+                <span class="node-row-status">CLUSTER ONLINE</span>
+              </div>
+              <div class="node-row-item">
+                <span class="node-row-label">LXC 103 : Cryptographic HSM (NIST P-256 Signer)</span>
+                <span class="node-row-status">CLUSTER ONLINE</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-telemetry">
+            <span class="tel-chip">DEBIAN LXC 101/102/103</span>
+            <span class="tel-chip">ZERO INBOUND PORTS</span>
+            <span class="tel-chip">CGROUPS V2 ISOLATION</span>
+            <span class="tel-chip">CLOUDFLARE ARGO TUNNEL</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: AMD GPU Acceleration -->
+        <div class="bento-card">
+          <div class="bento-top">
+            <span class="node-id">Hardware GPU Acceleration</span>
+            <p class="node-desc">Dedicated hardware transcode pipeline leveraging AMD VAAPI on Linux Debian LXC and AMD AMF on Windows host for rapid FFmpeg zero-copy video framing.</p>
+          </div>
+          <div class="bento-telemetry">
+            <span class="tel-chip">AMD VAAPI (LINUX)</span>
+            <span class="tel-chip">AMD AMF (WINDOWS)</span>
+            <span class="tel-chip">H.264 ZERO-COPY RENDER</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: BullMQ & Redis Task Broker -->
+        <div class="bento-card">
+          <div class="bento-top">
+            <span class="node-id">BullMQ and Redis Task Broker</span>
+            <p class="node-desc">Distributed in-memory task queues orchestrating asynchronous video transcode jobs, worker heartbeat monitoring, and atomic state locking.</p>
+          </div>
+          <div class="bento-telemetry">
+            <span class="tel-chip">ATOMIC CONCURRENCY</span>
+            <span class="tel-chip">IN-MEMORY JOB QUEUE</span>
+            <span class="tel-chip">EXPONENTIAL BACKOFF</span>
+          </div>
+        </div>
+
+        <!-- Bento 4: HTTP 206 Streaming Delivery (Span 2) -->
+        <div class="bento-card bento-span-2">
+          <div class="bento-top">
+            <span class="node-id">HTTP 206 Partial-Content Media Delivery</span>
+            <p class="node-desc">Byte-range chunking protocol serving partial media ranges (RFC 7233). Mitigates aggressive multi-connection download lockouts from download managers while preventing player buffer starvation on edge clients.</p>
+          </div>
+          <div class="bento-telemetry">
+            <span class="tel-chip">RFC 7233 PROTOCOL</span>
+            <span class="tel-chip">BYTE-RANGE STREAMING</span>
+            <span class="tel-chip">ANTI-STARVATION BUFFER</span>
+            <span class="tel-chip">LOW LATENCY EDGE</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- Global Footer -->
+<!-- Engineering Lab Footer -->
 <footer class="footer">
   <div class="shell">
     <div class="footer-grid">
       <div>
         <div class="brand">
           <span class="brand-icon">U</span>
-          <span>UdinCloud Technologies</span>
+          <span class="footer-brand">UdinCloud Technologies</span>
         </div>
         <p class="footer-bio">Autonomous Multimodal Intelligence and Verifiable Computing Systems. Building production-grade media pipelines and digital security infrastructure.</p>
       </div>
@@ -363,14 +1640,14 @@ h1{font-size:clamp(2.35rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-0.04em
         <div class="footer-links-list">
           <a href="https://clipai.udincloud.me">ClipAI Studio</a>
           <a href="https://signacerta.udincloud.me">SignaCerta Engine</a>
-          <a href="#infrastructure">Cloud Infrastructure</a>
+          <a href="#infrastruktur">Cloud Infrastructure</a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">DEVELOPER and CONTACT</div>
         <div class="footer-links-list">
-          <a href="https://github.com/1RDHWN1">GitHub Organization</a>
-          <a href="https://me.udincloud.me">Personal Workspace</a>
+          <a href="https://github.com/1RDHWN1" target="_blank" rel="noopener">GitHub Organization</a>
+          <a href="https://me.udincloud.me" target="_blank" rel="noopener">Personal Workspace</a>
           <a href="mailto:founder@udincloud.me">founder@udincloud.me</a>
         </div>
       </div>
@@ -382,5 +1659,242 @@ h1{font-size:clamp(2.35rem,5.6vw,4.4rem);line-height:1.06;letter-spacing:-0.04em
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // --- ClipAI Simulator State & Logic ---
+  const scrubber = document.getElementById('timeline-scrubber');
+  const scrubberDisplay = document.getElementById('scrubber-display');
+  const hudTime = document.getElementById('hud-time');
+  const hudCoords = document.getElementById('hud-coords');
+  const hudFormat = document.getElementById('hud-format');
+  const boundingBox = document.getElementById('bounding-box');
+  const tab169 = document.getElementById('tab-16-9');
+  const tab916 = document.getElementById('tab-9-16');
+  const markerBtns = document.querySelectorAll('.marker-btn');
+  const tokens = document.querySelectorAll('.w-token');
+  const retentionScore = document.getElementById('retention-score');
+  const valHook = document.getElementById('val-hook');
+  const valPacing = document.getElementById('val-pacing');
+  const valPayoff = document.getElementById('val-payoff');
+  const barHook = document.getElementById('bar-hook');
+  const barPacing = document.getElementById('bar-pacing');
+  const barPayoff = document.getElementById('bar-payoff');
+  const retentionStatus = document.getElementById('retention-status');
+
+  let activeMode = '16-9';
+
+  const telemetryBySec = {
+    0:  { name: 'INTRO HOOK', score: '84', hook: '86', pacing: '82', payoff: '85', x: 420, y: 190, conf: '0.96' },
+    1:  { name: 'INTRO HOOK', score: '85', hook: '87', pacing: '83', payoff: '85', x: 430, y: 188, conf: '0.96' },
+    2:  { name: 'INTRO HOOK', score: '88', hook: '89', pacing: '85', payoff: '88', x: 440, y: 186, conf: '0.97' },
+    3:  { name: 'HOOK PEAK', score: '94', hook: '96', pacing: '91', payoff: '94', x: 460, y: 184, conf: '0.98' },
+    4:  { name: 'HOOK RETENTION', score: '92', hook: '95', pacing: '90', payoff: '92', x: 470, y: 182, conf: '0.98' },
+    5:  { name: 'PIPELINE FLOW', score: '89', hook: '91', pacing: '88', payoff: '89', x: 480, y: 182, conf: '0.98' },
+    6:  { name: 'AUDIO TRACKING', score: '88', hook: '90', pacing: '87', payoff: '88', x: 490, y: 180, conf: '0.98' },
+    7:  { name: 'BUILDUP', score: '90', hook: '92', pacing: '88', payoff: '90', x: 505, y: 180, conf: '0.98' },
+    8:  { name: 'NARRATIVE CLIMAX', score: '91', hook: '94', pacing: '88', payoff: '92', x: 520, y: 180, conf: '0.98' },
+    9:  { name: 'CLIMAX SUSTAIN', score: '90', hook: '92', pacing: '89', payoff: '90', x: 525, y: 180, conf: '0.98' },
+    10: { name: 'MID-POINT', score: '87', hook: '88', pacing: '87', payoff: '87', x: 530, y: 182, conf: '0.97' },
+    11: { name: 'MID-POINT', score: '86', hook: '87', pacing: '86', payoff: '86', x: 535, y: 182, conf: '0.97' },
+    12: { name: 'REFRAMING', score: '88', hook: '89', pacing: '88', payoff: '88', x: 540, y: 184, conf: '0.97' },
+    13: { name: 'GPU TRANSCODE', score: '89', hook: '90', pacing: '89', payoff: '89', x: 545, y: 184, conf: '0.98' },
+    14: { name: 'PACING BUILD', score: '91', hook: '92', pacing: '90', payoff: '91', x: 550, y: 185, conf: '0.98' },
+    15: { name: 'PAYOFF RESOLUTION', score: '92', hook: '90', pacing: '93', payoff: '95', x: 555, y: 186, conf: '0.99' },
+    16: { name: 'PAYOFF PEAK', score: '92', hook: '90', pacing: '93', payoff: '94', x: 550, y: 186, conf: '0.99' },
+    17: { name: 'CALL TO ACTION', score: '89', hook: '88', pacing: '90', payoff: '91', x: 540, y: 188, conf: '0.98' },
+    18: { name: 'FINAL FRAME', score: '88', hook: '87', pacing: '89', payoff: '89', x: 530, y: 190, conf: '0.97' },
+    19: { name: 'RENDER COMPLETE', score: '90', hook: '89', pacing: '91', payoff: '91', x: 520, y: 190, conf: '0.98' }
+  };
+
+  function updateTimeline(sec) {
+    const s = parseInt(sec, 10);
+    const data = telemetryBySec[s] || telemetryBySec[8];
+    const pad = s < 10 ? '0' + s : s;
+    
+    if (scrubberDisplay) {
+      scrubberDisplay.textContent = '00:' + pad + 's (' + data.name + ')';
+    }
+    if (hudTime) {
+      hudTime.textContent = '00:' + pad + ' / 00:19';
+    }
+    if (hudCoords) {
+      hudCoords.textContent = 'X: ' + data.x + ' Y: ' + data.y + ' (CONF: ' + data.conf + ')';
+    }
+    if (retentionScore) {
+      retentionScore.textContent = data.score;
+    }
+    if (valHook) valHook.textContent = data.hook + ' / 100';
+    if (valPacing) valPacing.textContent = data.pacing + ' / 100';
+    if (valPayoff) valPayoff.textContent = data.payoff + ' / 100';
+
+    if (barHook) barHook.style.transform = 'scaleX(' + (parseInt(data.hook, 10) / 100) + ')';
+    if (barPacing) barPacing.style.transform = 'scaleX(' + (parseInt(data.pacing, 10) / 100) + ')';
+    if (barPayoff) barPayoff.style.transform = 'scaleX(' + (parseInt(data.payoff, 10) / 100) + ')';
+
+    if (retentionStatus) {
+      retentionStatus.textContent = parseInt(data.score, 10) >= 91 ? 'RETENTION PEAK CONFIRMED' : 'OPTIMAL RETENTION ZONE';
+    }
+
+    // Highlight tokens
+    tokens.forEach(function(tok) {
+      const start = parseInt(tok.getAttribute('data-start'), 10);
+      const end = parseInt(tok.getAttribute('data-end'), 10);
+      if (s >= start && s <= end) {
+        tok.classList.add('active');
+      } else {
+        tok.classList.remove('active');
+      }
+    });
+
+    // Highlight marker buttons
+    markerBtns.forEach(function(btn) {
+      const bSec = parseInt(btn.getAttribute('data-sec'), 10);
+      if (bSec === s) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  if (scrubber) {
+    scrubber.addEventListener('input', function() {
+      updateTimeline(this.value);
+    });
+  }
+
+  markerBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const sec = this.getAttribute('data-sec');
+      if (scrubber) scrubber.value = sec;
+      updateTimeline(sec);
+    });
+  });
+
+  function setAspectMode(mode) {
+    activeMode = mode;
+    if (mode === '9-16') {
+      tab916.classList.add('active');
+      tab916.setAttribute('aria-selected', 'true');
+      tab169.classList.remove('active');
+      tab169.setAttribute('aria-selected', 'false');
+      boundingBox.className = 'bounding-box box-mode-9-16';
+      hudFormat.textContent = '9:16 VERTICAL CROP';
+    } else {
+      tab169.classList.add('active');
+      tab169.setAttribute('aria-selected', 'true');
+      tab916.classList.remove('active');
+      tab916.setAttribute('aria-selected', 'false');
+      boundingBox.className = 'bounding-box box-mode-16-9';
+      hudFormat.textContent = '16:9 SOURCE';
+    }
+  }
+
+  if (tab169) {
+    tab169.addEventListener('click', function() { setAspectMode('16-9'); });
+  }
+  if (tab916) {
+    tab916.addEventListener('click', function() { setAspectMode('9-16'); });
+  }
+
+  // --- SignaCerta Verifier State & Logic ---
+  const doc1Btn = document.getElementById('btn-doc-1');
+  const doc2Btn = document.getElementById('btn-doc-2');
+  const hashVal = document.getElementById('hash-val');
+  const tamperBtn = document.getElementById('tamper-btn');
+  const tamperBtnText = document.getElementById('tamper-btn-text');
+  const verdictBanner = document.getElementById('verdict-banner');
+  const verdictStatus = document.getElementById('verdict-status');
+  const verdictExplanation = document.getElementById('verdict-explanation');
+  const deltaVal = document.getElementById('delta-val');
+
+  let selectedDoc = '1';
+  let isTampered = false;
+
+  const docHashes = {
+    '1': {
+      valid: '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069',
+      tampered: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+    },
+    '2': {
+      valid: 'b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9',
+      tampered: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+    }
+  };
+
+  function updateVerifierState() {
+    const hashes = docHashes[selectedDoc];
+    if (isTampered) {
+      if (hashVal) hashVal.textContent = hashes.tampered;
+      if (tamperBtn) {
+        tamperBtn.classList.add('active');
+        tamperBtn.setAttribute('aria-pressed', 'true');
+      }
+      if (tamperBtnText) tamperBtnText.textContent = 'ON';
+      if (verdictBanner) verdictBanner.className = 'verdict-banner tampered';
+      if (verdictStatus) verdictStatus.textContent = 'TAMPER DETECTED : SIGNATURE INVALID';
+      if (verdictExplanation) {
+        verdictExplanation.textContent = 'Payload digest diverges from certified ECDSA signature. 1-bit mutation detected at offset 0x004A2F.';
+      }
+      if (deltaVal) {
+        deltaVal.textContent = '1 BIT DIVERGENCE (MATHEMATICAL REJECTION)';
+        deltaVal.style.color = 'var(--accent-rose)';
+      }
+    } else {
+      if (hashVal) hashVal.textContent = hashes.valid;
+      if (tamperBtn) {
+        tamperBtn.classList.remove('active');
+        tamperBtn.setAttribute('aria-pressed', 'false');
+      }
+      if (tamperBtnText) tamperBtnText.textContent = 'OFF';
+      if (verdictBanner) verdictBanner.className = 'verdict-banner';
+      if (verdictStatus) verdictStatus.textContent = 'CRYPTOGRAPHIC ATTESTATION : VALID';
+      if (verdictExplanation) {
+        verdictExplanation.textContent = 'Payload digest matches certified ECDSA signature. Zero byte mutations detected.';
+      }
+      if (deltaVal) {
+        deltaVal.textContent = '0 BITS (EXACT MATCH)';
+        deltaVal.style.color = 'var(--accent-emerald-bright)';
+      }
+    }
+  }
+
+  if (doc1Btn) {
+    doc1Btn.addEventListener('click', function() {
+      selectedDoc = '1';
+      doc1Btn.classList.add('active');
+      doc1Btn.setAttribute('aria-checked', 'true');
+      if (doc2Btn) {
+        doc2Btn.classList.remove('active');
+        doc2Btn.setAttribute('aria-checked', 'false');
+      }
+      updateVerifierState();
+    });
+  }
+
+  if (doc2Btn) {
+    doc2Btn.addEventListener('click', function() {
+      selectedDoc = '2';
+      doc2Btn.classList.add('active');
+      doc2Btn.setAttribute('aria-checked', 'true');
+      if (doc1Btn) {
+        doc1Btn.classList.remove('active');
+        doc1Btn.setAttribute('aria-checked', 'false');
+      }
+      updateVerifierState();
+    });
+  }
+
+  if (tamperBtn) {
+    tamperBtn.addEventListener('click', function() {
+      isTampered = !isTampered;
+      updateVerifierState();
+    });
+  }
+})();
+</script>
 </body>
 </html>
