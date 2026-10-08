@@ -1,0 +1,413 @@
+/* udincloud.me: company landing.
+   A terminal session, rebuilt for the web. The palette, the mono voice, and the
+   ember carry over from the domain's own pages so the whole place reads as one.
+
+   Three patterns sit next to the Hard Gate. Each was named to the owner with its
+   rule number before this file was written, and the owner chose to keep it on the
+   condition that it has a stated job. They are recorded in DESIGN.md so the
+   exception is auditable, not silent:
+
+     R-07  the 4% glyph rain + hairline rules   -> the terminal's own texture
+     R-06  monospace type                       -> the type the subject reads all day
+     R-01  glow, dose-capped                    -> marks live state only
+   Nothing else in the slop list is present. */
+
+:root {
+  --surface: #08090b;
+  --raised: #0e1014;
+  --raised-2: #14171c;
+  --line: #1e2229;
+  --line-hot: #2b313b;
+  /* Interactive boundaries (app rows, the nav button) must clear 3:1 against
+     both the surface and the raised row; decorative rules stay on --line. */
+  --border-control: #5c6472;
+  --ink: #e7e9ec;
+  --dim: #8b929e;
+  --faint: #78808c;
+  --green: #4ee08a;
+  --green-dim: #2f8f5b;
+  --green-ink: #05130b;
+  --ember: #ff5c38;
+
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+
+  /* Two radii, chosen by role: a small one for controls, a larger one for the
+     one card shape. Not one pill radius on everything (R-11). */
+  --r-sm: 6px;
+  --r-md: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--surface);
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14.5px;
+  line-height: 1.62;
+  overflow-x: clip;
+}
+
+@media (min-width: 900px) { body { font-size: 15px; } }
+
+a { color: var(--ink); text-decoration: none; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection { background: rgba(78, 224, 138, 0.28); }
+
+/* Skip link: parked off-canvas, revealed on focus. */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--green);
+  color: var(--green-ink);
+  padding: 0 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+/* The rain. One layer, behind everything, low opacity. Off for reduced motion. */
+#rain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Scroll progress: one hairline, a position cue. */
+#progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  z-index: 100;
+}
+
+/* ---- Header ---- */
+.head-inner {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 58px;
+  padding: 0 clamp(14px, 3vw, 28px);
+  background: rgba(8, 9, 11, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nav { display: flex; align-items: center; gap: clamp(6px, 1.6vw, 16px); }
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 4px;
+  font-size: 0.84rem;
+  color: var(--dim);
+  transition: color 0.15s;
+}
+.nav a:hover { color: var(--ink); }
+.nav a.gh {
+  color: var(--ink);
+  border: 1px solid var(--border-control);
+  border-radius: var(--r-sm);
+  padding: 0 12px;
+}
+
+/* ---- Page frame ---- */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 32px) 64px;
+}
+
+.prompt {
+  margin: 0 0 16px;
+  font-size: clamp(0.82rem, 2.4vw, 0.95rem);
+  color: var(--dim);
+  overflow-wrap: anywhere;
+}
+.ps1 { color: var(--green); }
+.at { color: var(--dim); }
+.path { color: var(--ink); }
+.cmd { color: var(--ink); }
+
+/* Live caret: one of the few places glow is allowed, because it is live state. */
+.caret {
+  display: inline-block;
+  width: 0.62ch;
+  height: 1.02em;
+  margin-left: 2px;
+  vertical-align: -0.16em;
+  background: var(--green);
+  box-shadow: 0 0 8px rgba(78, 224, 138, 0.75);
+  animation: blink 1.05s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---- Hero ---- */
+.hero { padding: clamp(30px, 6vw, 68px) 0 clamp(26px, 4vw, 44px); }
+
+#brand {
+  margin: 0.06em 0 0.18em;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.7rem, 12vw, 5.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.lede {
+  margin: 0 0 24px;
+  max-width: 46ch;
+  font-size: clamp(0.98rem, 2.7vw, 1.12rem);
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 18px;
+  background: var(--green);
+  color: var(--green-ink);
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: filter 0.15s, transform 0.12s;
+}
+.cta:hover { filter: brightness(1.07); }
+.cta:active { transform: translateY(1px); }
+
+.quiet {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 2px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-hot);
+  transition: border-color 0.15s;
+}
+.quiet:hover { border-color: var(--dim); }
+
+/* ---- Blocks ---- */
+.block { padding: clamp(28px, 5vw, 46px) 0; border-top: 1px solid var(--line); }
+
+.cmdline {
+  margin: 0 0 10px;
+  font-size: clamp(0.82rem, 2.4vw, 0.92rem);
+  font-weight: 500;
+  color: var(--dim);
+  overflow-wrap: anywhere;
+}
+
+.comment { margin: 12px 0 0; font-size: 0.84rem; color: var(--faint); }
+
+/* ---- App rows ---- */
+.rows { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 12px; }
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px 18px;
+  min-height: 44px;
+  padding: 18px 18px 18px 22px;
+  background: var(--raised);
+  border: 1px solid var(--border-control);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: background 0.16s, border-color 0.16s, transform 0.16s;
+}
+.row:hover { background: var(--raised-2); border-color: var(--green-dim); transform: translateY(-2px); }
+.row:active { transform: translateY(0); }
+
+/* The accent edge: the row's affordance, filled on hover or focus. */
+.edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--green);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.18s ease-out, box-shadow 0.18s;
+}
+.row:hover .edge,
+.row:focus-visible .edge {
+  transform: scaleY(1);
+  box-shadow: 0 0 10px rgba(78, 224, 138, 0.6);
+}
+
+.row-main { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.row-name { font-size: 1.12rem; font-weight: 600; color: var(--ink); }
+.row-desc { font-size: 0.9rem; line-height: 1.5; color: var(--dim); }
+.row-meta { font-size: 0.76rem; letter-spacing: 0.02em; color: var(--faint); }
+
+.row-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  text-align: right;
+}
+
+.status {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border: 1px solid var(--line-hot);
+  border-radius: var(--r-sm);
+  color: var(--faint);
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.status[data-state="checking"] { color: var(--ink); border-color: var(--line-hot); }
+.status[data-state="online"] {
+  color: var(--green);
+  border-color: var(--green-dim);
+  box-shadow: 0 0 8px rgba(78, 224, 138, 0.35);
+}
+.status[data-state="offline"] { color: var(--ember); border-color: var(--ember); }
+
+.open { font-size: 0.82rem; color: var(--ink); white-space: nowrap; }
+
+/* ---- Server spec list ---- */
+.spec { margin: 14px 0 0; border-top: 1px solid var(--line); }
+.spec > div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spec dt { font-size: 0.8rem; color: var(--faint); }
+.spec dd { margin: 0; font-size: 0.92rem; color: var(--ink); }
+
+/* ---- About ---- */
+.about-name {
+  margin: 12px 0 6px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 5vw, 2.1rem);
+  letter-spacing: -0.02em;
+}
+.about-line { margin: 0 0 16px; max-width: 44ch; color: var(--dim); }
+
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.88rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-hot);
+  transition: border-color 0.15s;
+}
+.links a:hover { border-color: var(--green); }
+.links a:active { opacity: 0.65; }
+
+/* ---- Closing prompt ---- */
+.close { padding: clamp(32px, 6vw, 56px) 0 clamp(12px, 2vw, 22px); border-top: 1px solid var(--line); }
+
+/* ---- Footer ---- */
+.foot {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 22px clamp(16px, 4vw, 32px) 40px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  font-size: 0.8rem;
+  color: var(--faint);
+}
+.foot p { margin: 0; }
+.foot-links { display: flex; gap: 18px; }
+.foot-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
+.foot-links a:active { opacity: 0.65; }
+
+/* ---- Entrance: content is visible by default; motion only re-plays it in. ---- */
+.reveal { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- Narrow header: keep it on one row. ---- */
+@media (max-width: 460px) {
+  .head-inner { gap: 8px; padding: 0 12px; }
+  .brand { font-size: 0.9rem; }
+  .nav { gap: 4px; }
+  .nav a { font-size: 0.76rem; padding: 0 2px; }
+  .nav a.gh { padding: 0 10px; }
+}
+
+/* ---- App rows stack; the status chip drops under the text. ---- */
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; padding: 16px 16px 16px 20px; }
+  .row-side { flex-direction: row; align-items: center; justify-content: flex-start; gap: 12px; }
+  .spec > div { grid-template-columns: 1fr; gap: 3px; }
+}
+
+/* ---- Reduced motion: everything renders complete and static. ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { animation: none; }
+  .caret { animation: none; }
+  .row, .cta, .quiet, .links a, .edge, #progress { transition: none; }
+}
