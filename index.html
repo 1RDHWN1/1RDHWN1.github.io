@@ -1,229 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>udincloud: dua aplikasi web di server sendiri</title>
-<meta name="description" content="udincloud.me menjalankan dua aplikasi web buatan sendiri: ClipAI, pemotong video otomatis, dan SignaCerta, penanda tangan dokumen digital. Dijalankan di server sendiri.">
-<meta name="color-scheme" content="dark">
-<meta property="og:title" content="udincloud">
-<meta property="og:description" content="Dua aplikasi web, satu server sendiri.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://udincloud.me/">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308090b'/%3E%3Cpath d='M9 10l6 6-6 6' fill='none' stroke='%234ee08a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>udincloud | perangkat lunak yang kami jalankan sendiri</title>
+  <meta name="description" content="ClipAI dan SignaCerta: dua aplikasi web yang dibangun dan dijalankan oleh udincloud.">
+  <meta property="og:title" content="udincloud | perangkat lunak yang kami jalankan sendiri">
+  <meta property="og:description" content="ClipAI mengolah video. SignaCerta menjaga keaslian dokumen digital.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://udincloud.me/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23101114'/%3E%3Ctext x='7' y='29' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='%23f1f0ed'%3Eu%3C/text%3E%3Ccircle cx='31' cy='30' r='3' fill='%23c6f36a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<a class="skip" href="#aplikasi">lompat ke daftar aplikasi</a>
-<canvas id="rain" aria-hidden="true"></canvas>
-<div id="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#produk">Lewati ke produk</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="udincloud, beranda">udincloud<span>.</span></a>
+    <nav aria-label="Navigasi utama">
+      <a href="#produk">Produk</a>
+      <a href="#cara-kerja">Cara kerja</a>
+      <a href="https://me.udincloud.me">Tentang pembuat</a>
+    </nav>
+    <a class="header-contact" href="mailto:founder@udincloud.me">Hubungi founder</a>
+  </header>
 
-<header class="head-inner">
-  <a class="brand" href="#top">udincloud</a>
-  <nav class="nav" aria-label="bagian halaman">
-    <a href="#aplikasi">aplikasi</a>
-    <a href="#server">server</a>
-    <a href="#tentang">tentang</a>
-    <a class="gh" href="https://github.com/1RDHWN1" target="_blank" rel="me noopener">github</a>
-  </nav>
-</header>
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <p class="kicker">Perangkat lunak dari udincloud</p>
+        <h1 id="intro-title">Kami membangun alat yang menyelesaikan pekerjaan nyata.</h1>
+        <p class="intro-text">Dua aplikasi kami mengerjakan dua hal berbeda: mengubah video panjang menjadi klip siap terbit, dan membuktikan keaslian dokumen PDF.</p>
+        <a class="text-link" href="#produk">Lihat produk <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="intro-visual" aria-label="Dua produk udincloud: ClipAI untuk video dan SignaCerta untuk dokumen" role="img">
+        <div class="visual-top"><span>udincloud / products</span><span>01 / 02</span></div>
+        <div class="visual-track">
+          <div class="track-item track-clip"><span class="track-index">01</span><span class="track-name">ClipAI</span><span class="track-kind">video</span></div>
+          <div class="track-item track-sign"><span class="track-index">02</span><span class="track-name">SignaCerta</span><span class="track-kind">documents</span></div>
+        </div>
+        <div class="visual-bottom"><span>dibangun · dijalankan · diperbaiki</span><span class="visual-mark">uc / 26</span></div>
+      </div>
+    </section>
 
-<main class="page" id="top">
+    <section class="product-section clip-section" id="produk" aria-labelledby="clip-title">
+      <div class="section-index"><span>01</span><span>VIDEO WORKFLOW</span></div>
+      <div class="product-layout">
+        <div class="product-copy">
+          <p class="product-label">ClipAI</p>
+          <h2 id="clip-title">Dari satu tautan YouTube, jadi klip vertikal.</h2>
+          <p class="product-description">ClipAI mencari momen yang layak dipotong, menyusun subtitle, lalu membingkai ulang video untuk format 9:16.</p>
+          <a class="button button-lime" href="https://clipai.udincloud.me">Buka ClipAI</a>
+          <p class="product-url">clipai.udincloud.me</p>
+        </div>
+        <div class="clip-demo" aria-label="Ilustrasi alur kerja ClipAI: sumber video, pemilihan momen, hasil klip vertikal">
+          <div class="demo-header"><span>CLIPAI / OUTPUT</span><span>9:16</span></div>
+          <div class="timeline">
+            <div class="timeline-source"><span class="timeline-caption">SUMBER</span><span class="timeline-bar"></span></div>
+            <div class="timeline-cut"><span class="timeline-caption">MOMEN DIPILIH</span><div class="cut-bars"><i></i><i></i><i></i></div></div>
+          </div>
+          <div class="clip-result">
+            <div class="portrait-frame"><div class="portrait-scene"><span class="face-frame"></span><span class="subtitle-line">ini bagian penting</span></div></div>
+            <div class="result-meta"><span>KLIP 01</span><strong>91<span>/100</span></strong><small>skor momen · uji internal</small></div>
+          </div>
+          <p class="demo-note">Contoh hasil dari video sumber 19 detik. Sistem menghasilkan 3 klip.</p>
+        </div>
+      </div>
+      <div class="feature-line" aria-label="Fitur ClipAI">
+        <div><span class="feature-number">01</span><span>Transkripsi Whisper</span></div>
+        <div><span class="feature-number">02</span><span>Skor hook, pacing, retention, payoff</span></div>
+        <div><span class="feature-number">03</span><span>Subtitle per kata dan reframe wajah</span></div>
+        <div><span class="feature-number">04</span><span>Judul, deskripsi, tagar otomatis</span></div>
+      </div>
+    </section>
 
-  <!-- 1. Hero: whoami, then the brand as output. The one focal point of the first screen. -->
-  <section class="hero" aria-labelledby="brand">
-    <p class="prompt">
-      <span class="ps1">fachri<span class="at">@</span>udincloud<span class="path">:~$</span></span>
-      <span class="cmd" id="typed">whoami</span><span class="caret" aria-hidden="true"></span>
-    </p>
-    <h1 id="brand" class="reveal" style="--d:0ms">udincloud</h1>
-    <p class="lede reveal" style="--d:70ms">Rumah untuk aplikasi web yang saya bangun dan jalankan sendiri: pemotong video otomatis dan penanda tangan dokumen digital.</p>
-    <p class="hero-actions reveal" style="--d:140ms">
-      <a class="cta" href="#aplikasi">lihat dua aplikasinya</a>
-      <a class="quiet" href="https://github.com/1RDHWN1" target="_blank" rel="me noopener">github.com/1RDHWN1</a>
-    </p>
-  </section>
+    <section class="product-section sign-section" aria-labelledby="sign-title">
+      <div class="section-index"><span>02</span><span>DOCUMENT INTEGRITY</span></div>
+      <div class="sign-layout">
+        <div class="sign-visual" aria-label="Ilustrasi alur tanda tangan dan verifikasi PDF">
+          <div class="paper-sheet">
+            <div class="paper-head"><span>PDF / SIGNED</span><span>SHA-256</span></div>
+            <div class="paper-lines"><i></i><i></i><i></i><i></i></div>
+            <div class="signature">TANDA TANGAN DIGITAL</div>
+            <div class="paper-foot"><span>ECDSA · P-256</span><span class="qr" aria-label="kode QR ilustratif"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </div>
+          <div class="verify-line"><span></span><span>VERIFIKASI PUBLIK</span><span>PDF → QR</span></div>
+        </div>
+        <div class="product-copy sign-copy">
+          <p class="product-label sign-label">SignaCerta</p>
+          <h2 id="sign-title">Tanda tangani PDF. Periksa apakah isinya berubah.</h2>
+          <p class="product-description">Tanda tangan digital berbasis ECDSA P-256 dan hash SHA-256. Siapa pun dapat memeriksa keaslian dokumen melalui QR.</p>
+          <a class="button button-outline" href="https://signacerta.udincloud.me">Buka SignaCerta</a>
+          <p class="product-url">signacerta.udincloud.me</p>
+        </div>
+      </div>
+      <div class="sign-proof"><span>ECDSA NIST P-256</span><span>SHA-256</span><span>Deteksi perubahan PDF</span><span>Verifikasi QR publik</span></div>
+    </section>
 
-  <!-- 2. The two apps. The most interactive block on the page. -->
-  <section class="block reveal" id="aplikasi" aria-labelledby="h-apps" style="--d:0ms">
-    <h2 id="h-apps" class="cmdline"><span class="ps1">fachri<span class="at">@</span>udincloud<span class="path">:~$</span></span> ls ~/aplikasi</h2>
-    <p class="comment">// dua aplikasi yang jalan sekarang. klik salah satu untuk membukanya.</p>
-    <ul class="rows">
-      <li>
-        <a class="row" href="https://clipai.udincloud.me" target="_blank" rel="noopener" data-probe="https://clipai.udincloud.me/">
-          <span class="edge" aria-hidden="true"></span>
-          <span class="row-main">
-            <span class="row-name">ClipAI</span>
-            <span class="row-desc">Tempel URL YouTube, sistem memotong momen terbaik jadi klip pendek siap untuk TikTok, Reels, dan Shorts.</span>
-            <span class="row-meta">Node.js &middot; BullMQ + Redis &middot; yt-dlp &middot; Groq Whisper &middot; FFmpeg</span>
-          </span>
-          <span class="row-side">
-            <span class="status" data-state="idle">cek status</span>
-            <span class="open">buka &#8599;</span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="https://signacerta.udincloud.me" target="_blank" rel="noopener" data-probe="https://signacerta.udincloud.me/">
-          <span class="edge" aria-hidden="true"></span>
-          <span class="row-main">
-            <span class="row-name">SignaCerta</span>
-            <span class="row-desc">Tanda tangan digital pada dokumen PDF dan gambar lewat lencana QR-Code, dengan ECDSA NIST P-256 dan SHA-256.</span>
-            <span class="row-meta">Python &middot; Streamlit &middot; ECDSA P-256 &middot; SHA-256 &middot; QR-Code</span>
-          </span>
-          <span class="row-side">
-            <span class="status" data-state="idle">cek status</span>
-            <span class="open">buka &#8599;</span>
-          </span>
-        </a>
-      </li>
-    </ul>
-  </section>
+    <section class="operations" id="cara-kerja" aria-labelledby="ops-title">
+      <div class="operations-heading">
+        <p class="kicker">Di balik aplikasi</p>
+        <h2 id="ops-title">Dibangun dan dijalankan sendiri.</h2>
+      </div>
+      <p class="operations-copy">ClipAI berjalan di server yang kami kelola sendiri. Antrean pekerjaan memakai Redis dan BullMQ; FFmpeg merender klip dengan akselerasi AMD VAAPI. SignaCerta memakai tanda tangan ECDSA dan hash SHA-256 untuk pemeriksaan dokumen.</p>
+      <div class="stack-list" aria-label="Teknologi yang digunakan">
+        <div><span>01 / VIDEO</span><strong>Node.js · Express</strong><span>aplikasi</span></div>
+        <div><span>02 / JOBS</span><strong>BullMQ · Redis</strong><span>antrean</span></div>
+        <div><span>03 / MEDIA</span><strong>yt-dlp · FFmpeg</strong><span>proses video</span></div>
+        <div><span>04 / RENDER</span><strong>AMD VAAPI</strong><span>akselerasi</span></div>
+      </div>
+    </section>
+  </main>
 
-  <!-- 3. Where it runs. Real infrastructure facts, no fake dashboard. -->
-  <section class="block reveal" id="server" aria-labelledby="h-server" style="--d:0ms">
-    <h2 id="h-server" class="cmdline"><span class="ps1">fachri<span class="at">@</span>udincloud<span class="path">:~$</span></span> cat ~/server</h2>
-    <dl class="spec">
-      <div><dt>mesin</dt><dd>Proxmox VE di server sendiri</dd></div>
-      <div><dt>rute masuk</dt><dd>Cloudflare Tunnel, satu tunnel untuk tiap subdomain</dd></div>
-      <div><dt>alamat</dt><dd>udincloud.me, clipai.udincloud.me, signacerta.udincloud.me</dd></div>
-      <div><dt>transport</dt><dd>HTTPS di tepi Cloudflare, port tidak dibuka langsung ke internet</dd></div>
-    </dl>
-    <p class="comment">// tidak ada grafik atau dashboard buatan. ini yang benar-benar dipakai.</p>
-  </section>
-
-  <!-- 4. Who runs it. -->
-  <section class="block reveal" id="tentang" aria-labelledby="h-about" style="--d:0ms">
-    <h2 id="h-about" class="cmdline"><span class="ps1">fachri<span class="at">@</span>udincloud<span class="path">:~$</span></span> whoami --long</h2>
-    <p class="about-name">Fachri Ridhwan Imani</p>
-    <p class="about-line">Mahasiswa Informatika, Universitas Siliwangi. Membangun dan menjalankan udincloud.me sendiri.</p>
-    <ul class="links">
-      <li><a href="https://github.com/1RDHWN1" target="_blank" rel="me noopener">github.com/1RDHWN1</a></li>
-      <li><a href="https://instagram.com/fcdh_dx" target="_blank" rel="noopener">instagram: @fcdh_dx</a></li>
-      <li><a href="https://tiktok.com/@fcdh_15" target="_blank" rel="noopener">tiktok: @fcdh_15</a></li>
-      <li><a href="https://threads.net/@fcdh_dx" target="_blank" rel="noopener">threads: @fcdh_dx</a></li>
-      <li><a href="https://me.udincloud.me" target="_blank" rel="noopener">halaman kerja: me.udincloud.me</a></li>
-    </ul>
-  </section>
-
-  <!-- 5. The session ends where it can start again. -->
-  <section class="close reveal" aria-label="penutup" style="--d:0ms">
-    <p class="prompt">
-      <span class="ps1">fachri<span class="at">@</span>udincloud<span class="path">:~$</span></span>
-      <span class="caret" aria-hidden="true"></span>
-    </p>
-  </section>
-
-</main>
-
-<footer class="foot">
-  <p>udincloud.me, dijalankan sendiri, 2026</p>
-  <p class="foot-links"><a href="https://github.com/1RDHWN1" target="_blank" rel="me noopener">github</a><a href="#top">ke atas</a></p>
-</footer>
-
-<script>
-(function () {
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* 1. Entry typing. Default text is already in the DOM, so no-JS still reads "whoami". */
-  var typed = document.getElementById('typed');
-  if (typed) {
-    var full = typed.textContent;
-    if (reduce) {
-      typed.textContent = full;
-    } else {
-      typed.textContent = '';
-      var i = 0;
-      (function step() {
-        typed.textContent = full.slice(0, ++i);
-        if (i < full.length) setTimeout(step, 95);
-      })();
-    }
-  }
-
-  /* 2. Live reachability. Four honest states: idle, checking, online, offline. */
-  var rows = document.querySelectorAll('[data-probe]');
-  for (var r = 0; r < rows.length; r++) {
-    (function (row) {
-      var chip = row.querySelector('.status');
-      if (!chip) return;
-      chip.setAttribute('data-state', 'checking');
-      chip.textContent = 'memeriksa';
-      var settled = false;
-      var timer = setTimeout(function () { fail(); }, 8000);
-      function ok() {
-        if (settled) return; settled = true; clearTimeout(timer);
-        chip.setAttribute('data-state', 'online'); chip.textContent = 'online';
-      }
-      function fail() {
-        if (settled) return; settled = true; clearTimeout(timer);
-        chip.setAttribute('data-state', 'offline'); chip.textContent = 'tidak terjangkau';
-      }
-      if (!window.fetch) { fail(); return; }
-      fetch(row.getAttribute('data-probe'), { mode: 'no-cors', cache: 'no-store' }).then(ok, fail);
-    })(rows[r]);
-  }
-
-  /* 3. Scroll progress: one hairline, a position cue. */
-  var bar = document.getElementById('progress');
-  if (bar) {
-    var onScroll = function () {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0).toFixed(2) + '%';
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  /* 4. The rain. One layer, low opacity, lowest priority. Off for reduced motion. */
-  var canvas = document.getElementById('rain');
-  if (canvas && !reduce && canvas.getContext) {
-    var ctx = canvas.getContext('2d');
-    var glyphs = 'udincloud01{}[]<>/$#:;=+';
-    var font = 14;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var cols = 0, drops = [], last = 0, running = true;
-
-    function size() {
-      canvas.width = Math.floor(innerWidth * dpr);
-      canvas.height = Math.floor(innerHeight * dpr);
-      canvas.style.width = innerWidth + 'px';
-      canvas.style.height = innerHeight + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.floor(innerWidth / (font * 1.2));
-      drops = [];
-      for (var c = 0; c < cols; c++) drops.push(Math.random() * -60);
-    }
-    size();
-    window.addEventListener('resize', size);
-
-    function frame(ts) {
-      if (!running) return;
-      if (ts - last > 75) {
-        last = ts;
-        ctx.fillStyle = 'rgba(8, 9, 11, 0.14)';
-        ctx.fillRect(0, 0, innerWidth, innerHeight);
-        ctx.font = font + 'px "JetBrains Mono", monospace';
-        for (var c = 0; c < cols; c++) {
-          ctx.fillStyle = 'rgba(78, 224, 138, 0.16)';
-          ctx.fillText(glyphs.charAt(Math.floor(Math.random() * glyphs.length)), c * font * 1.2, drops[c] * font);
-          if (drops[c] * font > innerHeight && Math.random() > 0.975) drops[c] = 0;
-          drops[c]++;
-        }
-      }
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-
-    document.addEventListener('visibilitychange', function () {
-      running = !document.hidden;
-      if (running) { last = 0; requestAnimationFrame(frame); }
-    });
-  }
-})();
-</script>
+  <footer class="site-footer">
+    <a class="wordmark footer-mark" href="/">udincloud<span>.</span></a>
+    <p>Dua aplikasi web. Dibuat dengan tangan, dijalankan sendiri.</p>
+    <div class="footer-links">
+      <a href="https://github.com/1RDHWN1">GitHub</a>
+      <a href="https://me.udincloud.me">Tentang</a>
+      <a href="mailto:founder@udincloud.me">Email</a>
+    </div>
+    <span class="footer-year">Tasikmalaya · 2026</span>
+  </footer>
 </body>
 </html>
