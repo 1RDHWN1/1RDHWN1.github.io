@@ -60,9 +60,10 @@ either. Dial ENERGY 2 / RHYTHM 2 / MOTION 1.
 Use only verified facts:
 
 - ClipAI: turns a YouTube URL into vertical 9:16 clips. Whisper transcription, moment scoring for
-  hook, pacing, retention and payoff, word subtitles, face-tracking reframe to 1080x1920, and
-  generated title, description and hashtags. Stack: Node.js, Express, BullMQ, Redis, yt-dlp,
-  FFmpeg with AMD VAAPI. One verified internal test: a 19-second source produced 3 clips, best
+  hook, pacing, retention and payoff, word subtitles, face-tracking reframe to 1080x1920, edge-to-edge
+  auto headline banner, and generated title, description and hashtags. Web player with HTTP 206
+  streaming. Stack: Node.js, Express, BullMQ, Redis, yt-dlp, FFmpeg with AMD GPU encoding (VAAPI on
+  Linux, AMF on Windows). One verified internal test: a 19-second source produced 3 clips, best
   moment scored 91 out of 100. Stated as one test output, not a guarantee.
 - SignaCerta: signs a PDF and proves authenticity through a QR code. ECDSA NIST P-256, SHA-256,
   and tamper detection after signing.

@@ -215,7 +215,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
           <span class="n">01</span>
           <span class="body">
             <span class="name">ClipAI</span>
-            <span class="desc">Video YouTube jadi klip vertikal 9:16.</span>
+            <span class="desc">Video YouTube jadi klip vertikal 9:16 dengan banner otomatis.</span>
             <span class="dom">clipai.udincloud.me</span>
           </span>
         </a>
@@ -240,11 +240,11 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
           <h2 id="clipai-title" class="h2">Satu URL YouTube jadi beberapa klip vertikal.</h2>
           <p class="body-t">ClipAI mengunduh video, mentranskripsinya dengan Whisper, menilai setiap momen, lalu merender klip 1080x1920 yang siap diunggah ke Shorts, Reels, atau TikTok.</p>
           <ol class="flow">
-            <li><span class="fn">01</span><strong>Transkripsi</strong><p>Whisper mengubah audio menjadi teks bertimestamp.</p></li>
-            <li><span class="fn">02</span><strong>Penilaian momen</strong><p>Skor untuk hook, pacing, retention, dan payoff.</p></li>
-            <li><span class="fn">03</span><strong>Render</strong><p>Subtitle per kata, reframe wajah 9:16, output 1080x1920.</p></li>
+            <li><span class="fn">01</span><strong>Transkripsi dan skor</strong><p>Whisper menyusun transkrip; AI menilai hook, pacing, dan payoff.</p></li>
+            <li><span class="fn">02</span><strong>Layout dan headline banner</strong><p>Reframe wajah 9:16 serta banner judul tepi-ke-tepi otomatis.</p></li>
+            <li><span class="fn">03</span><strong>Render dan streaming</strong><p>Subtitle per kata, akselerasi GPU AMD, dan web player anti-spam.</p></li>
           </ol>
-          <p class="proof">Pada satu uji internal, sumber video 19 detik menghasilkan 3 klip. Skor momen tertinggi 91 dari 100. ClipAI juga menyusun judul, deskripsi, dan tagar. Antreannya memakai BullMQ dan Redis, render-nya memakai FFmpeg di GPU AMD dengan VAAPI.</p>
+          <p class="proof">Pada satu uji internal, sumber video 19 detik menghasilkan 3 klip dengan skor tertinggi 91 dari 100. ClipAI menyusun judul, deskripsi, tagar, overlay banner headline otomatis, antrean BullMQ dan Redis, serta render FFmpeg akselerasi GPU AMD (VAAPI di Linux, AMF di Windows).</p>
           <div class="actions">
             <a class="btn btn-light" href="https://clipai.udincloud.me">Buka ClipAI</a>
             <a class="btn btn-outline-light" href="https://github.com/1RDHWN1/ClipAIv2">Lihat kode ClipAI</a>
@@ -294,7 +294,7 @@ h1{font-size:clamp(2.05rem,5.3vw,3.9rem);line-height:1.03;letter-spacing:-.035em
         <li><span class="k">Proxmox VE</span><span class="v">3 kontainer Debian LXC untuk memisahkan beban kerja.</span></li>
         <li><span class="k">Cloudflare Tunnels</span><span class="v">Akses masuk tanpa membuka port ke publik.</span></li>
         <li><span class="k">Redis</span><span class="v">Antrean kerja ClipAI berjalan di server kami sendiri.</span></li>
-        <li><span class="k">GPU AMD</span><span class="v">Render video memakai VAAPI di kartu grafis AMD.</span></li>
+        <li><span class="k">GPU AMD</span><span class="v">Render video memakai VAAPI di Linux dan AMF di Windows.</span></li>
         <li><span class="k">Host aktif</span><span class="v">proxmox.udincloud.me dan tiga kontainer LXC yang menjalankan layanan internal.</span></li>
       </ul>
     </div>
