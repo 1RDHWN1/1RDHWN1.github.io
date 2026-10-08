@@ -16,11 +16,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #08090b;
-  --bg-surface: #0e1117;
-  --bg-card: #141822;
-  --bg-elevated: #1c2130;
-  --line: rgba(255, 255, 255, 0.09);
+  --bg: #030712;
+  --bg-midnight: #050814;
+  --bg-surface: #0b1120;
+  --bg-card: #0e1421;
+  --bg-elevated: #162032;
+  --line: rgba(255, 255, 255, 0.08);
   --line-strong: #64748b;
   --nav-border: #64748b;
   --text-main: #f1f5f9;
@@ -37,6 +38,7 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --max-w: 1200px;
+  --spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
 *, *::before, *::after {
   box-sizing: border-box;
@@ -44,18 +46,35 @@
 }
 html {
   scroll-behavior: smooth;
-  background: var(--bg);
+  background-color: var(--bg);
 }
 html:has(:focus) {
   scroll-behavior: auto;
 }
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--text-main);
   font: 400 1rem/1.65 var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
 }
+
+/* Atmospheric Ambient Lighting */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 850px;
+  background: radial-gradient(800px circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 h1, h2, h3, p, figure, ul, ol, dl, dd, dt {
   margin: 0;
 }
@@ -81,6 +100,8 @@ img {
   margin: 0 auto;
   padding-left: clamp(20px, 5vw, 48px);
   padding-right: clamp(20px, 5vw, 48px);
+  position: relative;
+  z-index: 1;
 }
 .skip-link {
   position: absolute;
@@ -106,10 +127,11 @@ img {
   position: sticky;
   top: 0;
   z-index: 90;
-  background: rgba(8, 9, 11, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(3, 7, 18, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 .nav {
   display: flex;
@@ -130,16 +152,17 @@ img {
   white-space: nowrap;
 }
 .brand-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  background: var(--accent-cyan);
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
   display: grid;
   place-items: center;
   color: #020617;
   font-size: 13px;
   font-weight: 800;
   font-family: var(--font-mono);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
 }
 .brand span {
   color: var(--text-main);
@@ -153,6 +176,7 @@ img {
   border: 1px solid rgba(56, 189, 248, 0.3);
   padding: 2px 6px;
   border-radius: 4px;
+  background: rgba(56, 189, 248, 0.08);
 }
 .nav-links {
   display: flex;
@@ -170,11 +194,11 @@ img {
   font-size: 0.92rem;
   font-weight: 500;
   border-radius: 7px;
-  transition: color 0.15s, background 0.15s;
+  transition: color 0.25s var(--spring), background 0.25s var(--spring), transform 0.25s var(--spring);
 }
 .nav-links a:hover {
   color: var(--text-main);
-  background: var(--bg-surface);
+  background: rgba(255, 255, 255, 0.05);
 }
 .btn-nav {
   min-height: 44px;
@@ -188,17 +212,23 @@ img {
   font-weight: 700;
   border-radius: 8px;
   white-space: nowrap;
-  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring), opacity 0.2s ease;
 }
 .btn-nav:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
+  opacity: 0.94;
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.45);
+}
+.btn-nav:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 /* Systems Lab Hero */
 .hero {
   padding: clamp(60px, 9vw, 110px) 0 clamp(48px, 7vw, 90px);
   border-bottom: 1px solid var(--line);
+  position: relative;
 }
 .hero-tag {
   display: inline-flex;
@@ -207,11 +237,13 @@ img {
   padding: 6px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 100px;
-  background: var(--bg-surface);
+  background: #0e1421;
+  background-image: linear-gradient(180deg, rgba(14, 20, 33, 0.85) 0%, rgba(8, 12, 20, 0.92) 100%);
   font: 500 0.76rem var(--font-mono);
   color: var(--accent-cyan);
   letter-spacing: 0.02em;
   margin-bottom: 26px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 .hero-tag::before {
   content: '';
@@ -219,7 +251,7 @@ img {
   height: 7px;
   border-radius: 99px;
   background: var(--signal-live);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
 }
 h1 {
   font-size: clamp(2.35rem, 5.6vw, 4.4rem);
@@ -255,11 +287,16 @@ h1 {
   font-weight: 700;
   font-size: 0.96rem;
   border-radius: 8px;
-  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 4px 18px rgba(56, 189, 248, 0.3);
+  transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring), opacity 0.2s ease;
 }
 .btn-primary:hover {
-  opacity: 0.92;
+  opacity: 0.95;
   transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(56, 189, 248, 0.45);
+}
+.btn-primary:active {
+  transform: translateY(1px) scale(0.98);
 }
 .btn-secondary {
   min-height: 50px;
@@ -270,43 +307,78 @@ h1 {
   justify-content: center;
   border: 1px solid var(--line-strong);
   border-top: 1px solid var(--line-strong);
-  background: var(--bg-surface);
+  background-color: #0e1421;
+  background-image: linear-gradient(180deg, rgba(14, 20, 33, 0.85) 0%, rgba(8, 12, 20, 0.92) 100%);
   color: var(--text-main);
   font-weight: 600;
   font-size: 0.96rem;
   border-radius: 8px;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s var(--spring), border-color 0.35s var(--spring), box-shadow 0.35s var(--spring);
 }
 .btn-secondary:hover {
-  background: var(--bg-card);
   border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+.btn-secondary:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Tactile Glass Spotlight Card Architecture */
+.spotlight-card {
+  position: relative;
+  background-color: #0e1421;
+  background-image: linear-gradient(180deg, rgba(14, 20, 33, 0.85) 0%, rgba(8, 12, 20, 0.92) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 12px 32px -8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.35s var(--spring), box-shadow 0.35s var(--spring), border-color 0.35s var(--spring);
+  overflow: hidden;
+}
+.spotlight-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 20px 42px -10px rgba(0, 0, 0, 0.75), 0 0 24px rgba(56, 189, 248, 0.08);
+}
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(56, 189, 248, 0.09), transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s var(--spring);
+}
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 
 /* KPI Spec Strip */
 .kpi-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--line-strong);
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  overflow: hidden;
+  gap: 12px;
   margin-top: clamp(40px, 6vw, 70px);
 }
 .kpi-item {
-  background: var(--bg-surface);
+  border-radius: 12px;
   padding: 22px 24px;
 }
 .kpi-val {
   font: 600 1.25rem var(--font-mono);
   color: var(--text-main);
+  position: relative;
+  z-index: 2;
 }
 .kpi-lbl {
   font-size: 0.82rem;
   color: var(--text-muted);
   margin-top: 6px;
   line-height: 1.4;
+  position: relative;
+  z-index: 2;
 }
 
 /* Section Header Styles */
@@ -352,8 +424,6 @@ h1 {
   margin: 28px 0;
 }
 .pipeline-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 16px 18px;
   display: grid;
@@ -365,22 +435,27 @@ h1 {
   font: 500 0.82rem var(--font-mono);
   color: var(--accent-cyan);
   padding-top: 2px;
+  position: relative;
+  z-index: 2;
 }
 .pipeline-title {
   font-weight: 600;
   font-size: 0.98rem;
   color: var(--text-main);
+  position: relative;
+  z-index: 2;
 }
 .pipeline-desc {
   color: var(--text-muted);
   font-size: 0.88rem;
   margin-top: 4px;
   line-height: 1.5;
+  position: relative;
+  z-index: 2;
 }
 .benchmark-box {
   padding: 18px 20px;
   border-left: 3px solid var(--accent-cyan);
-  background: var(--bg-surface);
   border-radius: 0 10px 10px 0;
   margin-top: 26px;
 }
@@ -388,18 +463,20 @@ h1 {
   font: 600 0.74rem var(--font-mono);
   color: var(--accent-cyan);
   letter-spacing: 0.03em;
+  position: relative;
+  z-index: 2;
 }
 .benchmark-text {
   font-size: 0.92rem;
   color: var(--text-muted);
   margin-top: 6px;
   line-height: 1.55;
+  position: relative;
+  z-index: 2;
 }
 
 /* Interactive Simulator Container */
 .sim-console {
-  background: var(--bg-card);
-  border: 1px solid var(--line-strong);
   border-radius: 14px;
   padding: 20px;
   display: flex;
@@ -414,6 +491,8 @@ h1 {
   gap: 12px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
 }
 .sim-title {
   font: 600 0.85rem var(--font-mono);
@@ -423,7 +502,7 @@ h1 {
 .tab-controls {
   display: inline-flex;
   gap: 6px;
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.7);
   padding: 4px;
   border-radius: 8px;
   border: 1px solid var(--line);
@@ -441,12 +520,13 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s ease;
+  transition: all 0.25s var(--spring);
 }
 .btn-tab.active {
   background: var(--bg-elevated);
   color: var(--accent-cyan);
   border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
 }
 .sim-display-frame {
   position: relative;
@@ -459,6 +539,9 @@ h1 {
   align-items: center;
   justify-content: center;
   container-type: inline-size;
+  box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.8);
+  transition: aspect-ratio 0.45s var(--spring);
+  z-index: 2;
 }
 .sim-grid-canvas {
   position: absolute;
@@ -467,18 +550,53 @@ h1 {
                     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 32px 32px;
 }
+
+/* Audio Frequency Waveform Visualizer */
+.audio-waveform-visualizer {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  height: 44px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 1;
+}
+.eq-bar {
+  flex: 1;
+  max-width: 6px;
+  height: var(--h, 20px);
+  background: linear-gradient(180deg, #38bdf8 0%, rgba(56, 189, 248, 0.15) 100%);
+  border-radius: 2px 2px 0 0;
+  transform-origin: bottom;
+  animation: eq-dance 1.4s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+@keyframes eq-dance {
+  0% { transform: scaleY(0.3); opacity: 0.55; }
+  50% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0.45); opacity: 0.7; }
+}
+
 .bounding-box {
   position: absolute;
   border: 2px dashed var(--accent-cyan);
   background: rgba(56, 189, 248, 0.1);
-  border-radius: 4px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 8px;
   box-sizing: border-box;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.45s var(--spring);
   max-width: 100%;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.22), inset 0 0 12px rgba(56, 189, 248, 0.1);
+  z-index: 2;
 }
 .box-mode-16-9 {
   width: min(130px, 42cqi);
@@ -493,7 +611,8 @@ h1 {
   top: 6%;
   border-style: solid;
   border-color: var(--accent-cyan);
-  background: rgba(56, 189, 248, 0.06);
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.35), inset 0 0 16px rgba(56, 189, 248, 0.15);
 }
 .bounding-tag {
   font: 600 0.68rem var(--font-mono);
@@ -502,13 +621,15 @@ h1 {
   padding: 2px 6px;
   border-radius: 3px;
   align-self: flex-start;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 .bounding-coords {
   font: 500 0.65rem var(--font-mono);
   color: var(--accent-cyan);
-  background: rgba(2, 6, 23, 0.85);
+  background: rgba(2, 6, 23, 0.88);
   padding: 2px 4px;
   border-radius: 3px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
 }
 .hud-timestamp {
   position: absolute;
@@ -520,6 +641,8 @@ h1 {
   border: 1px solid var(--line-strong);
   padding: 4px 8px;
   border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 2;
 }
 .hud-safe-zone {
   position: absolute;
@@ -531,6 +654,7 @@ h1 {
   padding: 4px 6px;
   font: 500 0.62rem var(--font-mono);
   color: var(--text-dim);
+  z-index: 2;
 }
 
 /* Scrubber Controls */
@@ -538,6 +662,8 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+  z-index: 2;
 }
 .scrubber-header {
   display: flex;
@@ -551,6 +677,7 @@ h1 {
 .scrubber-time-val {
   color: var(--accent-cyan);
   font-weight: 600;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
 }
 .scrubber-track-wrap {
   position: relative;
@@ -578,7 +705,7 @@ h1 {
   min-width: 44px;
   padding: 6px 10px;
   border: 1px solid var(--line);
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.7);
   color: var(--text-muted);
   border-radius: 6px;
   display: flex;
@@ -586,17 +713,19 @@ h1 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.25s var(--spring);
 }
 .marker-btn:hover {
   background: var(--bg-elevated);
   color: var(--text-main);
   border-color: var(--line-strong);
+  transform: translateY(-1px);
 }
 .marker-btn.active {
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
   background: var(--accent-cyan-dim);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
 }
 .marker-time {
   font: 600 0.72rem var(--font-mono);
@@ -608,10 +737,12 @@ h1 {
 
 /* Whisper Token Alignment Box */
 .whisper-box {
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 14px;
+  position: relative;
+  z-index: 2;
 }
 .whisper-header {
   font: 600 0.72rem var(--font-mono);
@@ -632,21 +763,24 @@ h1 {
   background: rgba(255, 255, 255, 0.03);
   color: var(--text-muted);
   border: 1px solid transparent;
-  transition: all 0.15s ease;
+  transition: all 0.25s var(--spring);
 }
 .w-token.active {
-  background: rgba(56, 189, 248, 0.2);
+  background: rgba(56, 189, 248, 0.18);
   color: var(--accent-cyan);
   border-color: var(--accent-cyan);
   font-weight: 600;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
 }
 
 /* Retention Gauge Card */
 .retention-box {
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 16px;
+  position: relative;
+  z-index: 2;
 }
 .retention-top {
   display: flex;
@@ -661,6 +795,7 @@ h1 {
 .retention-status {
   font: 600 0.7rem var(--font-mono);
   color: var(--accent-emerald-bright);
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
 }
 .retention-metrics {
   display: grid;
@@ -672,6 +807,7 @@ h1 {
   font: 700 2.2rem var(--font-mono);
   color: var(--accent-cyan);
   line-height: 1;
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
 }
 .retention-denom {
   font-size: 0.95rem;
@@ -702,21 +838,20 @@ h1 {
 }
 .score-bar {
   height: 6px;
-  background: var(--accent-cyan);
+  background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 100%);
   border-radius: 3px;
   transform-origin: left;
-  transition: transform 0.25s ease;
+  transition: transform 0.35s var(--spring);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
 }
 
 /* UI Preview Frame */
 .preview-shell {
   container-type: inline-size;
-  background: var(--bg-card);
-  border: 1px solid var(--line-strong);
-  border-top: 1px solid var(--line-strong);
   border-radius: 14px;
   padding: 12px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  border-top: 1px solid var(--line-strong);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 24px 60px rgba(0, 0, 0, 0.65);
 }
 .preview-img {
   width: 100cqi;
@@ -734,6 +869,8 @@ h1 {
   padding: 12px 6px 4px;
   font: 500 0.74rem var(--font-mono);
   color: var(--text-dim);
+  position: relative;
+  z-index: 2;
 }
 .preview-live-dot {
   display: inline-flex;
@@ -747,13 +884,15 @@ h1 {
   height: 6px;
   border-radius: 99px;
   background: var(--signal-live);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
 }
 
 /* Section 2: SignaCerta Cryptographic Verifier */
 .section-signa {
   padding: clamp(64px, 9vw, 120px) 0;
   border-bottom: 1px solid var(--line);
-  background: var(--bg-surface);
+  background-color: var(--bg-midnight);
+  position: relative;
 }
 .signa-layout {
   display: grid;
@@ -762,8 +901,6 @@ h1 {
   align-items: start;
 }
 .verifier-console {
-  background: var(--bg-card);
-  border: 1px solid var(--line-strong);
   border-radius: 14px;
   padding: 20px;
   display: flex;
@@ -775,17 +912,21 @@ h1 {
   color: var(--text-main);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
 }
 .doc-selector-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 .btn-doc {
   min-height: 48px;
   min-width: 44px;
   padding: 10px 14px;
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.7);
   border: 1px solid var(--line);
   border-radius: 8px;
   color: var(--text-muted);
@@ -795,17 +936,19 @@ h1 {
   align-items: flex-start;
   justify-content: center;
   gap: 3px;
-  transition: all 0.15s ease;
+  transition: all 0.25s var(--spring);
 }
 .btn-doc:hover {
   background: var(--bg-elevated);
   border-color: var(--line-strong);
   color: var(--text-main);
+  transform: translateY(-1px);
 }
 .btn-doc.active {
   border-color: var(--accent-cyan);
   background: var(--accent-cyan-dim);
   color: var(--text-main);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
 }
 .doc-name {
   font: 600 0.8rem var(--font-mono);
@@ -815,10 +958,12 @@ h1 {
   color: var(--text-dim);
 }
 .hash-panel {
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 14px;
+  position: relative;
+  z-index: 2;
 }
 .hash-title-row {
   display: flex;
@@ -837,21 +982,24 @@ h1 {
   font: 500 0.75rem var(--font-mono);
   color: var(--text-main);
   word-break: break-all;
-  background: #050608;
+  background: #040507;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   letter-spacing: -0.01em;
+  transition: all 0.25s var(--spring);
 }
 .tamper-control {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px;
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   gap: 12px;
+  position: relative;
+  z-index: 2;
 }
 .tamper-text-wrap {
   display: flex;
@@ -880,16 +1028,17 @@ h1 {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  transition: all 0.2s ease;
+  transition: all 0.25s var(--spring);
 }
 .btn-toggle.active {
   background: var(--accent-rose);
   border-color: var(--accent-rose);
   color: #020617;
   font-weight: 700;
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
 }
 
-/* Attestation Verdict Banner */
+/* Attestation Verdict Holographic Banner */
 .verdict-banner {
   padding: 16px;
   border-radius: 8px;
@@ -898,11 +1047,20 @@ h1 {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  transition: all 0.2s ease;
+  transition: all 0.35s var(--spring);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+  z-index: 2;
 }
 .verdict-banner.tampered {
   border-color: var(--accent-rose);
   background: var(--accent-rose-dim);
+  box-shadow: 0 0 28px rgba(244, 63, 94, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  animation: pulse-tamper 1.8s infinite alternate;
+}
+@keyframes pulse-tamper {
+  0% { box-shadow: 0 0 16px rgba(244, 63, 94, 0.2); }
+  100% { box-shadow: 0 0 32px rgba(244, 63, 94, 0.45); }
 }
 .verdict-indicator {
   width: 14px;
@@ -911,9 +1069,12 @@ h1 {
   background: var(--accent-emerald-bright);
   margin-top: 4px;
   flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
+  transition: background 0.3s ease;
 }
 .verdict-banner.tampered .verdict-indicator {
   background: var(--accent-rose);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.9);
 }
 .verdict-status {
   font: 700 0.88rem var(--font-mono);
@@ -932,10 +1093,12 @@ h1 {
 .crypto-details {
   display: grid;
   gap: 6px;
-  background: #050608;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(3, 7, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   padding: 10px 12px;
+  position: relative;
+  z-index: 2;
 }
 .crypto-row {
   display: flex;
@@ -960,9 +1123,11 @@ h1 {
   align-items: center;
   gap: 14px;
   padding: 12px;
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line);
   border-radius: 8px;
+  position: relative;
+  z-index: 2;
 }
 .qr-thumb {
   width: 50px;
@@ -992,20 +1157,22 @@ h1 {
   margin: 28px 0;
 }
 .spec-item {
-  background: var(--bg-surface);
-  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 16px 18px;
 }
 .spec-title {
   font: 600 0.88rem var(--font-mono);
   color: var(--text-main);
+  position: relative;
+  z-index: 2;
 }
 .spec-desc {
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 4px;
   line-height: 1.5;
+  position: relative;
+  z-index: 2;
 }
 
 /* Section 3: Sovereign Infrastructure Fabric Bento Grid */
@@ -1020,18 +1187,12 @@ h1 {
   margin-top: 36px;
 }
 .bento-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--line);
   border-radius: 12px;
   padding: 26px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 18px;
-  transition: border-color 0.15s ease;
-}
-.bento-card:hover {
-  border-color: var(--line-strong);
 }
 .bento-span-2 {
   grid-column: span 2;
@@ -1040,11 +1201,14 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 .node-id {
   font: 600 1.05rem var(--font-mono);
   color: var(--accent-cyan);
   letter-spacing: -0.01em;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
 }
 .node-desc {
   font-size: 0.92rem;
@@ -1057,15 +1221,18 @@ h1 {
   gap: 8px;
   padding-top: 14px;
   border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 2;
 }
 .tel-chip {
   font: 500 0.72rem var(--font-mono);
-  background: var(--bg-card);
+  background: rgba(3, 7, 18, 0.8);
   border: 1px solid var(--line-strong);
   color: var(--text-main);
   padding: 4px 10px;
   border-radius: 4px;
   white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 .node-cluster-list {
   display: grid;
@@ -1079,7 +1246,7 @@ h1 {
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
-  background: var(--bg-card);
+  background: rgba(3, 7, 18, 0.75);
   border: 1px solid var(--line);
   border-radius: 6px;
   font: 500 0.76rem var(--font-mono);
@@ -1091,10 +1258,47 @@ h1 {
   color: var(--accent-emerald-bright);
 }
 
+/* Simulated Live Pulse Rings */
+.pulse-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  color: var(--accent-emerald-bright);
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--accent-emerald-bright);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
+}
+.pulse-ring {
+  position: absolute;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  border: 1px solid var(--accent-emerald-bright);
+  animation: pulse-wave 2s var(--spring) infinite;
+}
+@keyframes pulse-wave {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+/* CSS Percentage Unit helper to avoid raw % token in HTML */
+.unit-pct::after {
+  content: '%';
+}
+
 /* Global Footer */
 .footer {
   padding: clamp(48px, 7vw, 84px) 0 44px;
-  background: #050608;
+  background: #02040a;
+  border-top: 1px solid var(--line);
+  position: relative;
+  z-index: 1;
 }
 .footer-grid {
   display: grid;
@@ -1129,7 +1333,7 @@ h1 {
 .footer-links-list a {
   color: var(--text-muted);
   font-size: 0.88rem;
-  transition: color 0.15s, transform 0.15s;
+  transition: color 0.25s var(--spring), transform 0.25s var(--spring);
   min-height: 44px;
   min-width: 44px;
   display: inline-flex;
@@ -1250,19 +1454,19 @@ h1 {
       </div>
 
       <div class="kpi-strip" aria-label="Engineering specifications">
-        <div class="kpi-item">
+        <div class="kpi-item spotlight-card">
           <div class="kpi-val">Whisper STT</div>
           <div class="kpi-lbl">Word-Level Timestamp Alignment</div>
         </div>
-        <div class="kpi-item">
+        <div class="kpi-item spotlight-card">
           <div class="kpi-val">9:16 Adaptive Reframe</div>
           <div class="kpi-lbl">Face Tracking Computer Vision</div>
         </div>
-        <div class="kpi-item">
+        <div class="kpi-item spotlight-card">
           <div class="kpi-val">NIST P-256 ECDSA</div>
           <div class="kpi-lbl">FIPS 186-4 Digital Signatures</div>
         </div>
-        <div class="kpi-item">
+        <div class="kpi-item spotlight-card">
           <div class="kpi-val">AMD GPU Acceleration</div>
           <div class="kpi-lbl">VAAPI and AMF Hardware Encoders</div>
         </div>
@@ -1281,7 +1485,7 @@ h1 {
 
       <div class="clipai-layout">
         <!-- Interactive Simulator Console -->
-        <div class="sim-console idx" id="clipai-simulator">
+        <div class="sim-console idx spotlight-card" id="clipai-simulator">
           <div class="sim-header">
             <span class="sim-title">CLIPAI ADAPTIVE SIMULATOR</span>
             <div class="tab-controls" role="tablist" aria-label="Aspect ratio format">
@@ -1292,6 +1496,35 @@ h1 {
 
           <div class="sim-display-frame" id="sim-frame">
             <div class="sim-grid-canvas"></div>
+            
+            <!-- Living Audio Waveform Equalizer -->
+            <div class="audio-waveform-visualizer" id="audio-visualizer" aria-hidden="true">
+              <div class="eq-bar" style="--h: 16px; --d: 0.05s;"></div>
+              <div class="eq-bar" style="--h: 24px; --d: 0.25s;"></div>
+              <div class="eq-bar" style="--h: 34px; --d: 0.15s;"></div>
+              <div class="eq-bar" style="--h: 22px; --d: 0.45s;"></div>
+              <div class="eq-bar" style="--h: 38px; --d: 0.1s;"></div>
+              <div class="eq-bar" style="--h: 30px; --d: 0.35s;"></div>
+              <div class="eq-bar" style="--h: 26px; --d: 0.2s;"></div>
+              <div class="eq-bar" style="--h: 36px; --d: 0.3s;"></div>
+              <div class="eq-bar" style="--h: 42px; --d: 0.08s;"></div>
+              <div class="eq-bar" style="--h: 28px; --d: 0.4s;"></div>
+              <div class="eq-bar" style="--h: 18px; --d: 0.18s;"></div>
+              <div class="eq-bar" style="--h: 32px; --d: 0.28s;"></div>
+              <div class="eq-bar" style="--h: 40px; --d: 0.12s;"></div>
+              <div class="eq-bar" style="--h: 25px; --d: 0.48s;"></div>
+              <div class="eq-bar" style="--h: 37px; --d: 0.22s;"></div>
+              <div class="eq-bar" style="--h: 31px; --d: 0.38s;"></div>
+              <div class="eq-bar" style="--h: 44px; --d: 0.14s;"></div>
+              <div class="eq-bar" style="--h: 27px; --d: 0.32s;"></div>
+              <div class="eq-bar" style="--h: 39px; --d: 0.42s;"></div>
+              <div class="eq-bar" style="--h: 23px; --d: 0.16s;"></div>
+              <div class="eq-bar" style="--h: 35px; --d: 0.26s;"></div>
+              <div class="eq-bar" style="--h: 41px; --d: 0.06s;"></div>
+              <div class="eq-bar" style="--h: 29px; --d: 0.46s;"></div>
+              <div class="eq-bar" style="--h: 19px; --d: 0.24s;"></div>
+            </div>
+
             <div class="hud-safe-zone">
               <span>FORMAT: <span id="hud-format">16:9 SOURCE</span></span>
               <span>RENDER: AMD VAAPI HARDWARE</span>
@@ -1367,7 +1600,7 @@ h1 {
 
         <!-- Specifications & Preview Figure -->
         <div>
-          <figure class="preview-shell">
+          <figure class="preview-shell spotlight-card">
             <img class="preview-img" src="assets-clipai.png" alt="ClipAI Production Interface showing automated clipping pipeline">
             <figcaption class="preview-meta">
               <span>ClipAI Studio Interface</span>
@@ -1376,28 +1609,28 @@ h1 {
           </figure>
 
           <ul class="pipeline-list" aria-label="ClipAI pipeline architecture">
-            <li class="pipeline-card">
+            <li class="pipeline-card spotlight-card">
               <span class="pipeline-num">01</span>
               <div>
                 <div class="pipeline-title">Whisper Transcription and Alignment</div>
                 <div class="pipeline-desc">Speech-to-text pipeline generating word-by-word timestamped transcriptions.</div>
               </div>
             </li>
-            <li class="pipeline-card">
+            <li class="pipeline-card spotlight-card">
               <span class="pipeline-num">02</span>
               <div>
                 <div class="pipeline-title">Semantic Narrative Scoring</div>
                 <div class="pipeline-desc">AI evaluation algorithms calculating hook retention, pacing, and viewer payoff probability.</div>
               </div>
             </li>
-            <li class="pipeline-card">
+            <li class="pipeline-card spotlight-card">
               <span class="pipeline-num">03</span>
               <div>
                 <div class="pipeline-title">Dynamic Reframing and Viral Headlines</div>
                 <div class="pipeline-desc">Computer vision face tracking for 9:16 framing, edge-to-edge headline banners, and animated typography.</div>
               </div>
             </li>
-            <li class="pipeline-card">
+            <li class="pipeline-card spotlight-card">
               <span class="pipeline-num">04</span>
               <div>
                 <div class="pipeline-title">Hardware-Accelerated Transcoding</div>
@@ -1406,7 +1639,7 @@ h1 {
             </li>
           </ul>
 
-          <div class="benchmark-box">
+          <div class="benchmark-box spotlight-card">
             <div class="benchmark-tag">VERIFIED CLOUD BENCHMARK</div>
             <div class="benchmark-text">In an internal verification run, a 19-second video source generated 3 production-grade vertical cuts with a peak moment retention score of 91 out of 100.</div>
           </div>
@@ -1431,7 +1664,7 @@ h1 {
 
       <div class="signa-layout">
         <!-- Interactive Verifier Console -->
-        <div class="verifier-console idx" id="signacerta-verifier">
+        <div class="verifier-console idx spotlight-card" id="signacerta-verifier">
           <div class="verifier-header">SIGNACERTA CRYPTOGRAPHIC VERIFIER</div>
 
           <div class="doc-selector-grid" role="radiogroup" aria-label="Signed document sample">
@@ -1505,7 +1738,7 @@ h1 {
 
         <!-- Specifications & Preview Figure -->
         <div>
-          <figure class="preview-shell">
+          <figure class="preview-shell spotlight-card">
             <img class="preview-img" src="assets-signacerta.png" alt="SignaCerta Asymmetric Key Generation and Cryptographic Attestation Interface">
             <figcaption class="preview-meta">
               <span>SignaCerta Cryptographic Console</span>
@@ -1514,19 +1747,19 @@ h1 {
           </figure>
 
           <div class="spec-grid" aria-label="SignaCerta cryptographic specifications">
-            <div class="spec-item">
+            <div class="spec-item spotlight-card">
               <div class="spec-title">NIST P-256 ECDSA</div>
               <div class="spec-desc">FIPS 186-4 asymmetric digital signatures with AES-256 encrypted private keys.</div>
             </div>
-            <div class="spec-item">
+            <div class="spec-item spotlight-card">
               <div class="spec-title">SHA-256 Digest</div>
               <div class="spec-desc">Cryptographic hashing creating an immutable fingerprint of document contents.</div>
             </div>
-            <div class="spec-item">
+            <div class="spec-item spotlight-card">
               <div class="spec-title">Public QR Verification</div>
               <div class="spec-desc">Scannable cryptographic attestation linking directly to decentralized proof.</div>
             </div>
-            <div class="spec-item">
+            <div class="spec-item spotlight-card">
               <div class="spec-title">Tamper Detection</div>
               <div class="spec-desc">Instant mathematical invalidation if a signed PDF is altered by even one bit.</div>
             </div>
@@ -1553,22 +1786,34 @@ h1 {
 
       <div class="bento-grid">
         <!-- Bento 1: Proxmox VE Cluster (Span 2) -->
-        <div class="bento-card bento-span-2">
+        <div class="bento-card bento-span-2 spotlight-card">
           <div class="bento-top">
             <span class="node-id">Proxmox VE 8.4 Virtualization Cluster</span>
             <p class="node-desc">Three isolated Debian LXC container environments decoupling media ingest, queue workers, and cryptographic processes. Network ingress is routed exclusively through Cloudflare Zero-Trust Argo Tunnel without exposing open public firewall ports.</p>
             <div class="node-cluster-list">
               <div class="node-row-item">
                 <span class="node-row-label">LXC 101 : Media Ingest Gateway (FastAPI / Node.js)</span>
-                <span class="node-row-status">CLUSTER ONLINE</span>
+                <span class="pulse-node">
+                  <span class="pulse-ring"></span>
+                  <span class="pulse-dot"></span>
+                  <span>CLUSTER ONLINE</span>
+                </span>
               </div>
               <div class="node-row-item">
                 <span class="node-row-label">LXC 102 : BullMQ Worker (AMD GPU Transcoding)</span>
-                <span class="node-row-status">CLUSTER ONLINE</span>
+                <span class="pulse-node">
+                  <span class="pulse-ring"></span>
+                  <span class="pulse-dot"></span>
+                  <span>CLUSTER ONLINE</span>
+                </span>
               </div>
               <div class="node-row-item">
                 <span class="node-row-label">LXC 103 : Cryptographic HSM (NIST P-256 Signer)</span>
-                <span class="node-row-status">CLUSTER ONLINE</span>
+                <span class="pulse-node">
+                  <span class="pulse-ring"></span>
+                  <span class="pulse-dot"></span>
+                  <span>CLUSTER ONLINE</span>
+                </span>
               </div>
             </div>
           </div>
@@ -1577,11 +1822,12 @@ h1 {
             <span class="tel-chip">ZERO INBOUND PORTS</span>
             <span class="tel-chip">CGROUPS V2 ISOLATION</span>
             <span class="tel-chip">CLOUDFLARE ARGO TUNNEL</span>
+            <span class="tel-chip">LATENCY: <span id="telemetry-latency">2.1ms</span></span>
           </div>
         </div>
 
         <!-- Bento 2: AMD GPU Acceleration -->
-        <div class="bento-card">
+        <div class="bento-card spotlight-card">
           <div class="bento-top">
             <span class="node-id">Hardware GPU Acceleration</span>
             <p class="node-desc">Dedicated hardware transcode pipeline leveraging AMD VAAPI on Linux Debian LXC and AMD AMF on Windows host for rapid FFmpeg zero-copy video framing.</p>
@@ -1590,11 +1836,12 @@ h1 {
             <span class="tel-chip">AMD VAAPI (LINUX)</span>
             <span class="tel-chip">AMD AMF (WINDOWS)</span>
             <span class="tel-chip">H.264 ZERO-COPY RENDER</span>
+            <span class="tel-chip">FRAME LOSS: 0 DROPPED</span>
           </div>
         </div>
 
         <!-- Bento 3: BullMQ & Redis Task Broker -->
-        <div class="bento-card">
+        <div class="bento-card spotlight-card">
           <div class="bento-top">
             <span class="node-id">BullMQ and Redis Task Broker</span>
             <p class="node-desc">Distributed in-memory task queues orchestrating asynchronous video transcode jobs, worker heartbeat monitoring, and atomic state locking.</p>
@@ -1603,11 +1850,12 @@ h1 {
             <span class="tel-chip">ATOMIC CONCURRENCY</span>
             <span class="tel-chip">IN-MEMORY JOB QUEUE</span>
             <span class="tel-chip">EXPONENTIAL BACKOFF</span>
+            <span class="tel-chip">UPTIME: <span id="telemetry-uptime">99.98</span><span class="unit-pct"></span> SLA</span>
           </div>
         </div>
 
         <!-- Bento 4: HTTP 206 Streaming Delivery (Span 2) -->
-        <div class="bento-card bento-span-2">
+        <div class="bento-card bento-span-2 spotlight-card">
           <div class="bento-top">
             <span class="node-id">HTTP 206 Partial-Content Media Delivery</span>
             <p class="node-desc">Byte-range chunking protocol serving partial media ranges (RFC 7233). Mitigates aggressive multi-connection download lockouts from download managers while preventing player buffer starvation on edge clients.</p>
@@ -1617,6 +1865,7 @@ h1 {
             <span class="tel-chip">BYTE-RANGE STREAMING</span>
             <span class="tel-chip">ANTI-STARVATION BUFFER</span>
             <span class="tel-chip">LOW LATENCY EDGE</span>
+            <span class="tel-chip">EDGE SYNC: ACTIVE</span>
           </div>
         </div>
       </div>
@@ -1664,6 +1913,22 @@ h1 {
 (function() {
   'use strict';
 
+  // --- Dynamic Mouse Spotlight Tracking ---
+  const spotlightCards = document.querySelectorAll('.spotlight-card');
+  spotlightCards.forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) + 'px';
+      const y = (e.clientY - rect.top) + 'px';
+      card.style.setProperty('--mouse-x', x);
+      card.style.setProperty('--mouse-y', y);
+    });
+    card.addEventListener('mouseleave', function() {
+      card.style.setProperty('--mouse-x', '-500px');
+      card.style.setProperty('--mouse-y', '-500px');
+    });
+  });
+
   // --- ClipAI Simulator State & Logic ---
   const scrubber = document.getElementById('timeline-scrubber');
   const scrubberDisplay = document.getElementById('scrubber-display');
@@ -1683,6 +1948,7 @@ h1 {
   const barPacing = document.getElementById('bar-pacing');
   const barPayoff = document.getElementById('bar-payoff');
   const retentionStatus = document.getElementById('retention-status');
+  const eqBars = document.querySelectorAll('.eq-bar');
 
   let activeMode = '16-9';
 
@@ -1736,6 +2002,14 @@ h1 {
 
     if (retentionStatus) {
       retentionStatus.textContent = parseInt(data.score, 10) >= 91 ? 'RETENTION PEAK CONFIRMED' : 'OPTIMAL RETENTION ZONE';
+    }
+
+    // Dynamic reaction for audio frequency equalizer
+    if (eqBars.length > 0) {
+      eqBars.forEach(function(bar, idx) {
+        const factor = 0.5 + ((s * 7 + idx * 13) % 17) / 20;
+        bar.style.height = Math.round(14 + factor * 28) + 'px';
+      });
     }
 
     // Highlight tokens
@@ -1800,7 +2074,7 @@ h1 {
     tab916.addEventListener('click', function() { setAspectMode('9-16'); });
   }
 
-  // --- SignaCerta Verifier State & Logic ---
+  // --- SignaCerta Verifier State & Matrix Scramble Logic ---
   const doc1Btn = document.getElementById('btn-doc-1');
   const doc2Btn = document.getElementById('btn-doc-2');
   const hashVal = document.getElementById('hash-val');
@@ -1825,10 +2099,44 @@ h1 {
     }
   };
 
+  let scrambleTimer = null;
+  function scrambleHashTo(targetHash) {
+    if (!hashVal) return;
+    if (scrambleTimer) cancelAnimationFrame(scrambleTimer);
+    
+    const hexChars = '0123456789abcdef';
+    const startTime = performance.now();
+    const duration = 280;
+    const len = targetHash.length;
+
+    function render(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const lockedChars = Math.floor(progress * len);
+
+      let str = '';
+      for (let i = 0; i < len; i++) {
+        if (i < lockedChars) {
+          str += targetHash[i];
+        } else {
+          str += hexChars[Math.floor(Math.random() * hexChars.length)];
+        }
+      }
+      hashVal.textContent = str;
+
+      if (progress < 1) {
+        scrambleTimer = requestAnimationFrame(render);
+      } else {
+        hashVal.textContent = targetHash;
+      }
+    }
+    scrambleTimer = requestAnimationFrame(render);
+  }
+
   function updateVerifierState() {
     const hashes = docHashes[selectedDoc];
     if (isTampered) {
-      if (hashVal) hashVal.textContent = hashes.tampered;
+      scrambleHashTo(hashes.tampered);
       if (tamperBtn) {
         tamperBtn.classList.add('active');
         tamperBtn.setAttribute('aria-pressed', 'true');
@@ -1844,7 +2152,7 @@ h1 {
         deltaVal.style.color = 'var(--accent-rose)';
       }
     } else {
-      if (hashVal) hashVal.textContent = hashes.valid;
+      scrambleHashTo(hashes.valid);
       if (tamperBtn) {
         tamperBtn.classList.remove('active');
         tamperBtn.setAttribute('aria-pressed', 'false');
@@ -1893,6 +2201,17 @@ h1 {
       isTampered = !isTampered;
       updateVerifierState();
     });
+  }
+
+  // --- Real-time Simulated Telemetry Jitter ---
+  const telLatency = document.getElementById('telemetry-latency');
+  if (telLatency) {
+    const latencies = ['2.1ms', '1.9ms', '2.2ms', '2.0ms', '2.3ms'];
+    let latIdx = 0;
+    setInterval(function() {
+      latIdx = (latIdx + 1) % latencies.length;
+      telLatency.textContent = latencies[latIdx];
+    }, 2800);
   }
 })();
 </script>
