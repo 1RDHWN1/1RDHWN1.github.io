@@ -1407,6 +1407,200 @@ h1 {
     inline-size: -webkit-fill-available;
   }
 }
+
+/* Systems Visualizer and Animation Architecture */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+.hero-constellation {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > .shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cybernetic Interconnect Bus and Packet Stream */
+.cluster-interconnect-wrap {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: rgba(3, 7, 18, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100%;
+  overflow: hidden;
+}
+.bus-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.bus-label-title {
+  font: 600 0.72rem var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.04em;
+}
+.bus-status-chip {
+  font: 500 0.68rem var(--font-mono);
+  color: var(--accent-emerald-bright);
+}
+.interconnect-bus-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.bus-stream-pulse {
+  stroke-dasharray: 60 180;
+  animation: busPulseFlow 2.8s linear infinite;
+}
+.bus-stream-emerald {
+  animation-delay: 1.4s;
+}
+@keyframes busPulseFlow {
+  0% { stroke-dashoffset: 240; }
+  100% { stroke-dashoffset: -240; }
+}
+.bus-packet-bead {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+.bead-1 {
+  animation: movePacketBead1 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  color: #38bdf8;
+}
+.bead-2 {
+  animation: movePacketBead1 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.2s;
+  color: #38bdf8;
+}
+.bead-3 {
+  animation: movePacketBead2 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.6s;
+  color: #34d399;
+}
+.bead-4 {
+  animation: movePacketBead2 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.8s;
+  color: #34d399;
+}
+@keyframes movePacketBead1 {
+  0% { cx: 60px; cy: 38px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { cx: 340px; cy: 38px; opacity: 0; }
+}
+@keyframes movePacketBead2 {
+  0% { cx: 340px; cy: 38px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { cx: 620px; cy: 38px; opacity: 0; }
+}
+.junction-ping-cyan {
+  animation: junctionPing 2s ease-out infinite;
+}
+.junction-ping-emerald {
+  animation: junctionPing 2s ease-out infinite;
+  animation-delay: 1s;
+}
+@keyframes junctionPing {
+  0% { r: 5px; opacity: 1; }
+  50% { r: 8px; opacity: 0.6; }
+  100% { r: 5px; opacity: 1; }
+}
+
+/* 3D Parallax Tilt and Specular Light Sheen */
+.bento-grid {
+  perspective: 1200px;
+}
+.bento-card {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+.bento-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.08) 0%, rgba(56, 189, 248, 0.04) 40%, transparent 75%);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.bento-card:hover::after {
+  opacity: 1;
+}
+
+/* Waveform Laser Scan Beam */
+.waveform-scan-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, #38bdf8 45%, #ffffff 50%, #34d399 55%, transparent);
+  box-shadow: 0 0 10px #38bdf8, 0 0 4px #ffffff;
+  pointer-events: none;
+  z-index: 3;
+  animation: waveScanSweep 3.6s ease-in-out infinite alternate;
+}
+@keyframes waveScanSweep {
+  0% { left: 4px; opacity: 0.3; }
+  50% { opacity: 0.95; }
+  100% { left: calc(100% - 6px); opacity: 0.3; }
+}
+
+/* Laser Scanline Attestation Sweep */
+.laser-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  top: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+.laser-sweep.active-sweep {
+  background: linear-gradient(90deg, transparent, var(--accent-cyan) 25%, #ffffff 50%, var(--accent-cyan) 75%, transparent);
+  box-shadow: 0 0 14px var(--accent-cyan), 0 0 24px rgba(56, 189, 248, 0.6);
+  animation: laserSweepMotion 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.laser-sweep.tamper-sweep {
+  background: linear-gradient(90deg, transparent, var(--accent-rose) 25%, #ffffff 50%, var(--accent-rose) 75%, transparent);
+  box-shadow: 0 0 14px var(--accent-rose), 0 0 24px rgba(244, 63, 94, 0.6);
+  animation: laserSweepMotion 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes laserSweepMotion {
+  0% { top: 0%; opacity: 1; transform: scaleX(0.7); }
+  40% { opacity: 1; transform: scaleX(1); }
+  85% { opacity: 0.85; transform: scaleX(1); }
+  100% { top: 100%; opacity: 0; transform: scaleX(0.7); }
+}
+
+/* Staggered Scroll-Reveal Transitions */
+html.js-ready .reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s var(--spring), transform 0.65s var(--spring);
+  will-change: opacity, transform;
+}
+html.js-ready .reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1414,6 +1608,23 @@ h1 {
   *, *::before, *::after {
     transition-duration: 0s !important;
     animation-duration: 0s !important;
+  }
+  html.js-ready .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .bento-card {
+    transform: none !important;
+  }
+  .bus-stream-pulse,
+  .bus-packet-bead,
+  .junction-ping-cyan,
+  .junction-ping-emerald,
+  .waveform-scan-beam,
+  .laser-sweep {
+    animation: none !important;
+    display: none !important;
   }
 }
 </style>
@@ -1441,6 +1652,7 @@ h1 {
 <main id="produk">
   <!-- Systems Lab Hero Section -->
   <section class="hero" aria-labelledby="hero-heading">
+    <canvas id="hero-constellation" class="hero-constellation" aria-hidden="true"></canvas>
     <div class="shell">
       <div class="hero-tag status" data-state="online">
         CLOUDFLARE ZERO-TRUST EDGE : SOVEREIGN CLUSTER ONLINE
@@ -1454,19 +1666,19 @@ h1 {
       </div>
 
       <div class="kpi-strip" aria-label="Engineering specifications">
-        <div class="kpi-item spotlight-card">
+        <div class="kpi-item spotlight-card reveal-item" data-stagger="0">
           <div class="kpi-val">Whisper STT</div>
           <div class="kpi-lbl">Word-Level Timestamp Alignment</div>
         </div>
-        <div class="kpi-item spotlight-card">
+        <div class="kpi-item spotlight-card reveal-item" data-stagger="1">
           <div class="kpi-val">9:16 Adaptive Reframe</div>
           <div class="kpi-lbl">Face Tracking Computer Vision</div>
         </div>
-        <div class="kpi-item spotlight-card">
+        <div class="kpi-item spotlight-card reveal-item" data-stagger="2">
           <div class="kpi-val">NIST P-256 ECDSA</div>
           <div class="kpi-lbl">FIPS 186-4 Digital Signatures</div>
         </div>
-        <div class="kpi-item spotlight-card">
+        <div class="kpi-item spotlight-card reveal-item" data-stagger="3">
           <div class="kpi-val">AMD GPU Acceleration</div>
           <div class="kpi-lbl">VAAPI and AMF Hardware Encoders</div>
         </div>
@@ -1477,7 +1689,7 @@ h1 {
   <!-- Product 1: ClipAI Flagship & Simulator -->
   <section class="section-clipai" id="clipai" aria-labelledby="clipai-heading">
     <div class="shell">
-      <div class="section-intro">
+      <div class="section-intro reveal-item" data-stagger="0">
         <span class="tag">FLAGSHIP PIPELINE : 01</span>
         <h2 id="clipai-heading" class="h2">Automated long-form video intelligence to high-retention vertical shorts.</h2>
         <p class="sub-copy">ClipAI ingests source media feeds, transcribes audio at word-level timestamp precision, evaluates narrative virality through semantic moment scoring, and renders production vertical cuts in seconds.</p>
@@ -1499,6 +1711,7 @@ h1 {
             
             <!-- Living Audio Waveform Equalizer -->
             <div class="audio-waveform-visualizer" id="audio-visualizer" aria-hidden="true">
+              <div class="waveform-scan-beam" id="waveform-scan-beam"></div>
               <div class="eq-bar" style="--h: 16px; --d: 0.05s;"></div>
               <div class="eq-bar" style="--h: 24px; --d: 0.25s;"></div>
               <div class="eq-bar" style="--h: 34px; --d: 0.15s;"></div>
@@ -1609,28 +1822,28 @@ h1 {
           </figure>
 
           <ul class="pipeline-list" aria-label="ClipAI pipeline architecture">
-            <li class="pipeline-card spotlight-card">
+            <li class="pipeline-card spotlight-card reveal-item" data-stagger="0">
               <span class="pipeline-num">01</span>
               <div>
                 <div class="pipeline-title">Whisper Transcription and Alignment</div>
                 <div class="pipeline-desc">Speech-to-text pipeline generating word-by-word timestamped transcriptions.</div>
               </div>
             </li>
-            <li class="pipeline-card spotlight-card">
+            <li class="pipeline-card spotlight-card reveal-item" data-stagger="1">
               <span class="pipeline-num">02</span>
               <div>
                 <div class="pipeline-title">Semantic Narrative Scoring</div>
                 <div class="pipeline-desc">AI evaluation algorithms calculating hook retention, pacing, and viewer payoff probability.</div>
               </div>
             </li>
-            <li class="pipeline-card spotlight-card">
+            <li class="pipeline-card spotlight-card reveal-item" data-stagger="2">
               <span class="pipeline-num">03</span>
               <div>
                 <div class="pipeline-title">Dynamic Reframing and Viral Headlines</div>
                 <div class="pipeline-desc">Computer vision face tracking for 9:16 framing, edge-to-edge headline banners, and animated typography.</div>
               </div>
             </li>
-            <li class="pipeline-card spotlight-card">
+            <li class="pipeline-card spotlight-card reveal-item" data-stagger="3">
               <span class="pipeline-num">04</span>
               <div>
                 <div class="pipeline-title">Hardware-Accelerated Transcoding</div>
@@ -1639,7 +1852,7 @@ h1 {
             </li>
           </ul>
 
-          <div class="benchmark-box spotlight-card">
+          <div class="benchmark-box spotlight-card reveal-item" data-stagger="0">
             <div class="benchmark-tag">VERIFIED CLOUD BENCHMARK</div>
             <div class="benchmark-text">In an internal verification run, a 19-second video source generated 3 production-grade vertical cuts with a peak moment retention score of 91 out of 100.</div>
           </div>
@@ -1656,7 +1869,7 @@ h1 {
   <!-- Product 2: SignaCerta Cryptographic Verifier -->
   <section class="section-signa" id="signacerta" aria-labelledby="signa-heading">
     <div class="shell">
-      <div class="section-intro">
+      <div class="section-intro reveal-item" data-stagger="0">
         <span class="tag">CRYPTOGRAPHIC INTEGRITY : 02</span>
         <h2 id="signa-heading" class="h2">Zero-knowledge digital document attestation and public verification.</h2>
         <p class="sub-copy">SignaCerta provides tamper-proof document attestation using NIST P-256 elliptic curve cryptography and SHA-256 digests. Documents are mathematically provable via instant public QR verification without exposing sensitive contents.</p>
@@ -1665,6 +1878,7 @@ h1 {
       <div class="signa-layout">
         <!-- Interactive Verifier Console -->
         <div class="verifier-console idx spotlight-card" id="signacerta-verifier">
+          <div class="laser-sweep" id="verifier-laser-sweep" aria-hidden="true"></div>
           <div class="verifier-header">SIGNACERTA CRYPTOGRAPHIC VERIFIER</div>
 
           <div class="doc-selector-grid" role="radiogroup" aria-label="Signed document sample">
@@ -1739,6 +1953,7 @@ h1 {
         <!-- Specifications & Preview Figure -->
         <div>
           <figure class="preview-shell spotlight-card">
+            <div class="laser-sweep" id="preview-laser-sweep" aria-hidden="true"></div>
             <img class="preview-img" src="assets-signacerta.png" alt="SignaCerta Asymmetric Key Generation and Cryptographic Attestation Interface">
             <figcaption class="preview-meta">
               <span>SignaCerta Cryptographic Console</span>
@@ -1747,19 +1962,19 @@ h1 {
           </figure>
 
           <div class="spec-grid" aria-label="SignaCerta cryptographic specifications">
-            <div class="spec-item spotlight-card">
+            <div class="spec-item spotlight-card reveal-item" data-stagger="0">
               <div class="spec-title">NIST P-256 ECDSA</div>
               <div class="spec-desc">FIPS 186-4 asymmetric digital signatures with AES-256 encrypted private keys.</div>
             </div>
-            <div class="spec-item spotlight-card">
+            <div class="spec-item spotlight-card reveal-item" data-stagger="1">
               <div class="spec-title">SHA-256 Digest</div>
               <div class="spec-desc">Cryptographic hashing creating an immutable fingerprint of document contents.</div>
             </div>
-            <div class="spec-item spotlight-card">
+            <div class="spec-item spotlight-card reveal-item" data-stagger="2">
               <div class="spec-title">Public QR Verification</div>
               <div class="spec-desc">Scannable cryptographic attestation linking directly to decentralized proof.</div>
             </div>
-            <div class="spec-item spotlight-card">
+            <div class="spec-item spotlight-card reveal-item" data-stagger="3">
               <div class="spec-title">Tamper Detection</div>
               <div class="spec-desc">Instant mathematical invalidation if a signed PDF is altered by even one bit.</div>
             </div>
@@ -1778,7 +1993,7 @@ h1 {
   <section class="section-infra" id="infrastruktur" aria-labelledby="infra-heading">
     <div id="infrastructure"></div>
     <div class="shell">
-      <div class="section-intro">
+      <div class="section-intro reveal-item" data-stagger="0">
         <span class="tag">SOVEREIGN CLOUD FABRIC</span>
         <h2 id="infra-heading" class="h2">Engineered on isolated, self-hosted infrastructure.</h2>
         <p class="sub-copy">Every AI worker, model pipeline, and cryptographic service runs on an isolated cluster managed by UdinCloud, fronted by Cloudflare zero-trust network tunnels.</p>
@@ -1786,7 +2001,7 @@ h1 {
 
       <div class="bento-grid">
         <!-- Bento 1: Proxmox VE Cluster (Span 2) -->
-        <div class="bento-card bento-span-2 spotlight-card">
+        <div class="bento-card bento-span-2 spotlight-card reveal-item" data-stagger="0">
           <div class="bento-top">
             <span class="node-id">Proxmox VE 8.4 Virtualization Cluster</span>
             <p class="node-desc">Three isolated Debian LXC container environments decoupling media ingest, queue workers, and cryptographic processes. Network ingress is routed exclusively through Cloudflare Zero-Trust Argo Tunnel without exposing open public firewall ports.</p>
@@ -1816,6 +2031,56 @@ h1 {
                 </span>
               </div>
             </div>
+
+            <!-- Cybernetic Interconnect Bus Visualizer -->
+            <div class="cluster-interconnect-wrap" aria-label="Cybernetic Interconnect Bus and Packet Stream">
+              <div class="bus-label-row">
+                <span class="bus-label-title">INTERCONNECT BUS : HIGH-SPEED STREAM CONDUIT</span>
+                <span class="bus-status-chip">PACKET TRANSIT : ACTIVE CLUSTER FABRIC</span>
+              </div>
+              <svg class="interconnect-bus-svg" viewBox="0 0 680 76" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M 60 38 H 620" stroke="rgba(255,255,255,0.08)" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 60 38 H 620" stroke="rgba(56,189,248,0.25)" stroke-width="2" stroke-linecap="round"/>
+                <path class="bus-stream-pulse bus-stream-cyan" d="M 60 38 H 340" stroke="url(#pulseGradCyan)" stroke-width="3" stroke-linecap="round"/>
+                <path class="bus-stream-pulse bus-stream-emerald" d="M 340 38 H 620" stroke="url(#pulseGradEmerald)" stroke-width="3" stroke-linecap="round"/>
+                
+                <circle cx="60" cy="38" r="16" fill="#0b1120" stroke="#38bdf8" stroke-width="2"/>
+                <circle cx="60" cy="38" r="7" fill="#38bdf8" class="junction-ping-cyan"/>
+                <text x="60" y="68" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" text-anchor="middle">LXC 101 INGEST</text>
+                
+                <path d="M 190 34 L 200 38 L 190 42" stroke="#38bdf8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+                <text x="200" y="24" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">MEDIA STREAM CHUNKS</text>
+
+                <circle cx="340" cy="38" r="16" fill="#0b1120" stroke="#38bdf8" stroke-width="2"/>
+                <circle cx="340" cy="38" r="7" fill="#38bdf8" class="junction-ping-cyan"/>
+                <text x="340" y="68" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" text-anchor="middle">LXC 102 GPU WORKER</text>
+
+                <path d="M 470 34 L 480 38 L 470 42" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+                <text x="480" y="24" fill="#34d399" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">DIGEST ATTESTATION</text>
+
+                <circle cx="620" cy="38" r="16" fill="#0b1120" stroke="#34d399" stroke-width="2"/>
+                <circle cx="620" cy="38" r="7" fill="#34d399" class="junction-ping-emerald"/>
+                <text x="620" y="68" fill="#94a3b8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" text-anchor="middle">LXC 103 CRYPTO HSM</text>
+
+                <circle class="bus-packet-bead bead-1" r="4.5" fill="#38bdf8"/>
+                <circle class="bus-packet-bead bead-2" r="4.5" fill="#38bdf8"/>
+                <circle class="bus-packet-bead bead-3" r="4.5" fill="#34d399"/>
+                <circle class="bus-packet-bead bead-4" r="4.5" fill="#34d399"/>
+
+                <defs>
+                  <linearGradient id="pulseGradCyan" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#38bdf8" stop-opacity="0"/>
+                    <stop offset="0.5" stop-color="#38bdf8" stop-opacity="0.8"/>
+                    <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+                  </linearGradient>
+                  <linearGradient id="pulseGradEmerald" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#34d399" stop-opacity="0"/>
+                    <stop offset="0.5" stop-color="#34d399" stop-opacity="0.8"/>
+                    <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
           </div>
           <div class="bento-telemetry">
             <span class="tel-chip">DEBIAN LXC 101/102/103</span>
@@ -1827,7 +2092,7 @@ h1 {
         </div>
 
         <!-- Bento 2: AMD GPU Acceleration -->
-        <div class="bento-card spotlight-card">
+        <div class="bento-card spotlight-card reveal-item" data-stagger="1">
           <div class="bento-top">
             <span class="node-id">Hardware GPU Acceleration</span>
             <p class="node-desc">Dedicated hardware transcode pipeline leveraging AMD VAAPI on Linux Debian LXC and AMD AMF on Windows host for rapid FFmpeg zero-copy video framing.</p>
@@ -1841,7 +2106,7 @@ h1 {
         </div>
 
         <!-- Bento 3: BullMQ & Redis Task Broker -->
-        <div class="bento-card spotlight-card">
+        <div class="bento-card spotlight-card reveal-item" data-stagger="2">
           <div class="bento-top">
             <span class="node-id">BullMQ and Redis Task Broker</span>
             <p class="node-desc">Distributed in-memory task queues orchestrating asynchronous video transcode jobs, worker heartbeat monitoring, and atomic state locking.</p>
@@ -1855,7 +2120,7 @@ h1 {
         </div>
 
         <!-- Bento 4: HTTP 206 Streaming Delivery (Span 2) -->
-        <div class="bento-card bento-span-2 spotlight-card">
+        <div class="bento-card bento-span-2 spotlight-card reveal-item" data-stagger="3">
           <div class="bento-top">
             <span class="node-id">HTTP 206 Partial-Content Media Delivery</span>
             <p class="node-desc">Byte-range chunking protocol serving partial media ranges (RFC 7233). Mitigates aggressive multi-connection download lockouts from download managers while preventing player buffer starvation on edge clients.</p>
@@ -1913,9 +2178,196 @@ h1 {
 (function() {
   'use strict';
 
-  // --- Dynamic Mouse Spotlight Tracking ---
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('js-ready');
+
+  // --- 1. Hero Constellation Interactive Mesh Canvas ---
+  (function initHeroConstellation() {
+    const canvas = document.getElementById('hero-constellation');
+    const hero = document.querySelector('.hero');
+    if (!canvas || !hero) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let particles = [];
+    let animId = null;
+    let isHeroVisible = false;
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = hero.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = width < 768 ? 22 : 42;
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.32,
+          vy: (Math.random() - 0.5) * 0.32,
+          radius: Math.random() * 1.4 + 1.2,
+          isEmerald: Math.random() < 0.2,
+          alpha: Math.random() * 0.4 + 0.35
+        });
+      }
+      if (prefersReducedMotion) {
+        drawStatic();
+      }
+    }
+
+    function drawStatic() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.isEmerald ? 'rgba(52, 211, 153, 0.4)' : 'rgba(56, 189, 248, 0.4)';
+        ctx.fill();
+      }
+    }
+
+    function renderFrame() {
+      if (!isHeroVisible || prefersReducedMotion) {
+        animId = null;
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      const count = particles.length;
+      for (let i = 0; i < count; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) { p.x = 0; p.vx *= -1; }
+        else if (p.x > width) { p.x = width; p.vx *= -1; }
+        if (p.y < 0) { p.y = 0; p.vy *= -1; }
+        else if (p.y > height) { p.y = height; p.vy *= -1; }
+
+        if (mouse.active) {
+          const dxM = mouse.x - p.x;
+          const dyM = mouse.y - p.y;
+          const distM = Math.sqrt(dxM * dxM + dyM * dyM);
+          if (distM < 150 && distM > 1) {
+            const force = (1 - distM / 150) * 0.06;
+            p.x += (dxM / distM) * force;
+            p.y += (dyM / distM) * force;
+
+            const tetherAlpha = (1 - distM / 150) * 0.32;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = p.isEmerald
+              ? 'rgba(52, 211, 153, ' + tetherAlpha.toFixed(3) + ')'
+              : 'rgba(56, 189, 248, ' + tetherAlpha.toFixed(3) + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.isEmerald
+          ? 'rgba(52, 211, 153, ' + p.alpha.toFixed(2) + ')'
+          : 'rgba(56, 189, 248, ' + p.alpha.toFixed(2) + ')';
+        ctx.fill();
+      }
+
+      const maxDist = width < 768 ? 90 : 120;
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < maxDist) {
+            const lineAlpha = (1 - dist / maxDist) * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = 'rgba(56, 189, 248, ' + lineAlpha.toFixed(3) + ')';
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(renderFrame);
+    }
+
+    hero.addEventListener('mousemove', function(e) {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    });
+    hero.addEventListener('mouseleave', function() {
+      mouse.active = false;
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          isHeroVisible = entry.isIntersecting;
+          if (isHeroVisible && !animId && !prefersReducedMotion) {
+            animId = requestAnimationFrame(renderFrame);
+          } else if (!isHeroVisible && animId) {
+            cancelAnimationFrame(animId);
+            animId = null;
+          }
+        });
+      }, { threshold: 0.05 });
+      observer.observe(hero);
+    } else {
+      isHeroVisible = true;
+      if (!prefersReducedMotion) animId = requestAnimationFrame(renderFrame);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+
+  // --- 2. 3D Parallax Tilt and Specular Sheen for Bento Cards ---
+  (function initBentoTilt() {
+    const bentoCards = document.querySelectorAll('.bento-card');
+    bentoCards.forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        if (prefersReducedMotion) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotX = ((centerY - y) / centerY) * 4.2;
+        const rotY = ((x - centerX) / centerX) * 4.2;
+
+        card.style.transform = 'perspective(1000px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) translateY(-2px)';
+        card.style.setProperty('--mouse-x', x + 'px');
+        card.style.setProperty('--mouse-y', y + 'px');
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = '';
+        card.style.setProperty('--mouse-x', '-500px');
+        card.style.setProperty('--mouse-y', '-500px');
+      });
+    });
+  })();
+
+  // --- 3. Dynamic Mouse Spotlight Tracking on Spotlight Cards ---
   const spotlightCards = document.querySelectorAll('.spotlight-card');
   spotlightCards.forEach(function(card) {
+    if (card.classList.contains('bento-card')) return;
     card.addEventListener('mousemove', function(e) {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) + 'px';
@@ -1929,7 +2381,33 @@ h1 {
     });
   });
 
-  // --- ClipAI Simulator State & Logic ---
+  // --- 4. Staggered Scroll-Reveal Transitions ---
+  (function initScrollReveal() {
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      const revealElements = document.querySelectorAll('.reveal-item');
+      const revealObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const stagger = parseInt(el.getAttribute('data-stagger') || 0, 10);
+            el.style.transitionDelay = (stagger * 70) + 'ms';
+            el.classList.add('is-revealed');
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      revealElements.forEach(function(el) {
+        revealObserver.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.reveal-item').forEach(function(el) {
+        el.classList.add('is-revealed');
+      });
+    }
+  })();
+
+  // --- 5. ClipAI Simulator State and Living Audio Visualizer ---
   const scrubber = document.getElementById('timeline-scrubber');
   const scrubberDisplay = document.getElementById('scrubber-display');
   const hudTime = document.getElementById('hud-time');
@@ -1949,8 +2427,14 @@ h1 {
   const barPayoff = document.getElementById('bar-payoff');
   const retentionStatus = document.getElementById('retention-status');
   const eqBars = document.querySelectorAll('.eq-bar');
+  const clipaiSection = document.getElementById('clipai');
 
   let activeMode = '16-9';
+  let kineticImpulse = 0;
+  let lastScrubberVal = scrubber ? parseInt(scrubber.value, 10) : 0;
+  let audioWavePhase = 0;
+  let isClipaiVisible = false;
+  let audioAnimId = null;
 
   const telemetryBySec = {
     0:  { name: 'INTRO HOOK', score: '84', hook: '86', pacing: '82', payoff: '85', x: 420, y: 190, conf: '0.96' },
@@ -2004,15 +2488,6 @@ h1 {
       retentionStatus.textContent = parseInt(data.score, 10) >= 91 ? 'RETENTION PEAK CONFIRMED' : 'OPTIMAL RETENTION ZONE';
     }
 
-    // Dynamic reaction for audio frequency equalizer
-    if (eqBars.length > 0) {
-      eqBars.forEach(function(bar, idx) {
-        const factor = 0.5 + ((s * 7 + idx * 13) % 17) / 20;
-        bar.style.height = Math.round(14 + factor * 28) + 'px';
-      });
-    }
-
-    // Highlight tokens
     tokens.forEach(function(tok) {
       const start = parseInt(tok.getAttribute('data-start'), 10);
       const end = parseInt(tok.getAttribute('data-end'), 10);
@@ -2023,7 +2498,6 @@ h1 {
       }
     });
 
-    // Highlight marker buttons
     markerBtns.forEach(function(btn) {
       const bSec = parseInt(btn.getAttribute('data-sec'), 10);
       if (bSec === s) {
@@ -2034,8 +2508,37 @@ h1 {
     });
   }
 
+  function renderLivingAudio() {
+    if (!isClipaiVisible || prefersReducedMotion) {
+      audioAnimId = null;
+      return;
+    }
+
+    audioWavePhase += 0.05;
+    kineticImpulse *= 0.92;
+    if (kineticImpulse < 0.05) kineticImpulse = 0;
+
+    if (eqBars.length > 0) {
+      eqBars.forEach(function(bar, idx) {
+        const wave1 = Math.sin(audioWavePhase * 1.5 + idx * 0.35);
+        const wave2 = Math.cos(audioWavePhase * 2.2 + idx * 0.7);
+        const harmonic = (wave1 * 0.55 + wave2 * 0.45 + 1) / 2;
+        const baseH = 10 + harmonic * 22;
+        const kineticH = kineticImpulse * (0.35 + Math.sin(idx * 0.7 + audioWavePhase * 2.8) * 0.65);
+        const totalH = Math.min(Math.max(baseH + kineticH, 6), 44);
+        bar.style.height = totalH.toFixed(1) + 'px';
+      });
+    }
+
+    audioAnimId = requestAnimationFrame(renderLivingAudio);
+  }
+
   if (scrubber) {
     scrubber.addEventListener('input', function() {
+      const currentVal = parseInt(this.value, 10);
+      const diff = Math.abs(currentVal - lastScrubberVal);
+      kineticImpulse = Math.min(kineticImpulse + diff * 6 + 10, 32);
+      lastScrubberVal = currentVal;
       updateTimeline(this.value);
     });
   }
@@ -2043,10 +2546,32 @@ h1 {
   markerBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       const sec = this.getAttribute('data-sec');
-      if (scrubber) scrubber.value = sec;
+      kineticImpulse = 24;
+      if (scrubber) {
+        scrubber.value = sec;
+        lastScrubberVal = parseInt(sec, 10);
+      }
       updateTimeline(sec);
     });
   });
+
+  if ('IntersectionObserver' in window && clipaiSection) {
+    const clipaiObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        isClipaiVisible = entry.isIntersecting;
+        if (isClipaiVisible && !audioAnimId && !prefersReducedMotion) {
+          audioAnimId = requestAnimationFrame(renderLivingAudio);
+        } else if (!isClipaiVisible && audioAnimId) {
+          cancelAnimationFrame(audioAnimId);
+          audioAnimId = null;
+        }
+      });
+    }, { threshold: 0.05 });
+    clipaiObserver.observe(clipaiSection);
+  } else {
+    isClipaiVisible = true;
+    if (!prefersReducedMotion) audioAnimId = requestAnimationFrame(renderLivingAudio);
+  }
 
   function setAspectMode(mode) {
     activeMode = mode;
@@ -2074,7 +2599,7 @@ h1 {
     tab916.addEventListener('click', function() { setAspectMode('9-16'); });
   }
 
-  // --- SignaCerta Verifier State & Matrix Scramble Logic ---
+  // --- 6. SignaCerta Verifier, Laser Scanline and Matrix Scramble Logic ---
   const doc1Btn = document.getElementById('btn-doc-1');
   const doc2Btn = document.getElementById('btn-doc-2');
   const hashVal = document.getElementById('hash-val');
@@ -2099,6 +2624,20 @@ h1 {
     }
   };
 
+  function triggerLaserSweep(isTamperedState) {
+    if (prefersReducedMotion) return;
+    const sweeps = document.querySelectorAll('.laser-sweep');
+    sweeps.forEach(function(el) {
+      el.classList.remove('active-sweep', 'tamper-sweep');
+      void el.offsetWidth;
+      if (isTamperedState) {
+        el.classList.add('tamper-sweep');
+      } else {
+        el.classList.add('active-sweep');
+      }
+    });
+  }
+
   let scrambleTimer = null;
   function scrambleHashTo(targetHash) {
     if (!hashVal) return;
@@ -2108,6 +2647,10 @@ h1 {
     const startTime = performance.now();
     const duration = 280;
     const len = targetHash.length;
+
+    if (hashVal) {
+      hashVal.style.textShadow = isTampered ? '0 0 12px var(--accent-rose)' : '0 0 12px var(--accent-cyan)';
+    }
 
     function render(now) {
       const elapsed = now - startTime;
@@ -2128,6 +2671,7 @@ h1 {
         scrambleTimer = requestAnimationFrame(render);
       } else {
         hashVal.textContent = targetHash;
+        if (hashVal) hashVal.style.textShadow = '';
       }
     }
     scrambleTimer = requestAnimationFrame(render);
@@ -2135,6 +2679,8 @@ h1 {
 
   function updateVerifierState() {
     const hashes = docHashes[selectedDoc];
+    triggerLaserSweep(isTampered);
+
     if (isTampered) {
       scrambleHashTo(hashes.tampered);
       if (tamperBtn) {
@@ -2203,7 +2749,7 @@ h1 {
     });
   }
 
-  // --- Real-time Simulated Telemetry Jitter ---
+  // --- 7. Real-time Simulated Telemetry Jitter ---
   const telLatency = document.getElementById('telemetry-latency');
   if (telLatency) {
     const latencies = ['2.1ms', '1.9ms', '2.2ms', '2.0ms', '2.3ms'];
