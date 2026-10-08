@@ -1,150 +1,71 @@
 # DESIGN.md: udincloud.me company landing
 
-Direction for the landing page at `udincloud.me`, the root of the domain. It
-introduces what the domain runs and sends the visitor into the two apps.
+## Design Read
 
-## Reading
+Reading this as: a company landing page for technical buyers, founders, and program reviewers, in a restrained modern software-company register informed by Vercel and Linear but not copying either, dial ENERGY 2 / RHYTHM 2 / MOTION 1.
 
-Reading this as: a company landing page for a builder who runs their own apps,
-opened by a recruiter, a lecturer, or a friend with one link, in a **live
-terminal session** visual language, dial **ENERGY 3 / RHYTHM 2 / MOTION 2**.
+The owner explicitly changed direction from the existing terminal identity to modern SaaS. This user instruction supersedes the previous terminal styling direction for the company homepage. Keep the personal terminal page at `me.udincloud.me` unchanged.
 
-This is an **Explore then Decide** surface: understand what udincloud is in a
-few seconds, then open one app.
+## Direction and R-37 record
 
-## Provenance, and the R-37 note
+- **Surface:** company homepage introducing two real, working web products.
+- **Mood:** composed, confident, product-focused, contemporary. No faux enterprise scale.
+- **Audience:** potential program reviewers, technical collaborators, and visitors evaluating the products.
+- **Reference register:** Vercel / Linear, used only for restraint, typographic hierarchy, and disciplined surfaces. Do not clone their layouts, logos, colors, or language.
+- **Explicit override:** replace the former terminal-session presentation on the company root with a modern software-company presentation. The owner requested this change directly in chat on 2026-10-08.
+- **R-37 collisions acknowledged:** the old monospace-led terminal voice (R-06), glyph-rain / grid texture (R-07), live-status glow (R-13), typed terminal prompt and terminal framing (R-05/R-06) no longer define this page. Remove them here. The separate personal page remains at `me.udincloud.me`.
+- **Do not reproduce the earlier rejected draft cluster:** blue-purple gradient, blurred glow orbs, eyebrow badge repeating the headline, decorative pulsing dot, diamond glyph logo, arrows on most buttons, glass navbar, uniform card grid, or generic template sequence.
 
-The direction is the owner's, carried from the domain's existing pages, and it
-is on the record:
+## Dials
 
-1. The owner rejected an early flat text version ("masih jelek hasilnya, gua mau
-   yg lebih animatif dan berkesan wowwww") and chose a motion-heavy dev /
-   terminal register.
-2. The owner confirmed the register is **not decoration**: they work in Kali
-   Linux and a terminal daily. That lived experience is the criterion R-37 asks
-   for. A terminal-styled page for someone who lives in a terminal is identity,
-   not costume.
+- **ENERGY 2:** confident visual hierarchy without shouty color or oversized marketing claims.
+- **RHYTHM 2:** consistent system with distinct compositions for company introduction, product explanations, and infrastructure evidence.
+- **MOTION 1:** restrained hover/focus feedback only. No reveal dependency or looping animation.
 
-The **company landing** framing of this specific file is agent-authored: it
-turns that approved personal identity into a company-style root page. It keeps
-the owner's palette, type, and terminal voice, and it fabricates nothing. It is
-therefore a **draft of the framing, not the final owner-approved page**. The
-owner should confirm or adjust the framing before this is treated as final.
-
-### Overrides, named and approved before building (R-37)
-
-Three patterns sit next to the Hard Gate. Each was named to the owner with its
-rule number before any code was written, and the owner chose to keep it on the
-condition that each has a stated job. They are recorded here so the exception is
-auditable rather than silent:
-
-| Rule | Pattern | Status | The job it does here |
-|---|---|---|---|
-| R-07 | Glyph rain + hairline rules | **Kept, owner-approved** | The terminal's own texture, drawn at one low opacity behind the text. It is the page's identity motif, which is exactly why it stays nearly invisible. |
-| R-06 | Monospace type | **Kept, owner-approved** | The page is a session log. Mono is the native voice of that medium: the type the subject reads all day, not a display font picked to look technical. |
-| R-01 / R-13 | Glow | **Kept, owner-approved, dose-capped** | Glow marks **live state only**: the caret, the scroll hairline, and the status chip while it is online. It never sits on static decoration. |
-
-Nothing else in the slop list was requested, and nothing else is present.
-
-## Identity
-
-**What it is:** the page as a terminal session that has already run. The prompt
-is at the top, the output is the two apps, and the caret is still blinking.
-
-**Personality:** fast, exact, a little understated. It answers in output, not in
-paragraphs.
-
-**Not:** a "cyberpunk" theme park. No glitch text, no katakana rain, no fake
-breach logs, no scanlines over everything, no invented CVE numbers, no `ACCESS
-GRANTED` theatre, no fake uptime graph. Those are the costume. The real thing is
-quieter and it works.
-
-## Palette (2 cores + 2 accents, each with one job)
+## Palette
 
 | Role | Value | Reason |
 |---|---|---|
-| Surface (core) | `#08090b` | True near-black with a cold cast, the colour of an unlit terminal. Darker than a first draft because the glow needs something to sit against. |
-| Surface (raised) | `#0e1014` / `#14171c` | The app row, and the row the pointer is on. One step up, so the row needs no heavy border. |
-| Ink (core) | `#e7e9ec` / `#8b929e` / `#78808c` | Three-step text: output, secondary, comment. The comment tier is set at the lightest value that still clears 4.5:1 against both the surface and the raised row. |
-| Accent (primary) | `#4ee08a` | Terminal green, the colour of `user@host` in a prompt. Used for live state and the page's own voice. |
-| Accent (secondary) | `#ff5c38` | The ember carried from the domain's music page. It appears once, on the one status that means "not reachable", so a problem is visually distinct from normal state. |
+| Base | `#101114` | Near-black graphite gives the two products a shared technical setting without the pure terminal-black look. |
+| Surface | `#191b20` | Separates product information from the base using a small, legible luminance step. |
+| Text | `#f1f0ed` | Warm off-white reduces glare while keeping strong contrast. |
+| Secondary text | `#b2b4bb` | Keeps descriptions readable and distinct from headlines. |
+| Accent | `#c6f36a` | A single acidic yellow-green marks key interactive moments; it is not used as a decorative wash. |
+| SignaCerta signal | `#8ab6ff` | A limited blue signal differentiates the document-verification product from ClipAI's media workflow; used only in its product detail. |
 
 ## Typography
 
-- **Everything that is output:** `JetBrains Mono`, fallback `ui-monospace`, then
-  the system mono stack. One family for the page. No second mono.
-- **The brand and the name, and only those:** `Fraunces`, carried from the
-  domain's other pages. It is the one human element in the session, which makes
-  the page a person's desk rather than a log file.
-- Scale is fluid with `clamp()`. Body sits at 14 to 15px because that is what a
-  terminal uses, not because small type looks technical.
+- Use a contemporary sans-serif for headings and body because this is a product/company page, not a terminal transcript.
+- Use a restrained monospace only for actual technical identifiers, protocols, and short metadata. It is not the headline voice.
+- Font choice must have a legible system fallback; content remains complete if remote fonts fail.
 
-## Layout, and why it is not a template
+## Layout decisions
 
-The page is a **session transcript**. Each block is a command and its output,
-not a "section" with a centred title over a card grid. The rhythm varies on
-purpose (RHYTHM 2): a typed prompt line, a large brand, a paragraph, a row list,
-a spec table, a link row, a lone prompt.
+1. **Opening:** one concise company statement and direct paths to the two live products. No eyebrow badge. The first screen explains what udincloud is, not a generic promise.
+2. **Products:** two distinct editorial product sections rather than identical feature cards. ClipAI gets more space for its multi-stage video workflow; SignaCerta is presented as a compact, precise document-verification tool.
+3. **Evidence:** show only verified behavior and technologies. No fabricated users, revenue, uptime, customer logos, or scale claims.
+4. **Infrastructure:** a compact, factual account of the self-managed deployment, because running the products is part of the company's real work. No simulated dashboard or fake live status.
+5. **Footer:** only real destinations: product apps, personal page, GitHub, and founder email.
 
-1. **Hero.** `whoami`, then the brand as the output, then one sentence, then one
-   action. The brand is the single focal point of the first screen.
-2. **`ls ~/aplikasi`.** Two rows for the apps that open right now. These rows are
-   the most interactive element on the page.
-3. **`cat ~/server`.** Where it runs. A spec table, not a fake dashboard.
-4. **`whoami --long`.** Who runs it, with the real profile links.
-5. **The prompt line again, with a blinking caret.** The session ends where it
-   can start again.
+## Color and motion use
 
-## What the status chip is allowed to say
+- Accent highlights primary product links and selected details only. No blue-purple gradient, no full-page glow, no blurred orbs.
+- Surfaces are solid. No glass navbar. Radius varies by semantic role; no pill-everything treatment.
+- Motion is limited to short hover and focus transitions. Reduced-motion removes transitions. Content is visible by default without JavaScript.
 
-Each app row prints a live reachability state, read from the browser, never
-invented:
+## Content sources and constraints
 
-| State | What it prints |
-|---|---|
-| Idle (before JS) | `cek status` |
-| Checking | `memeriksa` |
-| Online | `online` (green) |
-| Unreachable | `tidak terjangkau` (ember) |
+Use only verified product information already checked for this project:
 
-It is a real cross-origin probe of the app's own URL with an 8 second timeout.
-If the probe cannot run, it says so; it never defaults to a green light it did
-not measure. There is no fake CPU graph, invented uptime, or made-up counter.
+- ClipAI: paste a YouTube URL; produce vertical 9:16 clips; Whisper transcription; AI scoring of hook, pacing, retention, and payoff; word-level animated subtitles with four presets; face-tracking reframing to 1080x1920; generated title, description, and hashtags; Node.js/Express, BullMQ/Redis, yt-dlp, FFmpeg with AMD VAAPI acceleration. A verified 19-second source produced three clips; top score 91/100. Include numeric proof only if it remains clearly contextualized as one test output, not a general guarantee.
+- SignaCerta: digitally sign PDFs and verify authenticity through a QR code; ECDSA NIST P-256, SHA-256, and tamper detection.
+- Live product URLs: `https://clipai.udincloud.me`, `https://signacerta.udincloud.me`.
+- Personal page: `https://me.udincloud.me`.
+- GitHub: `https://github.com/1RDHWN1`.
+- Founder contact: `mailto:founder@udincloud.me`.
 
-## Background (owner-approved, one layer, capped)
+Invent nothing else. Do not create pricing, testimonials, customer logos, user counts, uptime claims, certifications, or links to non-existent pages.
 
-The owner asked for the background to be more than flat black. It is a **glyph
-rain**: a slow field of falling characters drawn on a canvas behind everything,
-at one low opacity, on the near-black field. One layer only, no scanlines on top,
-no second effect. It stops entirely for `prefers-reduced-motion`, and it stops
-when the tab is hidden, so it never burns a battery in a background tab.
+## Delivery Gate
 
-## Motion (MOTION 2: it paces the read, it is not the product)
-
-1. **Entry typing.** The prompt types itself on load, caret following. It sets
-   the metaphor in about a second. If JS never runs, the word `whoami` is already
-   in the markup and still reads.
-2. **Entrance.** Blocks rise and fade once. This is a self-running keyframe with
-   **no hidden default state anywhere**: the resting CSS is the visible state, so
-   a failed script shows everything rather than a blank page.
-3. **Row response.** App rows lift, show an accent edge, and swap background. It
-   is the affordance.
-4. **Scroll progress.** One hairline at the top fills as the page is read.
-5. **Live caret.** The caret blinks forever, including at the closing prompt.
-6. **The rain.** Always moving, at the lowest priority on the page.
-
-Every one of the above collapses under `prefers-reduced-motion: reduce`, where
-the page renders complete and static and the rain does not start at all.
-
-## Copy rules
-
-No em dash. No fake logs, no invented exit codes on operations that did not
-happen, no numbers that did not come from a real source, and no claim about a
-break-in. The terminal voice is used for what actually happened on this page,
-and nothing else. No emoji as UI decoration.
-
-## Exclusions
-
-No glitch effect, no katakana rain, no scanline overlay, no fake `ACCESS
-GRANTED`, no audio, no pointer trap, no motion for a visitor who asked the system
-for less.
+Before deployment, re-run copy scan, computed-color contrast, mobile range audit, click-through/keyboard verification, reduced-motion check, and no-JavaScript visibility check. Report each gate item with measured evidence. Keep the previous live production version recoverable through Git history and backup tag.
